@@ -11,9 +11,9 @@ repositories {
 
 dependencies {
     arrayOf(
+        libs.kotlin.lib,
         libs.bundles.kotest,
         libs.bundles.spring.boot.test,
-        libs.kotlin.lib,
         libs.bundles.restassured,
     ).forEach { implementation(it) }
 }
