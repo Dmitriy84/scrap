@@ -1,4 +1,4 @@
-package com.tzero.aqa.framework.api.specs
+package io.tzero.aqa.framework.api.specs
 
 import io.restassured.builder.ResponseSpecBuilder
 

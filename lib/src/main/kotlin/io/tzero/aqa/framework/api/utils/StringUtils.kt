@@ -1,4 +1,4 @@
-package com.tzero.aqa.framework.api.utils
+package io.tzero.aqa.framework.api.utils
 
 import org.apache.commons.lang3.RandomStringUtils
 

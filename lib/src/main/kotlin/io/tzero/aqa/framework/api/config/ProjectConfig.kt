@@ -1,4 +1,4 @@
-package com.tzero.aqa.framework.api.config
+package io.tzero.aqa.framework.api.config
 
 import io.restassured.RestAssured
 import io.restassured.filter.log.RequestLoggingFilter
