@@ -10,6 +10,10 @@ object RequestSpec {
 
     fun base(xrftoken: String, tzmCookie: String) = RequestSpecBuilder()
         .setContentType(ContentType.JSON)
-        .addHeaders(mapOf("X-TZM-XSRF-TOKEN" to xrftoken, "Cookie" to "tzm-access=$tzmCookie"))
+        .addHeaders(
+            mapOf(
+                "X-TZM-XSRF-TOKEN" to xrftoken, "Cookie" to "tzm-access=$tzmCookie",
+            )
+        )
         .build()
 }
