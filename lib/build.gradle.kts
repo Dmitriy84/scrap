@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     alias(libs.plugins.kotlin)
@@ -18,5 +20,13 @@ dependencies {
             bundles.restassured,
             totp,
         ).forEach { api(it) }
+    }
+}
+
+tasks {
+    withType<KotlinCompile> {
+        kotlinOptions {
+            freeCompilerArgs = listOf("-Xjsr305=strict", "-Xcontext-receivers")
+        }
     }
 }
