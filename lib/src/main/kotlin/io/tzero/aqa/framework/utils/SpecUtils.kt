@@ -11,4 +11,7 @@ object SpecUtils {
 
     context (ExtractableResponse<Response>)
     fun String.toJsonValue() = jsonPath().getString(this)
+
+    context (ExtractableResponse<Response>)
+    fun ValidatableResponse.extractJsonValue(path: String) = path.toJsonValue()
 }
