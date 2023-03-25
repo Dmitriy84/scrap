@@ -16,6 +16,7 @@ dependencies {
             bundles.kotest,
             bundles.spring.boot.test,
             bundles.restassured,
+            totp,
         ).forEach { api(it) }
     }
 }
