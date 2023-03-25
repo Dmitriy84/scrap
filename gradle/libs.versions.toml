@@ -2,7 +2,7 @@
 jvm = "17"
 kotlin = "1.8.20-RC"
 junit = "5.9.2"
-spring-boot = "3.0.4"
+spring-boot = "3.0.5"
 bouncycastle = "1.72"
 kotest = "5.5.5"
 jacoco = "0.8.8"
