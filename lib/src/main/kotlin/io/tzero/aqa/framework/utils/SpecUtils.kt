@@ -9,8 +9,8 @@ import io.tzero.aqa.framework.api.specs.RequestSpec
 object SpecUtils {
     fun ValidatableResponse.toSpec() = Extract { RequestSpec.base() }
 
+    fun ValidatableResponse.extractJsonValues(vararg paths: String) = paths.map(extract().jsonPath()::getString)
+
     context (ExtractableResponse<Response>)
     fun String.toJsonValue() = jsonPath().getString(this)
-
-    fun ValidatableResponse.extractJsonValues(vararg paths: String) = paths.map(extract().jsonPath()::getString)
 }
