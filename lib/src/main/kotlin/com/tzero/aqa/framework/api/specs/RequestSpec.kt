@@ -12,7 +12,8 @@ object RequestSpec {
         .setContentType(ContentType.JSON)
         .addHeaders(
             mapOf(
-                "X-TZM-XSRF-TOKEN" to xrftoken, "Cookie" to "tzm-access=$tzmCookie",
+                "X-TZM-XSRF-TOKEN" to xrftoken,
+                "Cookie" to "tzm-access=$tzmCookie",
             )
         )
         .build()
