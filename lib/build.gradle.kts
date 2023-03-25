@@ -10,10 +10,12 @@ repositories {
 }
 
 dependencies {
-    arrayOf(
-        libs.kotlin.lib,
-        libs.bundles.kotest,
-        libs.bundles.spring.boot.test,
-        libs.bundles.restassured,
-    ).forEach { implementation(it) }
+    with(libs) {
+        arrayOf(
+            kotlin.lib,
+            bundles.kotest,
+            bundles.spring.boot.test,
+            bundles.restassured,
+        ).forEach { api(it) }
+    }
 }
