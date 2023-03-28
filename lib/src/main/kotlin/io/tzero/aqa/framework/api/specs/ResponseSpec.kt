@@ -10,4 +10,8 @@ object ResponseSpec {
     val `201` = ResponseSpecBuilder()
         .expectStatusCode(201)
         .build()!!
+
+    val `400` = ResponseSpecBuilder()
+        .expectStatusCode(400)
+        .build()!!
 }
