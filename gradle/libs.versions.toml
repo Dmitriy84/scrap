@@ -46,6 +46,8 @@ kotest-spring = "io.kotest.extensions:kotest-extensions-spring:1.1.2"
 
 totp = "de.taimos:totp:1.0"
 
+gson = "com.google.code.gson:gson:2.10.1"
+
 [bundles]
 junit5 = ["junit-api", "junit-engine", "junit-params"]
 selenium = ["selenium", "webdriver-manager"]
