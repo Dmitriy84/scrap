@@ -36,6 +36,8 @@ restassured-ext = { module = "io.rest-assured:kotlin-extensions", version.ref = 
 
 json-simple = "com.googlecode.json-simple:json-simple:1.1.1"
 json-json = "org.json:json:20230227"
+json-assert = "net.javacrumbs.json-unit:json-unit-assertj:2.37.0"
+
 medici-auth = "io.medici.tzero:jwt-auth-util:6.0.0"
 
 kotest-framework-datatest = { module = "io.kotest:kotest-framework-datatest", version.ref = "kotest" }
