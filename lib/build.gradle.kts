@@ -19,6 +19,8 @@ dependencies {
             bundles.spring.boot.test,
             bundles.restassured,
             totp,
+            json.assert,
+            gson,
         ).forEach { api(it) }
     }
 }
