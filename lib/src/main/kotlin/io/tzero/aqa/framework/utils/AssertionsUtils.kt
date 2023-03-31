@@ -8,5 +8,5 @@ object AssertionsUtils {
     infix fun String.shouldBeError(expected: Any) =
         assertThatJson(this)
             .`when`(Option.IGNORING_ARRAY_ORDER)
-            .isEqualTo(Gson().toJson(Gson().toJson(expected)))
+            .isEqualTo(Gson().toJson(expected))
 }
