@@ -8,4 +8,7 @@ inline fun <reified T : Any> arguments(vararg args: T) = ArgumentsProvider {
     Stream.of(*args).map { Arguments.of(it) }
 }
 
-class SpaceAndNonPrintedSource : ArgumentsProvider by arguments(" ", "\t", "\n")
+class SpaceAndNonPrintedSource : ArgumentsProvider by arguments(" ", "\t", "\n") {
+    fun adapt(addition: Any) = provideArguments(null)
+        .map { Arguments.of(it.get()[0], addition) }
+}
