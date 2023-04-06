@@ -9,6 +9,6 @@ inline fun <reified T : Any> arguments(vararg args: T) = ArgumentsProvider {
 }
 
 class SpaceAndNonPrintedSource : ArgumentsProvider by arguments(" ", "\t", "\n") {
-    fun adapt(addition: Any) = provideArguments(null)
-        .map { Arguments.of(it.get()[0], addition) }
+    fun adapt(vararg addition: Any) = provideArguments(null)
+        .map { Arguments.of(it.get()[0], *addition) }
 }
