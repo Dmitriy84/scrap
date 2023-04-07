@@ -9,7 +9,14 @@ import io.tzero.aqa.framework.api.specs.RequestSpec
 object SpecUtils {
     fun ValidatableResponse.toSpec() = Extract { RequestSpec.base() }
 
-    fun ValidatableResponse.toBody() = Extract { asString() }
+    fun ValidatableResponse.toBody(isWellFormed: Boolean = true) = Extract {
+        var actual = asString()
+        if (!isWellFormed) {
+            actual = actual.replace("\\", "")
+            actual.substring(1, actual.length - 1)
+        }
+        return@Extract actual
+    }
 
     fun ValidatableResponse.extractJsonValues(vararg paths: String) = paths.map(extract().jsonPath()::getString)
 
