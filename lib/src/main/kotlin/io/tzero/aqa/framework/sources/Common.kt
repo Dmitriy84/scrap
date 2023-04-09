@@ -3,11 +3,6 @@ package io.tzero.aqa.framework.sources
 import io.tzero.aqa.framework.utils.ArraysUtils.toArgumentsStream
 import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.ArgumentsProvider
-import java.util.stream.Stream
-
-inline fun <reified T : Any> arguments(vararg args: T) = ArgumentsProvider {
-    Stream.of(*args).map { Arguments.of(it) }
-}
 
 inline fun <reified T : Any> stream(vararg args: T) = ArgumentsProvider {
     args.toArgumentsStream()
