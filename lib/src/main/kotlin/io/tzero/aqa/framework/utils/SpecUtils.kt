@@ -11,11 +11,12 @@ object SpecUtils {
 
     fun ValidatableResponse.toBody(isWellFormed: Boolean = true) = Extract {
         val actual = asString()
-        if (!isWellFormed)
+        if (isWellFormed) {
+            actual
+        } else
             actual.replace("\\", "").also {
-                return@Extract it.substring(1, it.length - 1)
+                it.substring(1, it.length - 1)
             }
-        actual
     }
 
     fun ValidatableResponse.extractJsonValues(vararg paths: String) = paths.map(extract().jsonPath()::getString)
