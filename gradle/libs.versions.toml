@@ -52,6 +52,7 @@ totp = "de.taimos:totp:1.0"
 gson = "com.google.code.gson:gson:2.10.1"
 
 case-api = { module = "io.qase:qase-api", version.ref = "case" }
+case-junit5 = { module = "io.qase:qase-junit5", version.ref = "case" }
 
 [bundles]
 junit5 = ["junit-api", "junit-engine", "junit-params"]
@@ -60,6 +61,7 @@ spring-boot-test = ["spring-boot-test", "javax-annotation"]
 bouncycastle-lib = ["bouncycastle-ext", "bouncycastle"]
 kotest = ["kotest-property", "kotest-framework-datatest", "kotest-framework-api", "kotest-runner-junit5", "kotest-spring"]
 restassured = ["restassured-lib", "restassured-ext"]
+case = ["case-api", "case-junit5"]
 
 [plugins]
 spring-boot = { id = "org.springframework.boot", version.ref = "spring-boot" }
