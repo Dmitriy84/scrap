@@ -7,7 +7,7 @@ bouncycastle = "1.72"
 kotest = "5.5.5"
 jacoco = "0.8.8"
 restassured = "5.3.0"
-case = "3.0.4"
+qase = "3.0.4"
 
 [libraries]
 junit-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit" }
@@ -51,8 +51,8 @@ totp = "de.taimos:totp:1.0"
 
 gson = "com.google.code.gson:gson:2.10.1"
 
-case-api = { module = "io.qase:qase-api", version.ref = "case" }
-case-junit5 = { module = "io.qase:qase-junit5", version.ref = "case" }
+qase-api = { module = "io.qase:qase-api", version.ref = "qase" }
+qase-junit5 = { module = "io.qase:qase-junit5", version.ref = "qase" }
 
 [bundles]
 junit5 = ["junit-api", "junit-engine", "junit-params"]
@@ -61,7 +61,7 @@ spring-boot-test = ["spring-boot-test", "javax-annotation"]
 bouncycastle-lib = ["bouncycastle-ext", "bouncycastle"]
 kotest = ["kotest-property", "kotest-framework-datatest", "kotest-framework-api", "kotest-runner-junit5", "kotest-spring"]
 restassured = ["restassured-lib", "restassured-ext"]
-case = ["case-api", "case-junit5"]
+qase = ["qase-api", "qase-junit5"]
 
 [plugins]
 spring-boot = { id = "org.springframework.boot", version.ref = "spring-boot" }
