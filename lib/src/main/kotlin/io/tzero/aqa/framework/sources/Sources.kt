@@ -4,6 +4,6 @@ import io.tzero.aqa.framework.sources.Data.invalidIds
 import io.tzero.aqa.framework.sources.Data.spaceAndNonPrinted
 import org.junit.jupiter.params.provider.ArgumentsProvider
 
-class SpaceAndNonPrintedSource : ArgumentsProvider by stream(*spaceAndNonPrinted)
+class SpaceAndNonPrintedSource : ArgumentsProvider by stream(args = spaceAndNonPrinted)
 
-class InvalidIdsSource : ArgumentsProvider by stream(*invalidIds)
+class InvalidIdsSource : ArgumentsProvider by stream(args = invalidIds)
