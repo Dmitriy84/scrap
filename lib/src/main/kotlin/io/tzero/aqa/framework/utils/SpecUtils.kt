@@ -14,7 +14,7 @@ object SpecUtils {
         if (isWellFormed) {
             actual
         } else
-            actual.replace("\\", "").also {
+            actual.replace("\\", "").let {
                 it.substring(1, it.length - 1)
             }
     }
