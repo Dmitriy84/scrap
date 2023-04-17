@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     alias(libs.plugins.kotlin)
+    alias(libs.plugins.kotlin.serialization)
     `java-library`
 }
 
@@ -20,7 +21,7 @@ dependencies {
             bundles.restassured,
             totp,
             json.assert,
-            gson,
+            kotlin.serialization.json,
         ).forEach { api(it) }
     }
 }
