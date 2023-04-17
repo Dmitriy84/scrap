@@ -69,6 +69,7 @@ qase = ["qase-api", "qase-junit5"]
 spring-boot = { id = "org.springframework.boot", version.ref = "spring-boot" }
 spring-dependency = "io.spring.dependency-management:1.1.0"
 kotlin = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin.serialization = { id = "plugin.serialization", version.ref = "kotlin" }
 kotlin-jpa = { id = "org.jetbrains.kotlin.plugin.jpa", version.ref = "kotlin" }
 ktlint = "org.jlleitschuh.gradle.ktlint:11.0.0"
 spotless = "com.diffplug.spotless:6.16.0"
