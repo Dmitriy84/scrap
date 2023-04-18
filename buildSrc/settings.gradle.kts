@@ -9,3 +9,5 @@ dependencyResolutionManagement {
         }
     }
 }
+
+rootProject.name = "api-aqa-framework"
