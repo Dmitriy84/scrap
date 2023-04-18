@@ -2,8 +2,9 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
-    alias(libs.plugins.kotlin)
+//    alias(libs.plugins.kotlin)
     `java-library`
+    id("api.aqa.framework")
 }
 
 repositories {
@@ -25,10 +26,10 @@ dependencies {
     }
 }
 
-tasks {
-    withType<KotlinCompile> {
-        kotlinOptions {
-            freeCompilerArgs = listOf("-Xjsr305=strict", "-Xcontext-receivers")
-        }
-    }
-}
+//tasks {
+//    withType<KotlinCompile> {
+//        kotlinOptions {
+//            freeCompilerArgs = listOf("-Xjsr305=strict", "-Xcontext-receivers")
+//        }
+//    }
+//}

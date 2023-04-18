@@ -19,6 +19,7 @@ testng = "org.testng:testng:7.6.1"
 lombok = "org.projectlombok:lombok:1.18.26"
 assertj = "org.assertj:assertj-core:3.24.2"
 kotlin-lib = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
+kotlin-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 
 spring-boot-test = { module = "org.springframework.boot:spring-boot-starter-test", version.ref = "spring-boot" }
 spring-boot-web = { module = "org.springframework.boot:spring-boot-starter-web", version.ref = "spring-boot" }
