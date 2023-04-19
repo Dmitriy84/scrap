@@ -10,4 +10,4 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "api-aqa-framework"
+rootProject.name = "plugin"

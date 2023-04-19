@@ -1,4 +1,3 @@
-import org.gradle.accessors.dm.LibrariesForLibs
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.api.tasks.testing.logging.TestLogEvent.*
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
@@ -7,30 +6,61 @@ import java.time.LocalDateTime
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     kotlin("jvm")
-//    `kotlin-dsl`
-    `java-library`
 }
 
-val Project.libs: VersionCatalog
-    get() = extensions.getByType(VersionCatalogsExtension::class.java).named("libs")
+val versionCatalog = rootProject.extensions
+    .getByType(VersionCatalogsExtension::class.java)
+    .named("libs")
+val jvm = versionCatalog.findVersion("jvm").get().displayName
 
 allprojects {
+    arrayOf(
+        versionCatalog.findPlugin("kotlin").get().get().pluginId,
+    ).forEach { apply(plugin = it) }
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven {
+            url = uri("https://mediciventures.jfrog.io/mediciventures/tzero-virtual")
+            credentials {
+                username = providers.gradleProperty("ARTIFACTORY_REPO_USER").orNull
+                password = providers.gradleProperty("ARTIFACTORY_REPO_PASS").orNull
+            }
+        }
+    }
+
+    dependencies {
+        with(versionCatalog) {
+            arrayOf(
+                kotlin("test"),
+                findLibrary("kotlin-lib").get(),
+                findLibrary("kotlin-serialization-json").get(),
+
+                findLibrary("totp").get(),
+                findLibrary("json-assert").get(),
+
+                findBundle("kotest").get(),
+                findBundle("junit5").get(),
+                findBundle("spring-boot-test").get(),
+                findBundle("qase").get(),
+                findBundle("restassured").get(),
+            ).forEach { api(it) }
+        }
+    }
+
     tasks {
         withType<KotlinCompile> {
             kotlinOptions {
                 freeCompilerArgs = listOf("-Xjsr305=strict", "-Xcontext-receivers")
-//                jvmTarget = libs.versions.jvm.get()
-//                libs.versionAliases.fin
-                jvmTarget = "19"
-//                jvmTarget = the<LibrariesForLibs>().versions.jvm.get()
+                jvmTarget = jvm
             }
-            println("KotlinCompile!!!!!")
         }
 
         withType<JavaCompile> {
             javaCompiler.set(
                 project.javaToolchains.compilerFor {
-                    languageVersion.set(JavaLanguageVersion.of(19))
+                    languageVersion.set(JavaLanguageVersion.of(jvm))
                 }
             )
         }
@@ -75,10 +105,5 @@ allprojects {
         }
     }
 }
-//
-//dependencies {
-//    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.20")
-//}
 
-
-println("COOL!!!!!")
+println("Welcome to aqa.framework:plugin")

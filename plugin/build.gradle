@@ -1,0 +1,14 @@
+plugins {
+    id("org.gradle.kotlin.kotlin-dsl") version "4.0.11"
+}
+
+repositories {
+    mavenLocal()
+    google()
+    mavenCentral()
+    gradlePluginPortal()
+}
+
+dependencies {
+    api(libs.kotlin.plugin)
+}
