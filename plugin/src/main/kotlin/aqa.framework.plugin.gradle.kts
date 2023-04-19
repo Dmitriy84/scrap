@@ -50,6 +50,12 @@ allprojects {
     }
 
     tasks {
+        register<Exec>("gitSubmodulesUpdate") {
+            group = "tools"
+            description = "Update all git submodules from remote repo"
+            commandLine("git submodule update --init --recursive --force --remote".split(" "))
+        }
+
         withType<KotlinCompile> {
             kotlinOptions {
                 freeCompilerArgs = listOf("-Xjsr305=strict", "-Xcontext-receivers")
@@ -105,5 +111,3 @@ allprojects {
         }
     }
 }
-
-println("Welcome to aqa.framework:plugin")
