@@ -8,7 +8,6 @@ val versionCatalog = rootProject.extensions
     .named("libs")
 val jvm = versionCatalog.findVersion("jvm").get().displayName
 
-@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     kotlin("jvm")
 }
