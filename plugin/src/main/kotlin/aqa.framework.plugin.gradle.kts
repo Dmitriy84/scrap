@@ -16,6 +16,7 @@ val jvm = versionCatalog.findVersion("jvm").get().displayName
 allprojects {
     arrayOf(
         versionCatalog.findPlugin("kotlin").get().get().pluginId,
+        versionCatalog.findPlugin("kotlin-serialization").get().get().pluginId,
     ).forEach { apply(plugin = it) }
 
     repositories {
