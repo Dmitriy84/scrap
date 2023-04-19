@@ -3,20 +3,20 @@ import org.gradle.api.tasks.testing.logging.TestLogEvent.*
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import java.time.LocalDateTime
 
-@Suppress("DSL_SCOPE_VIOLATION")
-plugins {
-    kotlin("jvm")
-}
-
 val versionCatalog = rootProject.extensions
     .getByType(VersionCatalogsExtension::class.java)
     .named("libs")
 val jvm = versionCatalog.findVersion("jvm").get().displayName
 
+@Suppress("DSL_SCOPE_VIOLATION")
+plugins {
+    kotlin("jvm")
+}
+
 allprojects {
     arrayOf(
         versionCatalog.findPlugin("kotlin").get().get().pluginId,
-        versionCatalog.findPlugin("kotlin-serialization").get().get().pluginId,
+//        versionCatalog.findPlugin("kotlin-serialization").get().get().pluginId,
         "java-library",
     ).forEach { apply(plugin = it) }
 
