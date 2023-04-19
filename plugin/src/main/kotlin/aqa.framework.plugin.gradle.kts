@@ -22,7 +22,7 @@ allprojects {
         mavenLocal()
         mavenCentral()
         maven {
-            url = uri("https://mediciventures.jfrog.io/mediciventures/tzero-virtual")
+            url = uri(providers.gradleProperty("ARTIFACTORY_REPO_URI").get())
             credentials {
                 username = providers.gradleProperty("ARTIFACTORY_REPO_USER").orNull
                 password = providers.gradleProperty("ARTIFACTORY_REPO_PASS").orNull
