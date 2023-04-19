@@ -17,6 +17,7 @@ allprojects {
     arrayOf(
         versionCatalog.findPlugin("kotlin").get().get().pluginId,
         versionCatalog.findPlugin("kotlin-serialization").get().get().pluginId,
+        "java-library",
     ).forEach { apply(plugin = it) }
 
     repositories {
