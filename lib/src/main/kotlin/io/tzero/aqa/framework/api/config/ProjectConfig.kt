@@ -1,11 +1,12 @@
 package io.tzero.aqa.framework.api.config
 
 import io.restassured.RestAssured
+import io.restassured.builder.ResponseSpecBuilder
 import io.restassured.filter.log.RequestLoggingFilter
 import io.restassured.filter.log.ResponseLoggingFilter
+import org.hamcrest.Matchers
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.*
-
 
 @ComponentScan
 @Configuration
@@ -23,12 +24,8 @@ open class ProjectConfig {
         RestAssured.baseURI = baseURL
         RestAssured.filters(RequestLoggingFilter(), ResponseLoggingFilter())
         RestAssured.useRelaxedHTTPSValidation()
-        timeoutStatic = timeout.toLong()
+        RestAssured.responseSpecification =
+            ResponseSpecBuilder().expectResponseTime(Matchers.lessThan(timeout.toLong())).build()
         return RestAssured()
-    }
-
-    companion object {
-        @JvmStatic
-        var timeoutStatic: Long = 0
     }
 }
