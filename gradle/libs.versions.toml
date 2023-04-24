@@ -71,7 +71,7 @@ spring-boot = { id = "org.springframework.boot", version.ref = "spring-boot" }
 spring-dependency = "io.spring.dependency-management:1.1.0"
 kotlin = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
-kotlin-dsl = "org.gradle.kotlin.kotlin-dsl:4.0.11"
+kotlin-dsl = "org.gradle.kotlin.kotlin-dsl:4.0.7"
 kotlin-jpa = { id = "org.jetbrains.kotlin.plugin.jpa", version.ref = "kotlin" }
 ktlint = "org.jlleitschuh.gradle.ktlint:11.0.0"
 spotless = "com.diffplug.spotless:6.16.0"
