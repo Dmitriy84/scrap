@@ -14,9 +14,9 @@ import org.springframework.context.annotation.Scope
 
 @ComponentScan
 @Configuration
-@PropertySource("application-\${test.env:staging}.properties")
+@PropertySource("application-\${test.env:staging}.yml", factory = YamlPropertySource::class)
 open class ProjectConfig {
-    @Value("\${BASEURL}")
+    @Value("\${app.url}")
     private lateinit var baseURL: String
 
     @Value("\${response.timeout.max}")
