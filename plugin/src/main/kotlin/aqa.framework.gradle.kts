@@ -76,7 +76,7 @@ allprojects {
             doFirst {
                 infix fun String.setProperty(key: String) {
                     systemProperty(key, this)
-                    println("Set property ---> $key='$this'")
+                    logger.quiet("Set property ---> $key='$this'")
                 }
 
                 "QASE_RUN_NAME".also {
