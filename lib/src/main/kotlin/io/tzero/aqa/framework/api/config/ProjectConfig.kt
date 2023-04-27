@@ -19,7 +19,7 @@ open class ProjectConfig {
     @Value("\${app.url}")
     private lateinit var baseURL: String
 
-    @Value("\${response.timeout.max}")
+    @Value("\${restassured.response.time}")
     private lateinit var timeout: String
 
     @Bean
