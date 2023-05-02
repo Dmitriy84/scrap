@@ -2,6 +2,7 @@ package io.tzero.aqa.framework.api.base
 
 import io.kotest.core.spec.style.AnnotationSpec
 import io.tzero.aqa.framework.api.config.ProjectConfig
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
 import org.junit.platform.commons.logging.Logger
@@ -16,6 +17,7 @@ open class BaseTest : AnnotationSpec() {
     @Value("\${test.env:staging}")
     lateinit var env: String
 
+    @OptIn(ExperimentalSerializationApi::class)
     protected inline fun <reified R> getObjectFromJson(path: String) =
         json.decodeFromStream<R>(javaClass.classLoader.getResourceAsStream("data/$env/$path"))
 
