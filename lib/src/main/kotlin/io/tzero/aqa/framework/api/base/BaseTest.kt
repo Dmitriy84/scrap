@@ -9,4 +9,10 @@ import io.kotest.core.spec.style.AnnotationSpec
 @SpringBootTest(classes = [ProjectConfig::class])
 open class BaseTest : AnnotationSpec() {
     val log: Logger = LoggerFactory.getLogger(javaClass)
+
+    @Value("\${test.env:staging}")
+    lateinit var env: String
+
+    protected inline fun <reified R> getObjectFromJson(path: String) =
+        json.decodeFromStream<R>(javaClass.classLoader.getResourceAsStream("data/$env/$path"))
 }
