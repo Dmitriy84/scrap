@@ -46,6 +46,7 @@ allprojects {
                 findBundle("spring-boot-test").get(),
                 findBundle("qase").get(),
                 findBundle("restassured").get(),
+                findBundle("json-unit").get(),
             ).forEach { api(it) }
         }
     }

@@ -8,6 +8,7 @@ kotest = "5.5.5"
 jacoco = "0.8.8"
 restassured = "5.3.0"
 qase = "3.0.4"
+json-unit = "2.37.0"
 
 [libraries]
 junit-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit" }
@@ -57,6 +58,10 @@ gson = "com.google.code.gson:gson:2.10.1"
 qase-api = { module = "io.qase:qase-api", version.ref = "qase" }
 qase-junit5 = { module = "io.qase:qase-junit5", version.ref = "qase" }
 
+json-unit = { module = "net.javacrumbs.json-unit:json-unit", version.ref = "json-unit" }
+json-unit-assertj = { module = "net.javacrumbs.json-unit:json-unit-assertj", version.ref = "json-unit" }
+json-unit-json-path = { module = "net.javacrumbs.json-unit:json-unit-json-path", version.ref = "json-unit" }
+
 [bundles]
 junit5 = ["junit-api", "junit-engine", "junit-params"]
 selenium = ["selenium", "webdriver-manager"]
@@ -65,6 +70,7 @@ bouncycastle-lib = ["bouncycastle-ext", "bouncycastle"]
 kotest = ["kotest-property", "kotest-framework-datatest", "kotest-framework-api", "kotest-runner-junit5", "kotest-spring"]
 restassured = ["restassured-lib", "restassured-ext"]
 qase = ["qase-api", "qase-junit5"]
+json-unit = ["json-unit", "json-unit-assertj", "json-unit-json-path"]
 
 [plugins]
 spring-boot = { id = "org.springframework.boot", version.ref = "spring-boot" }
