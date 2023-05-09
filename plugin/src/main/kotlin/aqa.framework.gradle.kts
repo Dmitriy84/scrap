@@ -3,10 +3,10 @@ import org.gradle.api.tasks.testing.logging.TestLogEvent.*
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import java.time.LocalDateTime
 
-val versionCatalog = rootProject.extensions
+val catalog = rootProject.extensions
     .getByType(VersionCatalogsExtension::class.java)
     .named("libs")
-val jvm = versionCatalog.findVersion("jvm").get().displayName
+val jvm = catalog.findVersion("jvm").get().displayName
 
 plugins {
     kotlin("jvm")
@@ -14,8 +14,8 @@ plugins {
 
 allprojects {
     arrayOf(
-        versionCatalog.findPlugin("kotlin").get().get().pluginId,
-        versionCatalog.findPlugin("kotlin-serialization").get().get().pluginId,
+        catalog.findPlugin("kotlin").get().get().pluginId,
+        catalog.findPlugin("kotlin-serialization").get().get().pluginId,
         "java-library",
     ).forEach { apply(plugin = it) }
 
@@ -32,7 +32,7 @@ allprojects {
     }
 
     dependencies {
-        with(versionCatalog) {
+        with(catalog) {
             arrayOf(
                 kotlin("test"),
                 findLibrary("kotlin-lib").get(),
