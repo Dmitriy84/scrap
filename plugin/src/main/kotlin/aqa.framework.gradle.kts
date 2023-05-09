@@ -6,7 +6,7 @@ import java.time.LocalDateTime
 val catalog = rootProject.extensions
     .getByType(VersionCatalogsExtension::class.java)
     .named("libs")
-val jvm = catalog.findVersion("jvm").get().displayName
+val jvm = catalog.findVersion("jvm").orElseThrow().displayName
 
 plugins {
     kotlin("jvm")
@@ -14,8 +14,8 @@ plugins {
 
 allprojects {
     arrayOf(
-        catalog.findPlugin("kotlin").get().get().pluginId,
-        catalog.findPlugin("kotlin-serialization").get().get().pluginId,
+        catalog.findPlugin("kotlin").orElseThrow().get().pluginId,
+        catalog.findPlugin("kotlin-serialization").orElseThrow().get().pluginId,
         "java-library",
     ).forEach { apply(plugin = it) }
 
@@ -35,18 +35,18 @@ allprojects {
         with(catalog) {
             arrayOf(
                 kotlin("test"),
-                findLibrary("kotlin-lib").get(),
-                findLibrary("kotlin-serialization-json").get(),
+                findLibrary("kotlin-lib").orElseThrow(),
+                findLibrary("kotlin-serialization-json").orElseThrow(),
 
-                findLibrary("totp").get(),
-                findLibrary("json-assert").get(),
+                findLibrary("totp").orElseThrow(),
+                findLibrary("json-assert").orElseThrow(),
 
-                findBundle("kotest").get(),
-                findBundle("junit5").get(),
-                findBundle("spring-boot-test").get(),
-                findBundle("qase").get(),
-                findBundle("restassured").get(),
-                findBundle("json-unit").get(),
+                findBundle("kotest").orElseThrow(),
+                findBundle("junit5").orElseThrow(),
+                findBundle("spring-boot-test").orElseThrow(),
+                findBundle("qase").orElseThrow(),
+                findBundle("restassured").orElseThrow(),
+                findBundle("json-unit").orElseThrow(),
             ).forEach { api(it) }
         }
     }
