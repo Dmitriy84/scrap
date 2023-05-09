@@ -14,7 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest
 open class BaseTest : AnnotationSpec() {
     val log: Logger = LoggerFactory.getLogger(javaClass)
 
-    @Value("\${test.env:staging}")
+    @Value("\${spring.config.activate.on-profile}")
     lateinit var env: String
 
     @OptIn(ExperimentalSerializationApi::class)

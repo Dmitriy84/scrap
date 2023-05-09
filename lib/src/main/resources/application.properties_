@@ -1,4 +1,4 @@
-ENVIRONMENT=test
+application.ymlENVIRONMENT=test
 BROKERDEALER=MARKETS
 BASEURL=https://gateway-web-markets-staging.tzero.com
 TENANTID=a34d6da6-8fa6-41eb-8937-409678d318c9
