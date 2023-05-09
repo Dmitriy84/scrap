@@ -95,7 +95,7 @@ allprojects {
                     "QASE_RUN_NAME",
                     "QASE_RUN_AUTOCOMPLETE",
                     "QASE_RUN_DESCRIPTION",
-                    "spring.config.activate.on-profile",
+                    "spring.profiles.active",
                 ).forEach { key ->
                     (providers.systemProperty(key).orNull
                         ?: providers.gradleProperty(key).orNull)

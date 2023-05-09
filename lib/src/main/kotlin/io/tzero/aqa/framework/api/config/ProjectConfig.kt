@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Scope
 
 @ComponentScan
 @Configuration
-@PropertySource("application-\${spring.config.activate.on-profile}.yml", factory = YamlPropertySource::class)
+@PropertySource("application-\${spring.profiles.active}.yml", factory = YamlPropertySource::class)
 open class ProjectConfig {
     @Value("\${app.url}")
     private lateinit var baseURL: String

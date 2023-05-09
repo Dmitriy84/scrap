@@ -14,13 +14,14 @@ import org.springframework.boot.test.context.SpringBootTest
 open class BaseTest : AnnotationSpec() {
     val log: Logger = LoggerFactory.getLogger(javaClass)
 
-    @Value("\${spring.config.activate.on-profile}")
+    @Value("\${spring.profiles.active}")
     lateinit var env: String
 
     @OptIn(ExperimentalSerializationApi::class)
     protected inline fun <reified R> getObjectFromJson(path: String) =
         json.decodeFromStream<R>(javaClass.classLoader.getResourceAsStream("data/$env/$path"))
 
+    @OptIn(ExperimentalSerializationApi::class)
     protected val json = Json {
         encodeDefaults = true
         isLenient = true
