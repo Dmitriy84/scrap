@@ -24,5 +24,6 @@ open class BaseTest : AnnotationSpec() {
     protected val json = Json {
         encodeDefaults = true
         isLenient = true
+        explicitNulls = false
     }
 }
