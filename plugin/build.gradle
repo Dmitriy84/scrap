@@ -12,4 +12,5 @@ repositories {
 
 dependencies {
     api(libs.kotlin.plugin)
+    api(libs.kotlin.serialization.json)
 }
