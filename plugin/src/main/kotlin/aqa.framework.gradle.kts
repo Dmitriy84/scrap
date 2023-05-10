@@ -40,6 +40,7 @@ allprojects {
 
                 findLibrary("totp").orElseThrow(),
                 findLibrary("json-assert").orElseThrow(),
+                findLibrary("json-merge").orElseThrow(),
 
                 findBundle("kotest").orElseThrow(),
                 findBundle("junit5").orElseThrow(),

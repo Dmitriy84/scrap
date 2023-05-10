@@ -15,10 +15,10 @@ interface IJson {
                 encodeDefaults = true
                 isLenient = true
                 explicitNulls = false
-                serializersModule = module()
+                serializersModule = serialize()
             }
 
-    fun module(): SerializersModule
+    fun serialize(): SerializersModule
 
     fun toJson() = json.encodeToString(this)
 }

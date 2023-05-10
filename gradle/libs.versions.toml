@@ -41,6 +41,8 @@ json-simple = "com.googlecode.json-simple:json-simple:1.1.1"
 json-json = "org.json:json:20230227"
 json-assert = "net.javacrumbs.json-unit:json-unit-assertj:2.37.0"
 
+json-merge = "com.savvasdalkitsis:json-merge:0.0.6"
+
 medici-auth = "io.medici.tzero:jwt-auth-util:6.0.0"
 
 kotlin-serialization-json = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0"
