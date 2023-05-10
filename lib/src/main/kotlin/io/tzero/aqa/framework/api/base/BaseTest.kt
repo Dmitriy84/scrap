@@ -22,7 +22,7 @@ open class BaseTest : AnnotationSpec() {
         json.decodeFromStream<R>(javaClass.classLoader.getResourceAsStream("data/$env/$path"))
 
     @OptIn(ExperimentalSerializationApi::class)
-    val json = Json {
+    protected val json = Json {
         encodeDefaults = true
         isLenient = true
         explicitNulls = false
