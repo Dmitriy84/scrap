@@ -1,3 +1,5 @@
+package io.tzero.aqa.framework.api.support
+
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.descriptors.SerialDescriptor
