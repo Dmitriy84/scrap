@@ -25,10 +25,12 @@ open class BaseTest : AnnotationSpec() {
         javaClass.classLoader.getResource("data/$env/$path").readText(Charsets.UTF_8)
 
     @OptIn(ExperimentalSerializationApi::class)
-    val json = Json {
-        encodeDefaults = true
-        isLenient = true
-        explicitNulls = false
-        ignoreUnknownKeys = true
+    companion object {
+        val json = Json {
+            encodeDefaults = true
+            isLenient = true
+            explicitNulls = false
+            ignoreUnknownKeys = true
+        }
     }
 }
