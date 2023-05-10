@@ -26,5 +26,6 @@ open class BaseTest : AnnotationSpec() {
         encodeDefaults = true
         isLenient = true
         explicitNulls = false
+        ignoreUnknownKeys = true
     }
 }
