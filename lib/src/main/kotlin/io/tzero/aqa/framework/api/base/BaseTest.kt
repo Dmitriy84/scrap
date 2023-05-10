@@ -18,11 +18,14 @@ open class BaseTest : AnnotationSpec() {
     lateinit var env: String
 
     @OptIn(ExperimentalSerializationApi::class)
-    protected inline fun <reified R> getObjectFromJson(path: String) =
+    protected inline fun <reified R> loadJson(path: String) =
         json.decodeFromStream<R>(javaClass.classLoader.getResourceAsStream("data/$env/$path"))
 
+    protected fun loadJson(path: String) =
+        javaClass.classLoader.getResource("data/$env/$path").readText(Charsets.UTF_8)
+
     @OptIn(ExperimentalSerializationApi::class)
-    protected val json = Json {
+    val json = Json {
         encodeDefaults = true
         isLenient = true
         explicitNulls = false
