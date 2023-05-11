@@ -48,6 +48,7 @@ allprojects {
                 findBundle("qase").orElseThrow(),
                 findBundle("restassured").orElseThrow(),
                 findBundle("json-unit").orElseThrow(),
+                findBundle("json-dsl").orElseThrow(),
             ).forEach { api(it) }
         }
     }

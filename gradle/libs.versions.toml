@@ -43,6 +43,8 @@ json-assert = "net.javacrumbs.json-unit:json-unit-assertj:2.37.0"
 
 json-merge = "com.savvasdalkitsis:json-merge:0.0.6"
 
+json-dsl = "com.github.hitanshu-dhawan:JsonDSL:1.0.3"
+
 medici-auth = "io.medici.tzero:jwt-auth-util:6.0.0"
 
 kotlin-serialization-json = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0"
