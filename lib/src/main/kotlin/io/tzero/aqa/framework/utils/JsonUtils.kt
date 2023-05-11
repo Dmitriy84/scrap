@@ -1,4 +1,4 @@
-package main.kotlin.io.tzero.aqa.framework.utils
+package io.tzero.aqa.framework.utils
 
 import com.savvasdalkitsis.jsonmerger.JsonMerger
 import net.javacrumbs.jsonunit.assertj.JsonAssertions
