@@ -48,7 +48,7 @@ allprojects {
             "qase",
             "restassured",
             "json-unit",
-        ).forEach { api(catalog.findLibrary(it).orElseThrow() }
+        ).forEach { api(catalog.findLibrary(it).orElseThrow()) }
     }
 
     tasks {
