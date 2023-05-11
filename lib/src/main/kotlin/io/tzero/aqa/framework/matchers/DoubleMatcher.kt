@@ -13,7 +13,7 @@ internal class DoubleMatcher : BaseMatcher<Any?>(), ParametrizedMatcher {
     }
 
     override fun describeMismatch(item: Any?, description: Description) {
-        description.appendText("It is not double or equals: ").appendValue(param)
+        description.appendText("It is not or double or equals: ").appendValue(param)
     }
 
     override fun setParameter(parameter: String) {
