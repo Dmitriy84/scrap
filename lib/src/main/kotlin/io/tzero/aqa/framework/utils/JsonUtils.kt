@@ -1,6 +1,8 @@
 package io.tzero.aqa.framework.utils
 
 import com.savvasdalkitsis.jsonmerger.JsonMerger
+import io.tzero.aqa.framework.api.base.BaseTest
+import io.tzero.aqa.framework.api.support.KotlinxGenericMapSerializer
 import net.javacrumbs.jsonunit.assertj.JsonAssertions
 
 object JsonUtils {
