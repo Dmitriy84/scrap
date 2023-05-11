@@ -41,6 +41,7 @@ allprojects {
                 findLibrary("totp").orElseThrow(),
                 findLibrary("json-assert").orElseThrow(),
                 findLibrary("json-merge").orElseThrow(),
+                findLibrary("json-dsl").orElseThrow(),
 
                 findBundle("kotest").orElseThrow(),
                 findBundle("junit5").orElseThrow(),
@@ -48,7 +49,6 @@ allprojects {
                 findBundle("qase").orElseThrow(),
                 findBundle("restassured").orElseThrow(),
                 findBundle("json-unit").orElseThrow(),
-                findBundle("json-dsl").orElseThrow(),
             ).forEach { api(it) }
         }
     }
