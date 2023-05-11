@@ -5,6 +5,7 @@ import io.tzero.aqa.framework.api.base.BaseTest
 import io.tzero.aqa.framework.api.support.KotlinxGenericMapSerializer
 import io.tzero.aqa.framework.matchers.DoubleMatcher
 import net.javacrumbs.jsonunit.assertj.JsonAssertions
+import org.json.JSONObject
 
 
 object JsonUtils {
@@ -17,6 +18,8 @@ object JsonUtils {
 
     fun String.merge(override: String) = JsonMerger(objectMergeMode = JsonMerger.ObjectMergeMode.MERGE_OBJECT)
         .merge(this, override)
+
+    fun String.merge(override: JSONObject) = merge(override.toString())
 
     fun String.merge(override: Map<String, Any>) =
         merge(BaseTest.json.encodeToString(KotlinxGenericMapSerializer, override))
