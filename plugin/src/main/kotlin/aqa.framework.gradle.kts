@@ -32,25 +32,23 @@ allprojects {
     }
 
     dependencies {
-        with(catalog) {
-            arrayOf(
-                kotlin("test"),
-                findLibrary("kotlin-lib").orElseThrow(),
-                findLibrary("kotlin-serialization-json").orElseThrow(),
+        api(kotlin("test"))
+        arrayOf(
+            "kotlin-lib",
+            "kotlin-serialization-json",
 
-                findLibrary("totp").orElseThrow(),
-                findLibrary("json-assert").orElseThrow(),
-                findLibrary("json-merge").orElseThrow(),
-                findLibrary("json-dsl").orElseThrow(),
+            "totp",
+            "json-assert",
+            "json-merge",
+            "json-dsl",
 
-                findBundle("kotest").orElseThrow(),
-                findBundle("junit5").orElseThrow(),
-                findBundle("spring-boot-test").orElseThrow(),
-                findBundle("qase").orElseThrow(),
-                findBundle("restassured").orElseThrow(),
-                findBundle("json-unit").orElseThrow(),
-            ).forEach { api(it) }
-        }
+            "kotest",
+            "junit5",
+            "spring-boot-test",
+            "qase",
+            "restassured",
+            "json-unit",
+        ).forEach { api(catalog.findLibrary(it).orElseThrow() }
     }
 
     tasks {
