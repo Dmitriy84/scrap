@@ -1,4 +1,4 @@
-package main.kotlin.io.tzero.aqa.framework.matchers
+package io.tzero.aqa.framework.matchers
 
 import net.javacrumbs.jsonunit.core.ParametrizedMatcher
 import org.hamcrest.BaseMatcher
