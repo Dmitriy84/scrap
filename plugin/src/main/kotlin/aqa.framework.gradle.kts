@@ -41,14 +41,16 @@ allprojects {
             "json-assert",
             "json-merge",
             "json-dsl",
+        ).forEach { api(catalog.findLibrary(it).orElseThrow()) }
 
+        arrayOf(
             "kotest",
             "junit5",
             "spring-boot-test",
             "qase",
             "restassured",
             "json-unit",
-        ).forEach { api(catalog.findLibrary(it).orElseThrow()) }
+        ).forEach { api(catalog.findBundle(it).orElseThrow()) }
     }
 
     tasks {
