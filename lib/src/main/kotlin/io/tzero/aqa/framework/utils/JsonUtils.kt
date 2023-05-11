@@ -10,9 +10,9 @@ object JsonUtils {
             .isEqualTo(expected)
     }
 
-    private fun String.merge(override: String) = JsonMerger(objectMergeMode = JsonMerger.ObjectMergeMode.MERGE_OBJECT)
+    fun String.merge(override: String) = JsonMerger(objectMergeMode = JsonMerger.ObjectMergeMode.MERGE_OBJECT)
         .merge(this, override)
 
-    private fun String.merge(override: Map<String, Any>) =
+    fun String.merge(override: Map<String, Any>) =
         merge(BaseTest.json.encodeToString(KotlinxGenericMapSerializer, override))
 }
