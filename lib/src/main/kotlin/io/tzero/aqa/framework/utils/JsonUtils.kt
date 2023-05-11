@@ -7,7 +7,6 @@ import io.tzero.aqa.framework.matchers.DoubleMatcher
 import net.javacrumbs.jsonunit.assertj.JsonAssertions
 import org.json.JSONObject
 
-
 object JsonUtils {
     fun String.toBe(expected: String, vararg ignore: String) {
         JsonAssertions.assertThatJson(this)
