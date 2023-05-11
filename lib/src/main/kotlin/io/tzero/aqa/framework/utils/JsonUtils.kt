@@ -3,11 +3,14 @@ package io.tzero.aqa.framework.utils
 import com.savvasdalkitsis.jsonmerger.JsonMerger
 import io.tzero.aqa.framework.api.base.BaseTest
 import io.tzero.aqa.framework.api.support.KotlinxGenericMapSerializer
+import io.tzero.aqa.framework.matchers.DoubleMatcher
 import net.javacrumbs.jsonunit.assertj.JsonAssertions
+
 
 object JsonUtils {
     fun String.toBe(expected: String, vararg ignore: String) {
         JsonAssertions.assertThatJson(this)
+            .withMatcher("Double", DoubleMatcher())
             .whenIgnoringPaths(*ignore)
             .isEqualTo(expected)
     }
