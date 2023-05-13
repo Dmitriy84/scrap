@@ -47,7 +47,7 @@ json-dsl = "com.github.hitanshu-dhawan:JsonDSL:1.0.3"
 
 medici-auth = "io.medici.tzero:jwt-auth-util:6.0.0"
 
-kotlin-serialization-json = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0"
+kotlin-serialization-json = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1"
 
 kotest-framework-datatest = { module = "io.kotest:kotest-framework-datatest", version.ref = "kotest" }
 kotest-framework-api = { module = "io.kotest:kotest-framework-api", version.ref = "kotest" }
