@@ -1,0 +1,6 @@
+app:
+  vaultPrivateKeyPath: build/resources/main/keys/auth-test.key
+  privateKeyID: auth-jwt-1
+restassured:
+  response:
+    time: 10000

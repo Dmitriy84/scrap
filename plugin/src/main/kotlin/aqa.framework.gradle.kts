@@ -41,6 +41,8 @@ allprojects {
             "json-assert",
             "json-merge",
             "json-dsl",
+
+            "bouncycastle",
         ).forEach { api(catalog.findLibrary(it).orElseThrow()) }
 
         arrayOf(
@@ -50,6 +52,7 @@ allprojects {
             "qase",
             "restassured",
             "json-unit",
+            "medici",
         ).forEach { api(catalog.findBundle(it).orElseThrow()) }
     }
 

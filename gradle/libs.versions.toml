@@ -9,6 +9,7 @@ jacoco = "0.8.8"
 restassured = "5.3.0"
 qase = "3.0.4"
 json-unit = "2.37.0"
+medici = "6.0.0"
 
 [libraries]
 junit-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit" }
@@ -45,9 +46,10 @@ json-merge = "com.savvasdalkitsis:json-merge:0.0.6"
 
 json-dsl = "com.github.hitanshu-dhawan:JsonDSL:1.0.3"
 
-medici-auth = "io.medici.tzero:jwt-auth-util:6.0.0"
+medici-auth = { module = "io.medici.tzero:jwt-auth-util", version.ref = "medici" }
+medici-model = { module = "io.medici.tzero:jwt-auth-model", version.ref = "medici" }
 
-kotlin-serialization-json = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1"
+kotlin-serialization-json = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0"
 
 kotest-framework-datatest = { module = "io.kotest:kotest-framework-datatest", version.ref = "kotest" }
 kotest-framework-api = { module = "io.kotest:kotest-framework-api", version.ref = "kotest" }
@@ -75,6 +77,7 @@ kotest = ["kotest-property", "kotest-framework-datatest", "kotest-framework-api"
 restassured = ["restassured-lib", "restassured-ext"]
 qase = ["qase-api", "qase-junit5"]
 json-unit = ["json-unit", "json-unit-assertj", "json-unit-json-path"]
+medici = ["medici-auth", "medici-model"]
 
 [plugins]
 spring-boot = { id = "org.springframework.boot", version.ref = "spring-boot" }
