@@ -12,7 +12,7 @@ object ResponseSpec {
     val `404`
         get() = 404.toResponseSpec()
 
-    private fun Int.toResponseSpec() = ResponseSpecBuilder()
+    fun Int.toResponseSpec() = ResponseSpecBuilder()
         .expectStatusCode(this)
         .build()!!
 }
