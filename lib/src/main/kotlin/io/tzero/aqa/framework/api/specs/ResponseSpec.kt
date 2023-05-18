@@ -9,6 +9,8 @@ object ResponseSpec {
         get() = 201.toResponseSpec()
     val `400`
         get() = 400.toResponseSpec()
+    val `404`
+        get() = 404.toResponseSpec()
 
     private fun Int.toResponseSpec() = ResponseSpecBuilder()
         .expectStatusCode(this)
