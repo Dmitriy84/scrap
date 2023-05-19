@@ -1,11 +1,6 @@
 app:
-  vaultPrivateKeyPath: keys/auth-${spring.profiles.active}.key
+  vaultPrivateKeyPath: build/resources/main/keys/auth-test.key
   privateKeyID: auth-jwt-1
-  url: https://gateway-web-markets-${spring.profiles.active}.tzero.com
-
-enduser:
-  password: Welcome@1
-
 restassured:
   response:
     time: 10000
