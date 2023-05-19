@@ -42,7 +42,7 @@ class JwtUtils {
         private val pkcs: String,
         private val keyId: String
     ) : RSAPrivateKeyProvider {
-        override fun getPrivateKey() = PemReader(StringReader(File(pkcs).readText()))
+        override fun getPrivateKey() = PemReader(StringReader(javaClass.classLoader.getResource(pkcs).readText()))
             .use { pemReader ->
                 getInstance(pemReader.readPemObject().content).let {
                     KeyFactory.getInstance("RSA")

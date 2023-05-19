@@ -1,5 +1,5 @@
 app:
-  vaultPrivateKeyPath: build/resources/main/keys/auth-test.key
+  vaultPrivateKeyPath: src/main/resources/keys/auth-test.key
   privateKeyID: auth-jwt-1
 restassured:
   response:
