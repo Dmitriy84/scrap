@@ -11,7 +11,6 @@ import org.bouncycastle.asn1.pkcs.RSAPrivateKey.getInstance
 import org.bouncycastle.util.io.pem.PemReader
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
-import java.io.File
 import java.io.StringReader
 import java.security.KeyFactory
 import java.security.interfaces.RSAPrivateKey
@@ -26,8 +25,12 @@ class JwtUtils {
     @Value("\${app.privateKeyID}")
     lateinit var privateKeyId: String
 
-    fun createUserJwt(data: JwtData, validityInSeconds: Long) =
-        JwtFactory(PrivateKeyTest(privateKey, privateKeyId), validityInSeconds).createJwt(data)
+    fun createUserJwt(
+        data: JwtData,
+        validityInSeconds: Long,
+        keyProvider: RSAPrivateKeyProvider = PrivateKeyTest(privateKey, privateKeyId)
+    ) =
+        JwtFactory(keyProvider, validityInSeconds).createJwt(data)
 
     fun parseJsonCSRFToken(accessToken: String) = getJsonValues(accessToken)["jti"]?.jsonPrimitive?.content
 
