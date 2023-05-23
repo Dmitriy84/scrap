@@ -34,7 +34,7 @@ class JwtUtils {
 
     fun parseJsonCSRFToken(accessToken: String) = getJsonValues(accessToken)["jti"]?.jsonPrimitive?.content
 
-    private fun getJsonValues(accessToken: String) =
+    fun getJsonValues(accessToken: String) =
         BaseTest.json.decodeFromString<Map<String, JsonElement>>(
             Base64.getDecoder()
                 .decode(accessToken.split(".")[1])
