@@ -89,4 +89,4 @@ kotlin-jpa = { id = "org.jetbrains.kotlin.plugin.jpa", version.ref = "kotlin" }
 ktlint = "org.jlleitschuh.gradle.ktlint:11.0.0"
 spotless = "com.diffplug.spotless:6.16.0"
 lombok = "io.freefair.lombok:8.0.0-rc2"
-graphql = "io.github.ermadmi78.kobby:io.github.ermadmi78.kobby.gradle.plugin:3.0.0"
+graphql = "io.github.ermadmi78.kobby:3.0.0"
