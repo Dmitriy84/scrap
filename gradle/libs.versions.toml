@@ -68,6 +68,8 @@ json-unit = { module = "net.javacrumbs.json-unit:json-unit", version.ref = "json
 json-unit-assertj = { module = "net.javacrumbs.json-unit:json-unit-assertj", version.ref = "json-unit" }
 json-unit-json-path = { module = "net.javacrumbs.json-unit:json-unit-json-path", version.ref = "json-unit" }
 
+ktor-client-cio = "io.ktor:ktor-client-cio:2.3.1"
+
 [bundles]
 junit5 = ["junit-api", "junit-engine", "junit-params"]
 selenium = ["selenium", "webdriver-manager"]
