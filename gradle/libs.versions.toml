@@ -10,6 +10,7 @@ restassured = "5.3.0"
 qase = "3.0.4"
 json-unit = "2.37.0"
 medici = "6.0.0"
+ktor = "2.3.1"
 
 [libraries]
 junit-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit" }
@@ -68,7 +69,9 @@ json-unit = { module = "net.javacrumbs.json-unit:json-unit", version.ref = "json
 json-unit-assertj = { module = "net.javacrumbs.json-unit:json-unit-assertj", version.ref = "json-unit" }
 json-unit-json-path = { module = "net.javacrumbs.json-unit:json-unit-json-path", version.ref = "json-unit" }
 
-ktor-client-cio = "io.ktor:ktor-client-cio:2.3.1"
+ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor" }
+ktor-client-content = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
+ktor-serialization = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
 
 [bundles]
 junit5 = ["junit-api", "junit-engine", "junit-params"]
