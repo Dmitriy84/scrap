@@ -2,6 +2,7 @@ package io.tzero.aqa.framework.api.base
 
 import io.kotest.core.spec.style.AnnotationSpec
 import io.tzero.aqa.framework.api.config.ProjectConfig
+import kotlinx.coroutines.CancellationException
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
