@@ -41,7 +41,7 @@ object KotlinxGenericMapSerializer : KSerializer<Map<String, Any?>> {
         else -> throw SerializationException("Cannot serialize value type $this")
     }
 
-    private fun Map<*, *>.toJsonObject() =
+    fun Map<*, *>.toJsonObject() =
         JsonObject(entries.associate { it.key.toString() to it.value.toJsonElement() })
 
     private fun Iterable<*>.toJsonArray() = JsonArray(map { it.toJsonElement() })
