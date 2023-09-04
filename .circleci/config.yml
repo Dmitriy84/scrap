@@ -15,9 +15,12 @@ jobs:
     steps:
       - checkout
       - run:
-          name: "Say hello"
+          name: "Submodules update"
           command: |
             git submodule update --init --recursive --force --remote
+      - run:
+          name: "Scrape rates"
+          command: |
             ./gradlew -DQASE_ENABLE=false :money:test --tests 'dmalohlovets.money24.ScrapeRatesTests.scrap'
 
 # Orchestrate jobs using workflows
@@ -25,4 +28,5 @@ jobs:
 workflows:
   say-hello-workflow:
     jobs:
-      - say-hello
+      - submodules-update
+      - scrape-rates
