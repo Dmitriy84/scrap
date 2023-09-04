@@ -1,0 +1,4 @@
+[submodule "libs/aqa-framework"]
+	path = libs/aqa-framework
+	url = https://github.com/Dmitriy84/framework.git
+	branch = new
