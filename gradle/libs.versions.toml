@@ -7,7 +7,7 @@ bouncycastle = "1.72"
 kotest = "5.5.5"
 jacoco = "0.8.10"
 restassured = "5.3.0"
-qase = "3.0.4"
+qase = "3.0.5"
 json-unit = "2.37.0"
 medici = "6.0.0"
 ktor = "2.3.1"
@@ -30,7 +30,10 @@ spring-boot-devtools = { module = "org.springframework.boot:spring-boot-devtools
 
 javax-annotation = "javax.annotation:javax.annotation-api:1.3.2"
 selenium = "org.seleniumhq.selenium:selenium-java:4.9.1"
-webdriver-manager = "io.github.bonigarcia:webdrivermanager:5.3.3"
+webdriver-manager = "io.github.bonigarcia:webdrivermanager:5.5.2"
+
+playwright = "com.microsoft.playwright:playwright:1.35.0"
+
 gcloud-secretmanager = "com.google.cloud:spring-cloud-gcp-starter-secretmanager:4.1.1"
 json-jackson-kotlin = "com.fasterxml.jackson.module:jackson-module-kotlin:2.14.2"
 bouncycastle-ext = { module = "org.bouncycastle:bcprov-ext-jdk18on", version.ref = "bouncycastle" }

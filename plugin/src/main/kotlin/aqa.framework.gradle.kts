@@ -49,7 +49,7 @@ allprojects {
             "kotest",
             "junit5",
             "spring-boot-test",
-            "qase",
+//            "qase",
             "restassured",
             "json-unit",
             "medici",
