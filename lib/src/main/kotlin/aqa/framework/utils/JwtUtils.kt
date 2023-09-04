@@ -3,7 +3,7 @@ package aqa.framework.utils
 import io.medici.tzero.jwtauth.JwtData
 import io.medici.tzero.jwtauth.JwtFactory
 import io.medici.tzero.jwtauth.RSAPrivateKeyProvider
-import io.tzero.aqa.framework.api.base.BaseTest
+import aqa.framework.api.base.BaseTest
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.jsonPrimitive

@@ -1,9 +1,9 @@
 package aqa.framework.utils
 
 import com.savvasdalkitsis.jsonmerger.JsonMerger
-import io.tzero.aqa.framework.api.base.BaseTest
-import io.tzero.aqa.framework.api.support.KotlinxGenericMapSerializer
-import io.tzero.aqa.framework.matchers.DoubleMatcher
+import aqa.framework.api.base.BaseTest
+import aqa.framework.api.support.KotlinxGenericMapSerializer
+import aqa.framework.matchers.DoubleMatcher
 import net.javacrumbs.jsonunit.assertj.JsonAssertions
 import org.json.JSONObject
 

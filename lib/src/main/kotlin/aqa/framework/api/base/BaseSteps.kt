@@ -6,7 +6,7 @@ import io.restassured.module.kotlin.extensions.When
 import io.restassured.response.Response
 import io.restassured.specification.RequestSpecification
 import io.restassured.specification.ResponseSpecification
-import io.tzero.aqa.framework.api.specs.ResponseSpec
+import aqa.framework.api.specs.ResponseSpec
 import org.junit.platform.commons.logging.Logger
 import org.junit.platform.commons.logging.LoggerFactory
 

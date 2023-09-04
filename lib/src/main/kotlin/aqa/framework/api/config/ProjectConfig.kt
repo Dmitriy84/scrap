@@ -4,7 +4,7 @@ import io.restassured.RestAssured
 import io.restassured.builder.ResponseSpecBuilder
 import io.restassured.filter.log.RequestLoggingFilter
 import io.restassured.filter.log.ResponseLoggingFilter
-import io.tzero.aqa.framework.utils.JwtUtils
+import aqa.framework.utils.JwtUtils
 import org.hamcrest.Matchers
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
