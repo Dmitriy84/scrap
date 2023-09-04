@@ -3,6 +3,7 @@ wdm:
   chromeDriver:
     capabilities: |
       --disable-gpu
+      --remote-allow-origins=*
 #      --headless
 
 app:
