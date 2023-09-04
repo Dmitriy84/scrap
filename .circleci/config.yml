@@ -10,6 +10,9 @@ jobs:
     # See: https://circleci.com/docs/configuration-reference/#executor-job
     docker:
       - image: cimg/openjdk:19.0.1
+    environment:
+      QASE_ENABLE: false
+      SPRING_PROFILES_ACTIVE: test
     # Add steps to the job
     # See: https://circleci.com/docs/configuration-reference/#steps
     steps:
@@ -21,7 +24,7 @@ jobs:
       - run:
           name: "Scrape rates"
           command: |
-            ./gradlew -DQASE_ENABLE=false :money:test --tests 'dmalohlovets.money24.ScrapeRatesTests.scrap'
+            ./gradlew :money:test --tests 'dmalohlovets.money24.ScrapeRatesTests.scrap'
 
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/configuration-reference/#workflows
