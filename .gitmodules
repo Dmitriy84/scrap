@@ -1,4 +1,4 @@
 [submodule "libs/aqa-framework"]
 	path = libs/aqa-framework
-	url = https://gitlab.com/tzero-git/qa/aqa-framework.git
-	branch = hotfix
+	url = https://github.com/Dmitriy84/framework.git
+	branch = new

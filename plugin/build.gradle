@@ -1,0 +1,15 @@
+plugins {
+    alias(libs.plugins.kotlin.dsl)
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+
+    google()
+    gradlePluginPortal()
+}
+
+dependencies {
+    api(libs.kotlin.plugin)
+}
