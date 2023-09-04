@@ -1,0 +1,9 @@
+wdm:
+  defaultBrowser: chrome
+  chromeDriver:
+    capabilities: |
+      --disable-gpu
+#      --headless
+
+app:
+  url: https://money24.vn.ua

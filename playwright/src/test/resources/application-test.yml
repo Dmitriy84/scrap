@@ -1,0 +1,89 @@
+wdm:
+  defaultBrowser: chrome
+  chromeDriver:
+    capabilities: |
+      --headless
+      --disable-gpu
+
+app:
+  url: https://djinni.co
+  max_pages: 500
+  filtered: |
+    Python
+    Rust
+    PHP
+    C++
+    C#
+    .NET
+    Flutter
+    Ruby
+    Golang
+    NodeJS
+    Node.js
+    Full-Stack
+    Full Stack
+    FullStack
+    Intern
+    Trainee
+    Junior
+    Middle
+    Angular Engineer
+    DevOps
+    Researcher
+    Frontend
+    Front-end developer
+    UX/UI Designer
+    Database Developer
+    Data Architect
+    Project Manager
+    Mobile Developer
+    Business Analyst
+    UI/UX Designer
+    Java Developer
+    Marketing
+    Xamarin
+    Lead Generation
+    Lead generator
+    Бізнес-аналітик 1С
+    Unity Developer
+    Backend Developer
+    Sales Manager
+    Web designer
+    Copywriter
+    Solution Architect
+    1C Developer
+    System Administrator
+    WordPress Developer
+    IOS Developer
+    Head of Sales
+    Маркетолог
+    Data Analyst
+    Android Developer
+    Back-End Developer
+    Delphi Developer
+    ASO-specialist
+    Solutions Architect
+    Animator
+    Бізнес-аналітик
+    Account Manager
+    Product Analyst
+    Talent Sourcer
+    Game Designer
+    Software Architect
+    Technical Recruiter
+    Graphic Designer
+    Data Engineer
+    Graphic Designer
+    SalesOps
+    Content Lead
+    Data Scientist
+    Figma
+    Helpdesk
+    Communications Manager
+    Product Owner
+    Media Buyer
+    Head of Recruitment
+    Відеомонтажер
+    3D Generalist
+    Recruiter
+    Game Producer

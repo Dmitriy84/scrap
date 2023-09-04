@@ -1,0 +1,7 @@
+/.gradle/
+/.idea/
+/money/build/
+/playwright/build/
+/web/build/
+/money/rates.csv
+/playwright/jobs.csv
