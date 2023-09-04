@@ -16,7 +16,9 @@ jobs:
       - checkout
       - run:
           name: "Say hello"
-          command: "./gradlew -DQASE_ENABLE=false :money:test --tests 'dmalohlovets.money24.ScrapeRatesTests.scrap'"
+          command: |
+            git submodule update --init --recursive --force --remote
+            ./gradlew -DQASE_ENABLE=false :money:test --tests 'dmalohlovets.money24.ScrapeRatesTests.scrap'
 
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/configuration-reference/#workflows
