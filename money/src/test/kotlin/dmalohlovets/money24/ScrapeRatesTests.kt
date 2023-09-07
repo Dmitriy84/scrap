@@ -31,7 +31,7 @@ class ScrapeRatesTests : WebBaseTest() {
         if (!Files.exists(Path.of(OUTPUT_FILE)))
             file.writeCsv("min", "max", "date")
 
-        repeat(if (isCI) 1 else 24) {
+        repeat(if (isCI) 2 else 24) {
             if (!isCI)
                 driver.manage().window().minimize()
             driver[url]
@@ -43,13 +43,13 @@ class ScrapeRatesTests : WebBaseTest() {
             async(Dispatchers.IO) {
                 file.writeCsv(min, max, date)
             }
-            if (!isCI)
-                async {
-                    withContext(Dispatchers.Default) {
-                        delay(30.minutes)
-                        driver.navigate().refresh()
-                    }
-                }.await()
+
+            async {
+                withContext(Dispatchers.Default) {
+                    delay(30.minutes)
+                    driver.navigate().refresh()
+                }
+            }.await()
         }
     }
 
