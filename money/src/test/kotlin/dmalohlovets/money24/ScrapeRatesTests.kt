@@ -27,11 +27,10 @@ private const val OUTPUT_FILE = "rates.csv"
 class ScrapeRatesTests : WebBaseTest() {
     @Test
     fun scrap() = runTest(dispatchTimeoutMs = 13.hours.inWholeMilliseconds) {
-        val file = FileOutputStream(OUTPUT_FILE, true)
         if (!Files.exists(Path.of(OUTPUT_FILE)))
-            file.writeCsv("min", "max", "date")
+            FileOutputStream(OUTPUT_FILE, true).writeCsv("min", "max", "date")
 
-        repeat(if (isCI) 2 else 24) {
+        repeat(24) {
             if (!isCI)
                 driver.manage().window().minimize()
             driver[url]
@@ -41,7 +40,7 @@ class ScrapeRatesTests : WebBaseTest() {
             val max = mainPage.max[0].text.split("\n")[1]
 
             async(Dispatchers.IO) {
-                file.writeCsv(min, max, date)
+                FileOutputStream(OUTPUT_FILE, true).writeCsv(min, max, date)
             }
 
             async {
