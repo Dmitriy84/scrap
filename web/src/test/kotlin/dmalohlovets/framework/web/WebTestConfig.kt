@@ -17,6 +17,8 @@ open class WebTestConfig {
     open val webDriver
         get() =
             with(WebDriverManager.getInstance(browser)) {
+                clearDriverCache()
+                setup()
                 capabilities(ChromeOptions().addArguments(options))
                 create()
             }

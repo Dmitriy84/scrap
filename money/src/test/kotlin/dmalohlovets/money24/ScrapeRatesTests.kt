@@ -69,7 +69,7 @@ class ScrapeRatesTests : WebBaseTest() {
         @JvmStatic
         @AfterAll
         internal fun finish() {
-            Runtime.getRuntime().exec("open $OUTPUT_FILE")
+            Runtime.getRuntime().exec(arrayOf("open", OUTPUT_FILE))
         }
     }
 }
