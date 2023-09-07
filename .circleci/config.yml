@@ -24,8 +24,6 @@ jobs:
           name: "Submodules update"
           command: git submodule update --init --recursive --force --remote
       - gradle/with_cache:
-          app_src_directory: ""
-          cache_key: v1
           deps_checksum_file: build.gradle.kts
           steps:
             - run:
