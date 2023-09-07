@@ -30,8 +30,9 @@ class ScrapeRatesTests : WebBaseTest() {
         if (!Files.exists(Path.of(OUTPUT_FILE)))
             FileOutputStream(OUTPUT_FILE, true).writeCsv("min", "max", "date")
 
-        repeat(24) {
-            driver.manage().window().minimize()
+        repeat(if (System.getenv()["CI"].toBoolean()) 1 else 24) {
+            if (!System.getenv()["CI"].toBoolean())
+                driver.manage().window().minimize()
             driver[url]
 
             val date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
