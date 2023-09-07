@@ -27,6 +27,14 @@ jobs:
           deps_checksum_file: build.gradle.kts
           steps:
             - run:
+                command: ./gradlew build -x test
+                name: Cache gradle build
+                working_directory: ""
+          wrapper_checksum_file: gradle/wrapper/gradle-wrapper.properties
+      - gradle/with_cache:
+          deps_checksum_file: build.gradle.kts
+          steps:
+            - run:
                 command: ./gradlew :money:test --tests 'dmalohlovets.money24.ScrapeRatesTests.scrap'
                 no_output_timeout: 32m
                 name: Scrape rates
