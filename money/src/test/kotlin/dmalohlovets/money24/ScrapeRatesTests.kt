@@ -45,8 +45,10 @@ class ScrapeRatesTests : WebBaseTest() {
 
             async {
                 withContext(Dispatchers.Default) {
-                    delay(30.minutes)
-                    driver.navigate().refresh()
+                    if (!isCI) {
+                        delay(30.minutes)
+                        driver.navigate().refresh()
+                    }
                 }
             }.await()
         }
