@@ -23,7 +23,7 @@ jobs:
       - run:
           name: "Submodules update"
           command: git submodule update --init --recursive --force --remote
-      - with_cache:
+      - gradle/with_cache:
           app_src_directory: ""
           cache_key: v1
           deps_checksum_file: build.gradle.kts
@@ -33,7 +33,7 @@ jobs:
                 name: Scrape rates
                 working_directory: ""
           wrapper_checksum_file: gradle/wrapper/gradle-wrapper.properties
-      - collect_test_results:
+      - gradle/collect_test_results:
           reports_path: money/rates.csv
           test_results_path: money/rates.csv
 
