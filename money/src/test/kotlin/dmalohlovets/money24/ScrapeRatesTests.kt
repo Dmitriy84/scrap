@@ -30,8 +30,8 @@ class ScrapeRatesTests : WebBaseTest() {
         if (!Files.exists(Path.of(OUTPUT_FILE)))
             FileOutputStream(OUTPUT_FILE, true).writeCsv("min", "max", "date")
 
-        repeat(if (System.getenv()["CI"].toBoolean()) 1 else 24) {
-            if (!System.getenv()["CI"].toBoolean())
+        repeat(if (isCI) 1 else 24) {
+            if (!isCI)
                 driver.manage().window().minimize()
             driver[url]
 
@@ -70,7 +70,7 @@ class ScrapeRatesTests : WebBaseTest() {
         @JvmStatic
         @AfterAll
         internal fun finish() {
-            if (!System.getenv()["CI"].toBoolean())
+            if (!isCI)
                 Runtime.getRuntime().exec(arrayOf("open", OUTPUT_FILE))
         }
     }

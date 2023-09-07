@@ -24,6 +24,9 @@ open class WebBaseTest {
 
     companion object {
         @JvmStatic
+        protected var isCI = System.getenv()["CI"].toBoolean()
+
+        @JvmStatic
         protected var driverStatic: WebDriver? = null
 
         @JvmStatic
