@@ -24,7 +24,7 @@ jobs:
       - run:
           name: "Scrape rates"
           command: |
-            ./gradlew :money:test --tests 'dmalohlovets.money24.ScrapeRatesTests.scrap' -i
+            ./gradlew :money:test --tests 'dmalohlovets.money24.ScrapeRatesTests.scrap'
 
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/configuration-reference/#workflows

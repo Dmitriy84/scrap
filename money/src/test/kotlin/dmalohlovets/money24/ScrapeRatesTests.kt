@@ -69,7 +69,8 @@ class ScrapeRatesTests : WebBaseTest() {
         @JvmStatic
         @AfterAll
         internal fun finish() {
-            Runtime.getRuntime().exec(arrayOf("open", OUTPUT_FILE))
+            if (!System.getenv()["CI"].toBoolean())
+                Runtime.getRuntime().exec(arrayOf("open", OUTPUT_FILE))
         }
     }
 }
