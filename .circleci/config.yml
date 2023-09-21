@@ -36,9 +36,9 @@ jobs:
                 working_directory: ""
           wrapper_checksum_file: gradle/wrapper/gradle-wrapper.properties
       - persist_to_workspace:
-          root: money
+          root: project
           paths:
-            - src
+            - money
 
   run:
     executor: my-executor
@@ -47,7 +47,7 @@ jobs:
       SPRING_PROFILES_ACTIVE: test
     steps:
       - attach_workspace:
-          at: money
+          at: project
       - gradle/with_cache:
           deps_checksum_file: build.gradle.kts
           steps:
