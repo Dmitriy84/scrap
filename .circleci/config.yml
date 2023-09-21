@@ -48,12 +48,14 @@ jobs:
       SPRING_PROFILES_ACTIVE: test
     steps:
       - attach_workspace:
-          at: project
+          at: project/project
       - gradle/with_cache:
           deps_checksum_file: build.gradle.kts
           steps:
             - run:
-                command: ./gradlew :money:test --tests 'dmalohlovets.money24.ScrapeRatesTests.scrap'
+                command: |
+                  pwd
+                  ./gradlew :money:test --tests 'dmalohlovets.money24.ScrapeRatesTests.scrap'
                 no_output_timeout: 12h
                 name: Scrape rates
                 working_directory: ""
