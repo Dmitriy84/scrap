@@ -38,6 +38,8 @@ jobs:
           wrapper_checksum_file: gradle/wrapper/gradle-wrapper.properties
       - persist_to_workspace:
           root: money
+          paths:
+            - src
 
   run:
     executor: my-executor
