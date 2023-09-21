@@ -37,7 +37,7 @@ jobs:
                 working_directory: ""
           wrapper_checksum_file: gradle/wrapper/gradle-wrapper.properties
       - persist_to_workspace:
-          root: .
+          root: ~/project
           paths:
             - money
 
