@@ -37,9 +37,9 @@ jobs:
                 working_directory: ""
           wrapper_checksum_file: gradle/wrapper/gradle-wrapper.properties
       - persist_to_workspace:
-          root: ~/project
+          root: ~/
           paths:
-            - money
+            - project
 
   run:
     executor: my-executor
