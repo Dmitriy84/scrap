@@ -55,6 +55,7 @@ jobs:
             - run:
                 command: |
                   pwd
+                  cd project/project
                   ls -al
                   ./gradlew :money:test --tests 'dmalohlovets.money24.ScrapeRatesTests.scrap'
                 no_output_timeout: 12h
