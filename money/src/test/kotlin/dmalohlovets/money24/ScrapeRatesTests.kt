@@ -31,7 +31,8 @@ class ScrapeRatesTests : WebBaseTest() {
             FileOutputStream(OUTPUT_FILE, true).writeCsv("min", "max", "date")
 
         repeat(24) {
-            driver.manage().window().minimize()
+            if (!isCI)
+                driver.manage().window().minimize()
             driver[url]
 
             val date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
@@ -69,7 +70,8 @@ class ScrapeRatesTests : WebBaseTest() {
         @JvmStatic
         @AfterAll
         internal fun finish() {
-            Runtime.getRuntime().exec("open $OUTPUT_FILE")
+            if (!isCI)
+                Runtime.getRuntime().exec(arrayOf("open", OUTPUT_FILE))
         }
     }
 }
