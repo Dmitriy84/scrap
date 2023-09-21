@@ -47,7 +47,7 @@ jobs:
       SPRING_PROFILES_ACTIVE: test
     steps:
       - attach_workspace:
-          at: /tmp/money
+          at: money
       - gradle/with_cache:
           deps_checksum_file: build.gradle.kts
           steps:
