@@ -54,13 +54,10 @@ jobs:
           steps:
             - run:
                 command: |
-                  pwd
-                  cd project/project
-                  ls -al
                   ./gradlew :money:test --tests 'dmalohlovets.money24.ScrapeRatesTests.scrap'
                 no_output_timeout: 12h
                 name: Scrape rates
-                working_directory: ""
+                working_directory: "project/project"
           wrapper_checksum_file: gradle/wrapper/gradle-wrapper.properties
       - gradle/collect_test_results:
           reports_path: money/rates.csv
