@@ -9,6 +9,7 @@ executors:
   my-executor:
     docker:
       - image: cimg/openjdk:19.0.1-browsers
+  working_directory: /home/circleci
 
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/configuration-reference/#jobs
