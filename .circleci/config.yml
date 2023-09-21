@@ -5,14 +5,19 @@ version: 2.1
 orbs:
   gradle: circleci/gradle@3.0.0
 
+executors:
+  my-executor:
+    docker:
+      - image: cimg/openjdk:19.0.1-browsers
+    working_directory: /tmp
+
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/configuration-reference/#jobs
 jobs:
-  run-scrape:
+  build:
     # Specify the execution environment. You can specify an image from Docker Hub or use one of our convenience images from CircleCI's Developer Hub.
     # See: https://circleci.com/docs/configuration-reference/#executor-job
-    docker:
-      - image: cimg/openjdk:19.0.1-browsers
+    executor: my-executor
     environment:
       QASE_ENABLE: false
       SPRING_PROFILES_ACTIVE: test
@@ -31,6 +36,16 @@ jobs:
                 name: Cache gradle build
                 working_directory: ""
           wrapper_checksum_file: gradle/wrapper/gradle-wrapper.properties
+      - persist_to_workspace
+
+  run:
+    executor: my-executor
+    environment:
+      QASE_ENABLE: false
+      SPRING_PROFILES_ACTIVE: test
+    steps:
+      - attach_workspace:
+          at: /tmp
       - gradle/with_cache:
           deps_checksum_file: build.gradle.kts
           steps:
@@ -50,4 +65,7 @@ jobs:
 workflows:
   run-scrape-workflow:
     jobs:
-      - run-scrape
+      - build
+      - run:
+          requires:
+            - build
