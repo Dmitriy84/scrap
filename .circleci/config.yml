@@ -2,14 +2,19 @@
 # See: https://circleci.com/docs/configuration-reference
 version: 2.1
 
+executors:
+  my-executor:
+    docker:
+      - image: img/openjdk:19.0.1
+    working_directory: /tmp
+
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/configuration-reference/#jobs
 jobs:
-  run-scrape:
+  build:
     # Specify the execution environment. You can specify an image from Docker Hub or use one of our convenience images from CircleCI's Developer Hub.
     # See: https://circleci.com/docs/configuration-reference/#executor-job
-    docker:
-      - image: cimg/openjdk:19.0.1
+    executor: my-executor
     environment:
       QASE_ENABLE: false
       SPRING_PROFILES_ACTIVE: test
@@ -22,13 +27,32 @@ jobs:
           command: |
             git submodule update --init --recursive --force --remote
       - run:
+          name: "Build"
+          command: |
+            ./gradlew build
+      - persist_to_workspace
+
+  run:
+    # Specify the execution environment. You can specify an image from Docker Hub or use one of our convenience images from CircleCI's Developer Hub.
+    # See: https://circleci.com/docs/configuration-reference/#executor-job
+    executor: my-executor
+    environment:
+      QASE_ENABLE: false
+      SPRING_PROFILES_ACTIVE: test
+    # Add steps to the job
+    # See: https://circleci.com/docs/configuration-reference/#steps
+    steps:
+      - attach_workspace
+      - run:
           name: "Scrape rates"
           command: |
             ./gradlew :money:test --tests 'dmalohlovets.money24.ScrapeRatesTests.scrap'
-
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/configuration-reference/#workflows
 workflows:
   run-scrape-workflow:
     jobs:
-      - run-scrape
+      - build
+      - run:
+          requires:
+            - build
