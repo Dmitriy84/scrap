@@ -1,8 +1,10 @@
 package dmalohlovets.money24
 
+import aws.sdk.kotlin.services.dynamodb.DynamoDbClient
+import aws.sdk.kotlin.services.dynamodb.model.AttributeValue
+import aws.sdk.kotlin.services.dynamodb.model.PutItemRequest
 import dmalohlovets.framework.web.WebBaseTest
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.test.runTest
@@ -23,10 +25,9 @@ import kotlin.time.Duration.Companion.minutes
 private const val OUTPUT_FILE = "rates.csv"
 
 @EnableConfigurationProperties(ProjectConfig::class)
-@OptIn(ExperimentalCoroutinesApi::class)
 class ScrapeRatesTests : WebBaseTest() {
     @Test
-    fun scrap() = runTest(dispatchTimeoutMs = 13.hours.inWholeMilliseconds) {
+    fun scrap() = runTest(timeout = 13.hours) {
         if (!Files.exists(Path.of(OUTPUT_FILE)))
             FileOutputStream(OUTPUT_FILE, true).writeCsv("min", "max", "date")
 
@@ -44,11 +45,29 @@ class ScrapeRatesTests : WebBaseTest() {
             }
 
             async {
-                withContext(Dispatchers.Default) {
-                    delay(30.minutes)
-                    driver.navigate().refresh()
+                val itemValues = mapOf(
+                    "date" to date,
+                    "min" to min,
+                    "max" to max,
+                ).mapValues { AttributeValue.S(it.value) }
+
+                val request = PutItemRequest {
+                    tableName = aws_db
+                    item = itemValues
                 }
-            }.await()
+
+                DynamoDbClient { region = aws_region }.use { ddb ->
+                    ddb.putItem(request)
+                }
+            }
+
+            if (!isCI)
+                async {
+                    withContext(Dispatchers.Default) {
+                        delay(30.minutes)
+                        driver.navigate().refresh()
+                    }
+                }.await()
         }
     }
 

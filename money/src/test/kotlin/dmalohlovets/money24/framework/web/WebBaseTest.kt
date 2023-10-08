@@ -22,6 +22,12 @@ open class WebBaseTest {
     @Value("\${app.url}")
     protected lateinit var url: String
 
+    @Value("\${app.aws.db}")
+    protected lateinit var aws_db: String
+
+    @Value("\${app.aws.region}")
+    protected lateinit var aws_region: String
+
     companion object {
         @JvmStatic
         protected var isCI = System.getenv()["CI"].toBoolean()

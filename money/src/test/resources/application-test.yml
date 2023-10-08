@@ -8,3 +8,6 @@ wdm:
 
 app:
   url: https://money24.vn.ua
+  aws:
+    db: money24
+    region: eu-north-1
