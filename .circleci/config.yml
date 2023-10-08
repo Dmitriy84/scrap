@@ -80,8 +80,8 @@ workflows:
       - build
       - aws-setup:
           requires:
-            - build:
+            - build
       - run:
           requires:
-            - aws-setup:
+            - aws-setup
           context: aws
