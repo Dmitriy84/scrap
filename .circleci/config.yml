@@ -78,7 +78,9 @@ workflows:
   run-scrape-workflow:
     jobs:
       - build
-      - aws-setup
+      - aws-setup:
+          requires:
+            - build:
       - run:
           requires:
             - aws-setup:
