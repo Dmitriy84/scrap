@@ -2,6 +2,7 @@ package dmalohlovets.money24
 
 import aws.sdk.kotlin.services.dynamodb.DynamoDbClient
 import aws.sdk.kotlin.services.dynamodb.model.AttributeValue
+import aws.sdk.kotlin.services.dynamodb.model.ExecuteStatementRequest
 import aws.sdk.kotlin.services.dynamodb.model.PutItemRequest
 import dmalohlovets.framework.web.WebBaseTest
 import kotlinx.coroutines.Dispatchers
@@ -31,7 +32,7 @@ class ScrapeRatesTests : WebBaseTest() {
         if (!Files.exists(Path.of(OUTPUT_FILE)))
             FileOutputStream(OUTPUT_FILE, true).writeCsv("min", "max", "date")
 
-        repeat(24) {
+        repeat(1) {
             if (!isCI)
                 driver.manage().window().minimize()
             driver[url]
@@ -57,6 +58,7 @@ class ScrapeRatesTests : WebBaseTest() {
                 }
 
                 DynamoDbClient { region = aws_region }.use { ddb ->
+                    getMoviePartiQL(ddb)
                     ddb.putItem(request)
                 }
             }
@@ -83,6 +85,14 @@ class ScrapeRatesTests : WebBaseTest() {
     private fun OutputStream.writeCsv(vararg data: String) = bufferedWriter().use {
         it.write(data.joinToString(",", postfix = "\n"))
         it.flush()
+    }
+
+    private suspend fun getMoviePartiQL(ddb: DynamoDbClient) {
+        val response = ddb.executeStatement(ExecuteStatementRequest {
+            statement = "SELECT * FROM \"$aws_db\""
+            limit = 1
+        })
+        println("ExecuteStatement successful: $response")
     }
 
     companion object {
