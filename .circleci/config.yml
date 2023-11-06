@@ -47,7 +47,7 @@ jobs:
     steps:
       - aws-cli/setup:
           profile_name: test
-          role_arn: arn:aws:dynamodb::757654778930:table/money24
+          role_arn: arn:aws:aim::757654778930:table/money24
           role_session_name: example-session
           region: eu-north-1
           aws_access_key_id: AKIA3AZ56OQZJDLYRR7B
