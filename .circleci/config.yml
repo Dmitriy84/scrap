@@ -49,7 +49,8 @@ jobs:
 #          profile_name: test
 #      - aws-cli/role_arn_setup:
           profile_name: test
-          role_arn: arn:aws:dynamodb:eu-north-1:757654778930:table/money24
+          role_arn: arn:aws:dynamodb::757654778930:table/money24
+          role_session_name: example-session
           region: eu-north-1
 
   run:
