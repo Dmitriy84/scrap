@@ -49,8 +49,7 @@ jobs:
           profile_name: test
           role_arn: arn:aws:dynamodb:eu-north-1:757654778930:table/money24
           region: eu-north-1
-          aws_access_key_id: AKIA3AZ56OQZJDLYRR7B
-          aws_secret_access_key: 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
+
 
   run:
     executor: my-executor
