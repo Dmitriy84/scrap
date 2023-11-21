@@ -70,9 +70,12 @@ jobs:
                 name: Scrape rates
                 working_directory: "project/project"
           wrapper_checksum_file: gradle/wrapper/gradle-wrapper.properties
-      - gradle/collect_test_results:
-          reports_path: money/rates.csv
-          test_results_path: money/rates.csv
+      - store_artifacts:
+          path: money
+          destination: rates.csv
+#      - gradle/collect_test_results:
+#          reports_path: money/rates.csv
+#          test_results_path: money/rates.csv
 
 
 # Orchestrate jobs using workflows
