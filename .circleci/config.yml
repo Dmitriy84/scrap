@@ -52,8 +52,8 @@ jobs:
           profile_name: new-profile
           role_arn: arn:aws:iam::757654778930:user/circle_ci_user
           source_profile: default
-      - run: >-
-          aws sts assume-role --role-arn "arn:aws:iam::757654778930:user/circle_ci_user" --role-session-name AWSCLI-Session
+#      - run: >-
+#          aws sts assume-role --role-arn "arn:aws:iam::757654778930:user/circle_ci_user" --role-session-name AWSCLI-Session
 #          region: eu-north-1
 
 
