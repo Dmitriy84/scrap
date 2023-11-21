@@ -4,7 +4,7 @@ version: 2.1
 
 orbs:
   gradle: circleci/gradle@3.0.0
-  aws-cli: circleci/aws-cli@4.1.1
+  aws-cli: circleci/aws-cli@4.1.2
 
 executors:
   my-executor:
@@ -45,10 +45,16 @@ jobs:
   aws-setup:
     executor: my-executor
     steps:
+      - checkout
       - aws-cli/setup:
-          profile_name: test
+          profile_name: default
+      - aws-cli/role_arn_setup:
+          profile_name: new-profile
           role_arn: arn:aws:iam::757654778930:user/circle_ci_user
-          region: eu-north-1
+          source_profile: default
+      - run: >-
+          aws sts assume-role --role_arn "arn:aws:iam::757654778930:user/circle_ci_user" --role_session_name AWSCLI-Session
+#          region: eu-north-1
 
 
   run:
