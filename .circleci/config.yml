@@ -52,10 +52,6 @@ jobs:
           profile_name: new-profile
           role_arn: arn:aws:iam::757654778930:user/circle_ci_user
           source_profile: default
-#      - run: >-
-#          aws sts assume-role --role-arn "arn:aws:iam::757654778930:user/circle_ci_user" --role-session-name AWSCLI-Session
-#          region: eu-north-1
-
 
   run:
     executor: my-executor
@@ -70,7 +66,7 @@ jobs:
           steps:
             - run:
                 command: ./gradlew :money:test --tests 'dmalohlovets.money24.ScrapeRatesTests.scrap'
-                no_output_timeout: 12h
+#                no_output_timeout: 12h
                 name: Scrape rates
                 working_directory: "project/project"
           wrapper_checksum_file: gradle/wrapper/gradle-wrapper.properties
