@@ -33,7 +33,7 @@ jobs:
           deps_checksum_file: build.gradle.kts
           steps:
             - run:
-                command: ./gradlew build -x test
+                command: ./gradlew build -x test --build-cache
                 name: Cache gradle build
                 working_directory: ""
           wrapper_checksum_file: gradle/wrapper/gradle-wrapper.properties
