@@ -50,7 +50,8 @@ class ScrapeRatesTests : WebBaseTest() {
                     "date" to date,
                     "min" to min,
                     "max" to max,
-                ).mapValues { AttributeValue.S(it.value) }
+                    "CIRCLE_WORKFLOW_ID" to System.getenv("CIRCLE_WORKFLOW_ID"),
+                    ).mapValues { AttributeValue.S(it.value) }
 
                 val request = PutItemRequest {
                     tableName = aws_db
@@ -75,12 +76,6 @@ class ScrapeRatesTests : WebBaseTest() {
 
     @Autowired
     private lateinit var mainPage: MainPage
-
-    private fun OutputStream.writeCsv(data: List<Array<String>>) = bufferedWriter().use {
-        data.map { arr -> arr.joinToString(",", postfix = "\n") }
-            .forEach(it::write)
-        it.flush()
-    }
 
     private fun OutputStream.writeCsv(vararg data: String) = bufferedWriter().use {
         it.write(data.joinToString(",", postfix = "\n"))
