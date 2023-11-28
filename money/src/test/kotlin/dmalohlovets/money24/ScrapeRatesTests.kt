@@ -50,7 +50,7 @@ class ScrapeRatesTests : WebBaseTest() {
                     "date" to date,
                     "min" to min,
                     "max" to max,
-                    "CIRCLE_WORKFLOW_ID" to System.getenv("CIRCLE_WORKFLOW_ID"),
+                    "circle" to System.getenv("CIRCLE_WORKFLOW_ID"),
                     ).mapValues { AttributeValue.S(it.value) }
 
                 val request = PutItemRequest {

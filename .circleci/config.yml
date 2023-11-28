@@ -65,7 +65,7 @@ jobs:
           deps_checksum_file: build.gradle.kts
           steps:
             - run:
-                command: ./gradlew --build-cache :money:test --tests 'dmalohlovets.money24.ScrapeRatesTests.scrap'
+                command: ./gradlew --build-cache :money:test --tests 'dmalohlovets.money24.ScrapeRatesTests.scrap' -i
 #                no_output_timeout: 12h
                 name: Scrape rates
                 working_directory: "project/project"
