@@ -47,7 +47,7 @@ class ScrapeRatesTests : WebBaseTest() {
 
             async {
                 val itemValues = mapOf(
-                    "date" to date,
+                    "date!" to date,
                     "min" to min,
                     "max" to max,
                     "circle" to System.getenv("CIRCLE_WORKFLOW_ID"),
