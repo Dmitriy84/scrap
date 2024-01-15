@@ -2,8 +2,12 @@ package dmalohlovets.money24
 
 import aws.sdk.kotlin.services.dynamodb.DynamoDbClient
 import aws.sdk.kotlin.services.dynamodb.model.AttributeValue
-import aws.sdk.kotlin.services.dynamodb.model.ExecuteStatementRequest
 import aws.sdk.kotlin.services.dynamodb.model.PutItemRequest
+import aws.sdk.kotlin.services.dynamodb.model.ScanRequest
+import aws.sdk.kotlin.services.sns.SnsClient
+import aws.sdk.kotlin.services.sns.model.PublishRequest
+import aws.smithy.kotlin.runtime.InternalApi
+import aws.smithy.kotlin.runtime.util.toNumber
 import dmalohlovets.framework.web.WebBaseTest
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -11,6 +15,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.withContext
 import org.junit.jupiter.api.AfterAll
+import org.junit.jupiter.api.Tag
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.context.properties.EnableConfigurationProperties
@@ -28,7 +33,10 @@ private const val OUTPUT_FILE = "rates.csv"
 @EnableConfigurationProperties(ProjectConfig::class)
 class ScrapeRatesTests : WebBaseTest() {
     @Test
+    @Tag("scrap")
     fun scrap() = runTest(timeout = 13.hours) {
+//        pubTextSMS("AWS Rocks !!!", "+380634596992")
+
         if (!Files.exists(Path.of(OUTPUT_FILE)))
             FileOutputStream(OUTPUT_FILE, true).writeCsv("min", "max", "date")
 
@@ -51,7 +59,7 @@ class ScrapeRatesTests : WebBaseTest() {
                     "min" to min,
                     "max" to max,
                     "circle" to System.getenv("CIRCLE_WORKFLOW_ID"),
-                    ).mapValues { AttributeValue.S(it.value) }
+                ).mapValues { AttributeValue.S(it.value) }
 
                 val request = PutItemRequest {
                     tableName = aws_db
@@ -59,7 +67,6 @@ class ScrapeRatesTests : WebBaseTest() {
                 }
 
                 DynamoDbClient { region = aws_region }.use { ddb ->
-                    getMoviePartiQL(ddb)
                     ddb.putItem(request)
                 }
             }
@@ -74,6 +81,29 @@ class ScrapeRatesTests : WebBaseTest() {
         }
     }
 
+    @OptIn(InternalApi::class)
+    @Tag("sms")
+    @Test
+    fun `analyze previous and current rates`() = runTest {
+        //TODO replace by Query with sort and limit
+        val request = ScanRequest {
+            tableName = aws_db
+            select
+        }
+
+        val (first, second) = DynamoDbClient {
+            region = aws_region
+        }.use { client -> client.scan(request).items?.sortedByDescending { it["date!"].toString() }?.subList(0, 2)!! }
+
+        if (first["max"]?.asS()?.toNumber() != second["max"]?.asS()?.toNumber()
+            || first["min"]?.asS()?.toNumber() != second["min"]?.asS()?.toNumber()
+        )
+            pubTextSMS(
+                "Was max: ${second["max"]}, min: ${first["min"]}; Now max: ${first["max"]}, min: ${first["min"]}",
+                app_mobile
+            )
+    }
+
     @Autowired
     private lateinit var mainPage: MainPage
 
@@ -82,12 +112,15 @@ class ScrapeRatesTests : WebBaseTest() {
         it.flush()
     }
 
-    private suspend fun getMoviePartiQL(ddb: DynamoDbClient) {
-        val response = ddb.executeStatement(ExecuteStatementRequest {
-            statement = "SELECT * FROM \"$aws_db\""
-            limit = 1
-        })
-        println("ExecuteStatement successful: $response")
+    private suspend fun pubTextSMS(messageVal: String?, phoneNumberVal: String?) {
+        val request = PublishRequest {
+            message = messageVal
+            phoneNumber = phoneNumberVal
+        }
+
+        SnsClient { region = aws_region }.use {
+            println("${it.publish(request).messageId} message sent.")
+        }
     }
 
     companion object {

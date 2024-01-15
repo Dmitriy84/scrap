@@ -4,10 +4,11 @@ wdm:
     capabilities: |
       --disable-gpu
       --remote-allow-origins=*
-#      --headless
+      --headless
 
 app:
   url: https://money24.vn.ua
+  mobile: +38063 459 69 92
   aws:
     db: money24_data
     region: eu-north-1
