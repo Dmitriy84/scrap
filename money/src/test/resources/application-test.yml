@@ -4,7 +4,7 @@ wdm:
     capabilities: |
       --disable-gpu
       --remote-allow-origins=*
-      --headless
+#      --headless
 
 app:
   url: https://money24.vn.ua
