@@ -8,7 +8,8 @@ orbs:
 
 parameters:
   test:
-    type: string
+    type: enum
+    enum: [ "scrap", "analysis" ]
     default: scrap
 
 executors:
@@ -70,7 +71,7 @@ jobs:
           deps_checksum_file: build.gradle.kts
           steps:
             - run:
-                command: ./gradlew --build-cache :money:test --tests 'dmalohlovets.money24.ScrapeRatesTests.<< pipeline.parameters.test >>'
+                command: ./gradlew --build-cache :money:test --tests * --include-tags=<< pipeline.parameters.test >>
                 #                no_output_timeout: 12h
                 name: Scrape rates
                 working_directory: "project/project"

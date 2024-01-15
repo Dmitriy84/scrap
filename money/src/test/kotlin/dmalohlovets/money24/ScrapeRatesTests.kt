@@ -82,7 +82,7 @@ class ScrapeRatesTests : WebBaseTest() {
     }
 
     @OptIn(InternalApi::class)
-    @Tag("sms")
+    @Tag("analysis")
     @Test
     fun `analyze previous and current rates`() = runTest {
         //TODO replace by Query with sort and limit
