@@ -6,6 +6,11 @@ orbs:
   gradle: circleci/gradle@3.0.0
   aws-cli: circleci/aws-cli@4.1.2
 
+parameters:
+  test:
+    type: string
+    default: scrap
+
 executors:
   my-executor:
     docker:
@@ -65,14 +70,14 @@ jobs:
           deps_checksum_file: build.gradle.kts
           steps:
             - run:
-                command: ./gradlew --build-cache :money:test --tests 'dmalohlovets.money24.ScrapeRatesTests.scrap' -i
-#                no_output_timeout: 12h
+                command: ./gradlew --build-cache :money:test --tests 'dmalohlovets.money24.ScrapeRatesTests.<< pipeline.parameters.test >>'
+                #                no_output_timeout: 12h
                 name: Scrape rates
                 working_directory: "project/project"
           wrapper_checksum_file: gradle/wrapper/gradle-wrapper.properties
-#      - store_artifacts:
-#          path: project/project/money
-#          destination: rates.csv
+      #      - store_artifacts:
+      #          path: project/project/money
+      #          destination: rates.csv
       - gradle/collect_test_results:
           reports_path: project/project/money/rates.csv
           test_results_path: project/project/money/rates.csv
