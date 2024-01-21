@@ -28,6 +28,7 @@ import java.time.format.DateTimeFormatter
 import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.minutes
 
+
 private const val OUTPUT_FILE = "rates.csv"
 
 @EnableConfigurationProperties(ProjectConfig::class)
@@ -85,10 +86,31 @@ class ScrapeRatesTests : WebBaseTest() {
     @Tag("analysis")
     @Test
     fun `analyze previous and current rates`() = runTest {
+//        val request2 = QueryRequest {
+//            tableName = aws_db
+//            scanIndexForward = true
+//            limit = 10
+//            keyConditionExpression = "#key > :dt"
+//            expressionAttributeNames = mapOf("#key" to "date!")
+//            expressionAttributeValues =
+//                mapOf(
+//                    ":dt" to AttributeValue.S(
+//                        SimpleDateFormat("yyyy-MM-dd HH:mm").format(Date().time - 3L * 24L * 60L * 60L * 1000L)
+//                    )
+//                )
+////            expressionAttributeValues = mapOf(":dt" to AttributeValue.S("2023-12-21 07:33"))
+//        }
+//        DynamoDbClient { region = "eu-north-1" }.use { ddb ->
+//            val response = ddb.query(request2)
+//            println(response.items)
+//
+//        }
+
+
         //TODO replace by Query with sort and limit
         val request = ScanRequest {
             tableName = aws_db
-            select
+            limit = 2
         }
 
         val (first, second) = DynamoDbClient {
