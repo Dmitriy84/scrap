@@ -28,7 +28,7 @@ open class WebBaseTest {
     @Value("\${app.aws.region}")
     protected lateinit var aws_region: String
 
-    @Value("\${app.mobile}")
+    @Value("#{'\${app.mobile}'.replace(' ', '').trim()}")
     protected lateinit var app_mobile: String
 
     companion object {
