@@ -1,5 +1,6 @@
-package dmalohlovets.framework.web
+package dmalohlovets.money24.framework.web
 
+import dmalohlovets.framework.web.WebTestConfig
 import org.junit.jupiter.api.AfterAll
 import org.openqa.selenium.WebDriver
 import org.springframework.beans.factory.annotation.Autowired

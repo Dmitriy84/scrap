@@ -1,6 +1,8 @@
 version = "1.2"
 
-dependencies{
-    testImplementation(libs.webdriver.manager)
-    testImplementation(libs.selenium)
+dependencies {
+    arrayOf(
+        libs.webdriver.manager,
+        libs.selenium,
+    ).forEach { testImplementation(it) }
 }

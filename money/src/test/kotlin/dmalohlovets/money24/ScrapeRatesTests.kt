@@ -8,7 +8,7 @@ import aws.sdk.kotlin.services.sns.SnsClient
 import aws.sdk.kotlin.services.sns.model.PublishRequest
 import aws.smithy.kotlin.runtime.InternalApi
 import aws.smithy.kotlin.runtime.util.toNumber
-import dmalohlovets.framework.web.WebBaseTest
+import dmalohlovets.money24.framework.web.WebBaseTest
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay

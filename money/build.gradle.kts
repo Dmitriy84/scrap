@@ -1,7 +1,9 @@
 dependencies {
-    with(libs) {
-        arrayOf(webdriver.manager, selenium, dynamodb, sns)
-            .forEach { testImplementation(it) }
-    }
-    testImplementation(project(mapOf("path" to ":web")))
+    arrayOf(
+        libs.webdriver.manager,
+        libs.selenium,
+        libs.dynamodb,
+        libs.sns,
+        project(mapOf("path" to ":web")),
+    ).forEach { testImplementation(it) }
 }
