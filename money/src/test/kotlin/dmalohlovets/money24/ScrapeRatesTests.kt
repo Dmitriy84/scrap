@@ -111,11 +111,14 @@ class ScrapeRatesTests : WebBaseTest() {
         val request = ScanRequest {
             tableName = aws_db
             limit = 2
+            indexName = "circle-date-index"
         }
 
         val (first, second) = DynamoDbClient {
             region = aws_region
-        }.use { client -> client.scan(request).items?.sortedByDescending { it["date!"].toString() }?.subList(0, 2)!! }
+        }.use { client ->
+            client.scan(request).items?.sortedByDescending { it["date!"].toString() }?.subList(0, 2)!!
+        }
 
         if (first["max"]?.asS()?.toNumber() != second["max"]?.asS()?.toNumber()
             || first["min"]?.asS()?.toNumber() != second["min"]?.asS()?.toNumber()

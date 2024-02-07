@@ -6,6 +6,7 @@ include(
     "web",
     "money",
     "playwright",
+    "testTasks",
 )
 
 dependencyResolutionManagement {
