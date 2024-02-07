@@ -7,6 +7,7 @@ include(
     "money",
     "playwright",
     "testTasks",
+    "appium",
 )
 
 dependencyResolutionManagement {
