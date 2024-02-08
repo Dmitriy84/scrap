@@ -5,3 +5,4 @@
 /web/build/
 /money/rates.csv
 /playwright/jobs.csv
+/appium/src/test/resources/ozon.apk
