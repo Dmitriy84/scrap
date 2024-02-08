@@ -23,6 +23,7 @@ class AppiumTest {
             val driver = AndroidDriver(
                 URL(System.getenv("SIMULATOR_URL")), options
             )
+            println()
             try {
                  val el = driver.findElement(AppiumBy.xpath("//Button"))
                 el.click()
