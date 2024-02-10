@@ -1,6 +1,7 @@
 dependencies {
     arrayOf(
-        libs.testcontainers,
+        libs.bundles.testcontainers,
+        libs.bundles.selenium,
     )
         .forEach { testImplementation(it) }
 }

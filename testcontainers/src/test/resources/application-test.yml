@@ -1,0 +1,13 @@
+app:
+  browser:
+    #    name: firefox
+    capabilities: |
+      --disable-gpu
+      --remote-allow-origins=*
+    #      --headless
+  url: https://google.com.ua
+  containers:
+    selenium:
+      start-timeout-seconds: 30
+      save-video-folder: build
+      save-video: true
