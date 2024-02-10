@@ -8,6 +8,7 @@ include(
     "playwright",
     "testTasks",
     "appium",
+    "testcontainers",
 )
 
 dependencyResolutionManagement {
