@@ -10,5 +10,5 @@ app:
   url: https://money24.vn.ua
   mobile: +38063 459 69 92
   aws:
-    db: money24_rates
+    db: rates
     region: eu-north-1

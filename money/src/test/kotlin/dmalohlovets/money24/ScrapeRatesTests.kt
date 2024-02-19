@@ -35,6 +35,7 @@ private const val OUTPUT_FILE = "rates.csv"
 class ScrapeRatesTests : WebBaseTest() {
     @Test
     @Tag("scrap")
+    @Tag("money24")
     fun scrap() = runTest(timeout = 13.hours) {
 //        pubTextSMS("AWS Rocks !!!", "+380634596992")
 
