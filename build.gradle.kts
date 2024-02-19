@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
 }
 
+group = "com.dmalohlovets.tests"
 version = "1.2"
 
 allprojects {

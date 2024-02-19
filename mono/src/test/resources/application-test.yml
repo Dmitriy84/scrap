@@ -1,0 +1,5 @@
+app:
+  url: https://api.monobank.ua/
+  aws:
+    db: rates
+    region: eu-north-1

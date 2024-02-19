@@ -9,6 +9,7 @@ include(
     "testTasks",
     "appium",
     "testcontainers",
+    "mono",
 )
 
 dependencyResolutionManagement {
