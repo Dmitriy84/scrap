@@ -17,7 +17,7 @@ interface DataInserter {
     companion object {
         fun dateOf(value: TemporalAccessor = LocalDateTime.now()): String =
             DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
-                .withZone(ZoneId.of("UTC"))
+                .withZone(ZoneId.of("UTC+2"))
                 .format(value)
 
         fun batchProcessor(
