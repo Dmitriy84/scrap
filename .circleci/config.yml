@@ -71,7 +71,7 @@ jobs:
           deps_checksum_file: build.gradle.kts
           steps:
             - run:
-                command: ./gradlew --build-cache :money:test -PincludeTags=<< pipeline.parameters.test >> --tests "*"
+                command: ./gradlew --build-cache test -PincludeTags=<< pipeline.parameters.test >> --tests "*"
                 #                no_output_timeout: 12h
                 name: Scrape rates
                 working_directory: "project/project"
