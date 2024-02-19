@@ -1,16 +1,21 @@
 package com.dmalohlovets.tests
 
 import aqa.framework.utils.SpecUtils.extractJsonValues
-import aws.sdk.kotlin.services.dynamodb.DynamoDbClient
-import aws.sdk.kotlin.services.dynamodb.model.AttributeValue
-import aws.sdk.kotlin.services.dynamodb.model.PutItemRequest
-import com.dmalohlovets.tests.api.base.BaseApiTest
+import com.dmalohlovets.tests.config.BaseApiTest
+import com.dmalohlovets.tests.config.components.RatesDynamoDbInserter
+import com.dmalohlovets.tests.config.interfaces.DataInserter.Companion.dateOf
 import io.restassured.RestAssured.get
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Tag
 import org.junit.jupiter.api.Test
+import org.springframework.beans.factory.annotation.Autowired
+import java.util.Date
+
 
 class MonoTests : BaseApiTest() {
+    @Autowired
+    private lateinit var ratesDynamoDbInserter: RatesDynamoDbInserter
+
     @Test
     @Tag("scrap")
     @Tag("mono")
@@ -19,21 +24,11 @@ class MonoTests : BaseApiTest() {
             .then()
             .extractJsonValues("[0].date", "[0].rateBuy", "[0].rateSell")
 
-        val itemValues = mapOf(
-            "date!" to date,
-            "min" to min,
-            "max" to max,
-            "source" to "mono",
-            "circle" to System.getenv("CIRCLE_WORKFLOW_ID").orEmpty(),
-        ).mapValues { AttributeValue.S(it.value) }
-
-        DynamoDbClient { region = aws_region }.use { ddb ->
-            PutItemRequest {
-                tableName = aws_db
-                item = itemValues
-            }.run {
-                ddb.putItem(this)
-            }
-        }
+        ratesDynamoDbInserter.putItem(
+            dateOf(Date(date.toLong() * 1000).toInstant()),
+            max,
+            min,
+            "mono"
+        )
     }
 }

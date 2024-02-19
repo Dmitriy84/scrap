@@ -1,13 +1,15 @@
 package dmalohlovets.money24
 
 import aws.sdk.kotlin.services.dynamodb.DynamoDbClient
-import aws.sdk.kotlin.services.dynamodb.model.AttributeValue
-import aws.sdk.kotlin.services.dynamodb.model.PutItemRequest
 import aws.sdk.kotlin.services.dynamodb.model.ScanRequest
 import aws.sdk.kotlin.services.sns.SnsClient
 import aws.sdk.kotlin.services.sns.model.PublishRequest
 import aws.smithy.kotlin.runtime.InternalApi
 import aws.smithy.kotlin.runtime.util.toNumber
+import com.dmalohlovets.tests.config.components.RatesDynamoDbInserter
+import com.dmalohlovets.tests.config.components.RatesFileInserter
+import com.dmalohlovets.tests.config.interfaces.DataInserter.Companion.batchProcessor
+import com.dmalohlovets.tests.config.interfaces.DataInserter.Companion.dateOf
 import dmalohlovets.money24.framework.web.WebBaseTest
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -19,12 +21,8 @@ import org.junit.jupiter.api.Tag
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.context.properties.EnableConfigurationProperties
-import java.io.FileOutputStream
-import java.io.OutputStream
 import java.nio.file.Files
 import java.nio.file.Path
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.minutes
 
@@ -40,38 +38,27 @@ class ScrapeRatesTests : WebBaseTest() {
 //        pubTextSMS("AWS Rocks !!!", "+380634596992")
 
         if (!Files.exists(Path.of(OUTPUT_FILE)))
-            FileOutputStream(OUTPUT_FILE, true).writeCsv("min", "max", "date")
+            ratesFileInserter.putItem(source = "source")
 
         repeat(1) {
             if (!isCI)
                 driver.manage().window().minimize()
             driver[url]
 
-            val date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
+            val date = dateOf()
             val min = mainPage.min[0].text.split("\n")[1]
             val max = mainPage.max[0].text.split("\n")[1]
 
-            async(Dispatchers.IO) {
-                FileOutputStream(OUTPUT_FILE, true).writeCsv(min, max, date)
-            }
-
-            async {
-                val itemValues = mapOf(
-                    "date!" to date,
-                    "min" to min,
-                    "max" to max,
-                    "circle" to System.getenv("CIRCLE_WORKFLOW_ID"),
-                ).mapValues { AttributeValue.S(it.value) }
-
-                val request = PutItemRequest {
-                    tableName = aws_db
-                    item = itemValues
-                }
-
-                DynamoDbClient { region = aws_region }.use { ddb ->
-                    ddb.putItem(request)
-                }
-            }
+            batchProcessor(
+                date,
+                max,
+                min,
+                "money24",
+                args = arrayOf(
+                    ratesFileInserter,
+                    ratesDynamoDbInserter
+                )
+            )
 
             if (!isCI)
                 async {
@@ -118,7 +105,8 @@ class ScrapeRatesTests : WebBaseTest() {
         val (first, second) = DynamoDbClient {
             region = aws_region
         }.use { client ->
-            client.scan(request).items?.sortedByDescending { it["date!"].toString() }?.subList(0, 2)!!
+            client.scan(request).items?.sortedByDescending { it["date!"].toString() }
+                ?.subList(0, 2)!!
         }
 
         if (first["max"]?.asS()?.toNumber() != second["max"]?.asS()?.toNumber()
@@ -128,14 +116,6 @@ class ScrapeRatesTests : WebBaseTest() {
                 "Was max: ${second["max"]}, min: ${first["min"]}; Now max: ${first["max"]}, min: ${first["min"]}",
                 app_mobile
             )
-    }
-
-    @Autowired
-    private lateinit var mainPage: MainPage
-
-    private fun OutputStream.writeCsv(vararg data: String) = bufferedWriter().use {
-        it.write(data.joinToString(",", postfix = "\n"))
-        it.flush()
     }
 
     private suspend fun pubTextSMS(messageVal: String?, phoneNumberVal: String?) {
@@ -148,6 +128,15 @@ class ScrapeRatesTests : WebBaseTest() {
             println("${it.publish(request).messageId} message sent.")
         }
     }
+
+    @Autowired
+    private lateinit var mainPage: MainPage
+
+    @Autowired
+    private lateinit var ratesDynamoDbInserter: RatesDynamoDbInserter
+
+    @Autowired
+    private lateinit var ratesFileInserter: RatesFileInserter
 
     companion object {
         @JvmStatic

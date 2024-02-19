@@ -11,7 +11,7 @@ import java.util.*
 
 @Configuration
 @ConfigurationProperties
-@ComponentScan
+@ComponentScan("com.dmalohlovets.tests.config.components")
 open class WebTestConfig {
     @get:Bean
     open val webDriver

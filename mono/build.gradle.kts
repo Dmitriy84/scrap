@@ -1,5 +1,5 @@
 dependencies {
     arrayOf(
         libs.dynamodb,
-    ).forEach { testImplementation(it) }
+    ).forEach { implementation(it) }
 }
