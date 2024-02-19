@@ -1,6 +1,7 @@
 package com.dmalohlovets.tests.config.interfaces
 
 import java.time.LocalDateTime
+import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.time.temporal.TemporalAccessor
 
@@ -15,7 +16,9 @@ interface DataInserter {
 
     companion object {
         fun dateOf(value: TemporalAccessor = LocalDateTime.now()): String =
-            DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm").format(value)
+            DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+                .withZone(ZoneId.of("UTC"))
+                .format(value)
 
         fun batchProcessor(
             date: String,
