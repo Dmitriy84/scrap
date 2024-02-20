@@ -1,4 +1,4 @@
-package com.dmalohlovets.tests.tests.web.config
+package com.dmalohlovets.tests.web.config
 
 import aqa.framework.api.config.YamlPropertySource
 import org.openqa.selenium.chrome.ChromeOptions

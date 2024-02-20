@@ -1,4 +1,4 @@
-package com.dmalohlovets.tests.tests.config.interfaces
+package com.dmalohlovets.tests.config.interfaces
 
 import java.time.LocalDateTime
 import java.time.ZoneId

@@ -10,10 +10,10 @@ import com.dmalohlovets.tests.framework.web.base.WebBaseTest
 import com.dmalohlovets.tests.framework.web.config.ProjectConfig
 import com.dmalohlovets.tests.money24.pages.Money24MainPage
 import com.dmalohlovets.tests.sense.pages.SenseMainPage
-import com.dmalohlovets.tests.tests.config.components.RatesDynamoDbInserter
-import com.dmalohlovets.tests.tests.config.components.RatesFileInserter
-import com.dmalohlovets.tests.tests.config.interfaces.DataInserter
-import com.dmalohlovets.tests.tests.config.interfaces.DataInserter.Companion.dateOf
+import com.dmalohlovets.tests.config.components.RatesDynamoDbInserter
+import com.dmalohlovets.tests.config.components.RatesFileInserter
+import com.dmalohlovets.tests.config.interfaces.DataInserter
+import com.dmalohlovets.tests.config.interfaces.DataInserter.Companion.dateOf
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay

@@ -1,6 +1,6 @@
-package com.dmalohlovets.tests.tests.config.components
+package com.dmalohlovets.tests.config.components
 
-import com.dmalohlovets.tests.tests.config.interfaces.DataInserter
+import com.dmalohlovets.tests.config.interfaces.DataInserter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.test.runTest
