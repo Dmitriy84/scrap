@@ -1,4 +1,4 @@
-package dmalohlovets.framework.web
+package com.dmalohlovets.tests.framework.web.config
 
 import io.github.bonigarcia.wdm.WebDriverManager
 import org.openqa.selenium.chrome.ChromeOptions
@@ -11,7 +11,7 @@ import java.util.*
 
 @Configuration
 @ConfigurationProperties
-@ComponentScan("com.dmalohlovets.tests.config.components")
+@ComponentScan("com.dmalohlovets.tests")
 open class WebTestConfig {
     @get:Bean
     open val webDriver

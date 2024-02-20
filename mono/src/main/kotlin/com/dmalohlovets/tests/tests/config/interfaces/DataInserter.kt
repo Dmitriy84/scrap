@@ -1,4 +1,4 @@
-package com.dmalohlovets.tests.config.interfaces
+package com.dmalohlovets.tests.tests.config.interfaces
 
 import java.time.LocalDateTime
 import java.time.ZoneId
@@ -25,8 +25,8 @@ interface DataInserter {
             max: String,
             min: String,
             source: String,
-            vararg args: DataInserter
-        ) = args.forEach {
+            vararg consumers: DataInserter
+        ) = consumers.forEach {
             it.putItem(date, max, min, source)
         }
     }

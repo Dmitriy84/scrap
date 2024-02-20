@@ -1,12 +1,12 @@
-package dmalohlovets.money24
+package com.dmalohlovets.tests.money24.pages
 
-import dmalohlovets.framework.web.BaseWebPage
+import com.dmalohlovets.tests.framework.web.base.BaseWebPage
 import org.openqa.selenium.WebElement
 import org.openqa.selenium.support.FindBy
 import org.springframework.stereotype.Component
 
 @Component
-class MainPage : BaseWebPage() {
+class Money24MainPage : BaseWebPage() {
     @FindBy(className = "bay")
     lateinit var min: MutableList<WebElement>
 

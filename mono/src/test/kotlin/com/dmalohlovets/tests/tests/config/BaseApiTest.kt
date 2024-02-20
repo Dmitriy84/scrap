@@ -1,4 +1,4 @@
-package com.dmalohlovets.tests.config
+package com.dmalohlovets.tests.tests.config
 
 import aqa.framework.api.config.ProjectAPIConfig
 import org.junit.jupiter.api.TestInstance

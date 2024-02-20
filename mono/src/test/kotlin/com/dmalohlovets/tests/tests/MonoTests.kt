@@ -1,9 +1,9 @@
-package com.dmalohlovets.tests
+package com.dmalohlovets.tests.tests
 
 import aqa.framework.utils.SpecUtils.extractJsonValues
-import com.dmalohlovets.tests.config.BaseApiTest
-import com.dmalohlovets.tests.config.components.RatesDynamoDbInserter
-import com.dmalohlovets.tests.config.interfaces.DataInserter.Companion.dateOf
+import com.dmalohlovets.tests.tests.config.BaseApiTest
+import com.dmalohlovets.tests.tests.config.components.RatesDynamoDbInserter
+import com.dmalohlovets.tests.tests.config.interfaces.DataInserter.Companion.dateOf
 import io.restassured.RestAssured.get
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Tag

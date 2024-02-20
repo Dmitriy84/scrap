@@ -1,9 +1,9 @@
-package com.dmalohlovets.tests.config.components
+package com.dmalohlovets.tests.tests.config.components
 
 import aws.sdk.kotlin.services.dynamodb.DynamoDbClient
 import aws.sdk.kotlin.services.dynamodb.model.AttributeValue
 import aws.sdk.kotlin.services.dynamodb.model.PutItemRequest
-import com.dmalohlovets.tests.config.interfaces.DataInserter
+import com.dmalohlovets.tests.tests.config.interfaces.DataInserter
 import kotlinx.coroutines.async
 import kotlinx.coroutines.test.runTest
 import org.springframework.beans.factory.annotation.Value

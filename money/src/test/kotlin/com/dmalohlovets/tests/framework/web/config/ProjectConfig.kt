@@ -1,4 +1,4 @@
-package dmalohlovets.money24
+package com.dmalohlovets.tests.framework.web.config
 
 import aqa.framework.api.config.YamlPropertySource
 import org.springframework.boot.context.properties.ConfigurationProperties

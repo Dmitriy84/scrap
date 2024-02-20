@@ -1,7 +1,7 @@
-package com.dmalohlovets.tests
+package com.dmalohlovets.tests.tests
 
-import com.dmalohlovets.tests.web.base.BaseTestContainerWebTest
-import com.dmalohlovets.tests.web.config.ProjectConfig
+import com.dmalohlovets.tests.tests.web.base.BaseTestContainerWebTest
+import com.dmalohlovets.tests.tests.web.config.ProjectConfig
 import org.junit.jupiter.api.Tag
 import org.junit.jupiter.api.Test
 import org.springframework.boot.context.properties.EnableConfigurationProperties

@@ -1,6 +1,6 @@
-package com.dmalohlovets.tests.web.base
+package com.dmalohlovets.tests.tests.web.base
 
-import com.dmalohlovets.tests.web.config.ProjectConfig
+import com.dmalohlovets.tests.tests.web.config.ProjectConfig
 import org.awaitility.Awaitility
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeAll

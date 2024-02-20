@@ -1,6 +1,6 @@
-package dmalohlovets.money24.framework.web
+package com.dmalohlovets.tests.framework.web.base
 
-import dmalohlovets.framework.web.WebTestConfig
+import com.dmalohlovets.tests.framework.web.config.WebTestConfig
 import org.junit.jupiter.api.AfterAll
 import org.openqa.selenium.WebDriver
 import org.springframework.beans.factory.annotation.Autowired
@@ -20,8 +20,8 @@ open class WebBaseTest {
     @Autowired
     protected lateinit var driver: WebDriver
 
-    @Value("\${app.url}")
-    protected lateinit var url: String
+    @Value("#{{\${app.banks}}}")
+    protected lateinit var banks: Map<String, String>
 
     @Value("\${app.aws.db}")
     protected lateinit var aws_db: String

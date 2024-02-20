@@ -1,4 +1,4 @@
-package dmalohlovets.money24
+package com.dmalohlovets.tests
 
 import aws.sdk.kotlin.services.dynamodb.DynamoDbClient
 import aws.sdk.kotlin.services.dynamodb.model.ScanRequest
@@ -6,11 +6,14 @@ import aws.sdk.kotlin.services.sns.SnsClient
 import aws.sdk.kotlin.services.sns.model.PublishRequest
 import aws.smithy.kotlin.runtime.InternalApi
 import aws.smithy.kotlin.runtime.util.toNumber
-import com.dmalohlovets.tests.config.components.RatesDynamoDbInserter
-import com.dmalohlovets.tests.config.components.RatesFileInserter
-import com.dmalohlovets.tests.config.interfaces.DataInserter.Companion.batchProcessor
-import com.dmalohlovets.tests.config.interfaces.DataInserter.Companion.dateOf
-import dmalohlovets.money24.framework.web.WebBaseTest
+import com.dmalohlovets.tests.framework.web.base.WebBaseTest
+import com.dmalohlovets.tests.framework.web.config.ProjectConfig
+import com.dmalohlovets.tests.money24.pages.Money24MainPage
+import com.dmalohlovets.tests.sense.pages.SenseMainPage
+import com.dmalohlovets.tests.tests.config.components.RatesDynamoDbInserter
+import com.dmalohlovets.tests.tests.config.components.RatesFileInserter
+import com.dmalohlovets.tests.tests.config.interfaces.DataInserter
+import com.dmalohlovets.tests.tests.config.interfaces.DataInserter.Companion.dateOf
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
@@ -29,12 +32,25 @@ import kotlin.time.Duration.Companion.minutes
 
 private const val OUTPUT_FILE = "rates.csv"
 
+@Tag("scrap")
 @EnableConfigurationProperties(ProjectConfig::class)
 class ScrapeRatesTests : WebBaseTest() {
     @Test
-    @Tag("scrap")
+    @Tag("sense")
+    fun scrapSense() = runTest {
+        driver[banks["sense"]]
+
+        with(senseMainPage) {
+            onlineRatesBtn.click()
+            usdField.text.split("\n").run {
+                ratesDynamoDbInserter.putItem(dateOf(), this[2], this[0], "sense")
+            }
+        }
+    }
+
+    @Test
     @Tag("money24")
-    fun scrap() = runTest(timeout = 13.hours) {
+    fun scrapMoney24() = runTest(timeout = 13.hours) {
 //        pubTextSMS("AWS Rocks !!!", "+380634596992")
 
         if (!Files.exists(Path.of(OUTPUT_FILE)))
@@ -43,18 +59,14 @@ class ScrapeRatesTests : WebBaseTest() {
         repeat(1) {
             if (!isCI)
                 driver.manage().window().minimize()
-            driver[url]
+            driver[banks["money24"]]
 
-            val date = dateOf()
-            val min = mainPage.min[0].text.split("\n")[1]
-            val max = mainPage.max[0].text.split("\n")[1]
-
-            batchProcessor(
-                date,
-                max,
-                min,
+            DataInserter.batchProcessor(
+                dateOf(),
+                money24MainPage.max[0].text.split("\n")[1],
+                money24MainPage.min[0].text.split("\n")[1],
                 "money24",
-                args = arrayOf(
+                consumers = arrayOf(
                     ratesFileInserter,
                     ratesDynamoDbInserter
                 )
@@ -130,7 +142,10 @@ class ScrapeRatesTests : WebBaseTest() {
     }
 
     @Autowired
-    private lateinit var mainPage: MainPage
+    private lateinit var money24MainPage: Money24MainPage
+
+    @Autowired
+    private lateinit var senseMainPage: SenseMainPage
 
     @Autowired
     private lateinit var ratesDynamoDbInserter: RatesDynamoDbInserter
