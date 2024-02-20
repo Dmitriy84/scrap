@@ -32,11 +32,11 @@ import kotlin.time.Duration.Companion.minutes
 
 private const val OUTPUT_FILE = "rates.csv"
 
-@Tag("scrap")
 @EnableConfigurationProperties(ProjectConfig::class)
 class ScrapeRatesTests : WebBaseTest() {
     @Test
     @Tag("sense")
+    @Tag("scrap")
     fun scrapSense() = runTest {
         driver[banks["sense"]]
 
@@ -50,6 +50,7 @@ class ScrapeRatesTests : WebBaseTest() {
 
     @Test
     @Tag("money24")
+    @Tag("scrap")
     fun scrapMoney24() = runTest(timeout = 13.hours) {
 //        pubTextSMS("AWS Rocks !!!", "+380634596992")
 
