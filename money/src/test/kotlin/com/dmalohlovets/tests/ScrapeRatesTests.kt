@@ -21,9 +21,12 @@ import kotlinx.coroutines.withContext
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.Tag
 import org.junit.jupiter.api.Test
+import org.openqa.selenium.support.ui.ExpectedConditions
+import org.openqa.selenium.support.ui.WebDriverWait
 import org.springframework.beans.factory.annotation.Autowired
 import java.nio.file.Files
 import java.nio.file.Path
+import java.time.Duration.ofSeconds
 import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.minutes
 
@@ -38,7 +41,9 @@ class ScrapeRatesTests : WebBaseTest() {
         driver[banks["sense"]]
 
         with(senseMainPage) {
-            onlineRatesBtn.click()
+            WebDriverWait(driver, ofSeconds(5))
+                .until(ExpectedConditions.elementToBeClickable(onlineRatesBtn))
+                .click()
             usdField.text.split("\n").run {
                 ratesDynamoDbInserter.putItem(dateOf(), this[2], this[0], "sense")
             }
