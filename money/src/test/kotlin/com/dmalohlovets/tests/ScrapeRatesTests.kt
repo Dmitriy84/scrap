@@ -37,7 +37,7 @@ class ScrapeRatesTests : WebBaseTest() {
     @Test
     @Tag("sense")
     @Tag("scrap")
-    fun scrapSense() = runTest {
+    fun `scrap sense rates`() = runTest {
         driver[banks["sense"]]
 
         with(senseMainPage) {
@@ -53,7 +53,7 @@ class ScrapeRatesTests : WebBaseTest() {
     @Test
     @Tag("money24")
     @Tag("scrap")
-    fun scrapMoney24() = runTest(timeout = 13.hours) {
+    fun `scrap money24 rates`() = runTest(timeout = 13.hours) {
 //        pubTextSMS("AWS Rocks !!!", "+380634596992")
 
         if (!Files.exists(Path.of(OUTPUT_FILE)))

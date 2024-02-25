@@ -19,7 +19,7 @@ class MonoTests : BaseApiTest() {
     @Test
     @Tag("scrap")
     @Tag("mono")
-    fun getRates() = runTest {
+    fun `scrap mono rates`() = runTest {
         val (date, min, max) = get("/bank/currency")
             .then()
             .extractJsonValues("[0].date", "[0].rateBuy", "[0].rateSell")
