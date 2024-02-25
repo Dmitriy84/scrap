@@ -71,14 +71,14 @@ jobs:
           deps_checksum_file: build.gradle.kts
           steps:
             - run:
-                command: ./gradlew --build-cache :money:test :mono:test -PincludeTags=<< pipeline.parameters.test >> --tests "*"
+                command: ./gradlew --build-cache :money:test :mono:test allureReport -PincludeTags=<< pipeline.parameters.test >> --tests "*"
                 #                no_output_timeout: 12h
                 name: Scrape rates
                 working_directory: "project/project"
           wrapper_checksum_file: gradle/wrapper/gradle-wrapper.properties
       - gradle/collect_test_results:
 #          reports_path: project/project/money/rates.csv
-          reports_path: project/project/money/build/reports/test/
+          reports_path: project/project/money/build/reports/allureReport/
           test_results_path: project/project/money/build/test-results/test/
 
 

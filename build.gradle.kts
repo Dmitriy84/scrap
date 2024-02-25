@@ -1,10 +1,9 @@
 plugins {
     id("aqa.framework")
-    alias(libs.plugins.kotlin.serialization)
 }
 
 group = "com.dmalohlovets.tests"
-version = "1.2"
+version = "1.3"
 
 allprojects {
     dependencies {

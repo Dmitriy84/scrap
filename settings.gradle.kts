@@ -1,6 +1,6 @@
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+rootProject.name = "com-dmalohlovets-tests"
 
-rootProject.name = "djinni"
 val modules = "libs"
 include(
     "web",
