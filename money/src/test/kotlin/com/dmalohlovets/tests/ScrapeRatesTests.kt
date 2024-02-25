@@ -6,14 +6,13 @@ import aws.sdk.kotlin.services.sns.SnsClient
 import aws.sdk.kotlin.services.sns.model.PublishRequest
 import aws.smithy.kotlin.runtime.InternalApi
 import aws.smithy.kotlin.runtime.util.toNumber
-import com.dmalohlovets.tests.framework.web.base.WebBaseTest
-import com.dmalohlovets.tests.framework.web.config.ProjectConfig
-import com.dmalohlovets.tests.money24.pages.Money24MainPage
-import com.dmalohlovets.tests.sense.pages.SenseMainPage
 import com.dmalohlovets.tests.config.components.RatesDynamoDbInserter
 import com.dmalohlovets.tests.config.components.RatesFileInserter
 import com.dmalohlovets.tests.config.interfaces.DataInserter
 import com.dmalohlovets.tests.config.interfaces.DataInserter.Companion.dateOf
+import com.dmalohlovets.tests.framework.web.base.WebBaseTest
+import com.dmalohlovets.tests.money24.pages.Money24MainPage
+import com.dmalohlovets.tests.sense.pages.SenseMainPage
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
@@ -23,7 +22,6 @@ import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.Tag
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.context.properties.EnableConfigurationProperties
 import java.nio.file.Files
 import java.nio.file.Path
 import kotlin.time.Duration.Companion.hours
@@ -32,7 +30,6 @@ import kotlin.time.Duration.Companion.minutes
 
 private const val OUTPUT_FILE = "rates.csv"
 
-@EnableConfigurationProperties(ProjectConfig::class)
 class ScrapeRatesTests : WebBaseTest() {
     @Test
     @Tag("sense")
@@ -110,13 +107,13 @@ class ScrapeRatesTests : WebBaseTest() {
 
         //TODO replace by Query with sort and limit
         val request = ScanRequest {
-            tableName = aws_db
+            tableName = awsDb
             limit = 2
             indexName = "circle-date-index"
         }
 
         val (first, second) = DynamoDbClient {
-            region = aws_region
+            region = awsRegion
         }.use { client ->
             client.scan(request).items?.sortedByDescending { it["date!"].toString() }
                 ?.subList(0, 2)!!
@@ -127,7 +124,7 @@ class ScrapeRatesTests : WebBaseTest() {
         )
             pubTextSMS(
                 "Was max: ${second["max"]}, min: ${first["min"]}; Now max: ${first["max"]}, min: ${first["min"]}",
-                app_mobile
+                appMobile
             )
     }
 
@@ -137,7 +134,7 @@ class ScrapeRatesTests : WebBaseTest() {
             phoneNumber = phoneNumberVal
         }
 
-        SnsClient { region = aws_region }.use {
+        SnsClient { region = awsRegion }.use {
             println("${it.publish(request).messageId} message sent.")
         }
     }

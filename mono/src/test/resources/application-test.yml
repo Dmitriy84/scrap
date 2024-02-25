@@ -1,5 +1,7 @@
 app:
-  url: https://api.monobank.ua/
+  banks: '
+    "mono": "https://api.monobank.ua"
+         '
   aws:
     db: money24_rates
     region: eu-north-1

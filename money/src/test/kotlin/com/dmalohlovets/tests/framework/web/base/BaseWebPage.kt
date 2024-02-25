@@ -1,14 +1,14 @@
 package com.dmalohlovets.tests.framework.web.base
 
+import com.dmalohlovets.tests.framework.web.annotations.LazyAutowired
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.support.PageFactory
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 import javax.annotation.PostConstruct
 
 @Component
 open class BaseWebPage {
-    @Autowired
+    @LazyAutowired
     protected lateinit var driver: WebDriver
 
     @PostConstruct
