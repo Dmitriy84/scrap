@@ -77,7 +77,8 @@ jobs:
                 working_directory: "project/project"
           wrapper_checksum_file: gradle/wrapper/gradle-wrapper.properties
       - gradle/collect_test_results:
-          reports_path: project/project/money/rates.csv
+#          reports_path: project/project/money/rates.csv
+          reports_path: project/project/money/build/reports/test/
           test_results_path: project/project/money/build/test-results/test/
 
 
