@@ -62,7 +62,7 @@ jobs:
   run:
     executor: my-executor
     environment:
-      QASE_ENABLE: false
+      QASE_ENABLE: "false"
       SPRING_PROFILES_ACTIVE: test
     steps:
       - attach_workspace:
@@ -76,12 +76,9 @@ jobs:
                 name: Scrape rates
                 working_directory: "project/project"
           wrapper_checksum_file: gradle/wrapper/gradle-wrapper.properties
-#            - store_artifacts:
-#                path: project/project/money
-#                destination: rates.csv
       - gradle/collect_test_results:
           reports_path: project/project/money/rates.csv
-          test_results_path: project/project/build/test-results/
+          test_results_path: project/project/money/build/test-results/
 
 
 # Orchestrate jobs using workflows
