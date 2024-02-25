@@ -26,7 +26,7 @@ jobs:
     # See: https://circleci.com/docs/configuration-reference/#executor-job
     executor: my-executor
     environment:
-      QASE_ENABLE: false
+      QASE_ENABLE: "false"
       SPRING_PROFILES_ACTIVE: test
     # Add steps to the job
     # See: https://circleci.com/docs/configuration-reference/#steps
@@ -78,7 +78,7 @@ jobs:
           wrapper_checksum_file: gradle/wrapper/gradle-wrapper.properties
       - gradle/collect_test_results:
           reports_path: project/project/money/rates.csv
-          test_results_path: project/project/money/build/test-results/
+          test_results_path: project/project/money/build/test-results/test/
 
 
 # Orchestrate jobs using workflows
