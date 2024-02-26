@@ -12,6 +12,7 @@ dependencies {
 tasks {
     register<Copy>("copyAllureResults") {
         dependsOn(test)
+        dependsOn(":mono:test")
         group = "tools"
         description = "Copies existing allure results to include to be included in the new report"
         from("../mono/build/allure-results") {
