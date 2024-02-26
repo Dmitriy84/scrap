@@ -27,7 +27,7 @@ open class WebBaseTest {
     protected lateinit var wait: WebDriverWait
 
     @Autowired
-    private lateinit var ctx: ApplicationContext
+    protected lateinit var ctx: ApplicationContext
 
     @Value("#{{\${app.banks}}}")
     protected lateinit var banks: Map<String, String>

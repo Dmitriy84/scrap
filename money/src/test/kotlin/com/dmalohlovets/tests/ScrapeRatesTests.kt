@@ -23,7 +23,7 @@ import kotlinx.coroutines.withContext
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.Tag
 import org.junit.jupiter.api.Test
-import org.openqa.selenium.By
+import org.openqa.selenium.JavascriptExecutor
 import org.openqa.selenium.support.ui.ExpectedConditions
 import org.springframework.beans.factory.annotation.Autowired
 import java.nio.file.Files
@@ -46,8 +46,10 @@ class ScrapeRatesTests : WebBaseTest() {
         with(senseMainPage) {
             delay(1500)
             wait.until(ExpectedConditions.invisibilityOf(loading))
-            wait.until(ExpectedConditions.elementToBeClickable(onlineRatesBtn))
-                .click()
+            (ctx.getBean(JavascriptExecutor::class.java)).executeScript(
+                "arguments[0].click();",
+                wait.until(ExpectedConditions.elementToBeClickable(onlineRatesBtn))
+            )
             wait.until(ExpectedConditions.attributeContains(onlineRatesBtn, "class", "home-exchange__tab--active"))
 
             usdField.text.split("\n").run {
