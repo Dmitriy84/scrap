@@ -9,6 +9,7 @@ import org.junit.jupiter.api.extension.RegisterExtension
 import org.openqa.selenium.OutputType
 import org.openqa.selenium.TakesScreenshot
 import org.openqa.selenium.WebDriver
+import org.openqa.selenium.support.ui.WebDriverWait
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.test.context.SpringBootTest
@@ -21,6 +22,9 @@ import org.springframework.test.annotation.DirtiesContext
 open class WebBaseTest {
     @LazyAutowired
     protected lateinit var driver: WebDriver
+
+    @LazyAutowired
+    protected lateinit var wait: WebDriverWait
 
     @Autowired
     private lateinit var ctx: ApplicationContext
