@@ -13,6 +13,9 @@ class SenseMainPage : BaseWebPage() {
     @FindBy(css = "button.home-exchange__tab.text--sm:nth-of-type(2)")
     lateinit var onlineRatesBtn: WebElement
 
+    @FindBy(css = "div.preloader.preloader_hidden")
+    lateinit var loading: WebElement
+
     @FindBy(xpath = "//div[@class='home-exchange__item' and h3/span[contains(text(),'USD')]]/ul")
     lateinit var usdField: WebElement
 }

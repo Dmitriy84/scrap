@@ -45,7 +45,8 @@ class ScrapeRatesTests : WebBaseTest() {
 
         with(senseMainPage) {
             delay(1500)
-            wait.until(ExpectedConditions.elementToBeClickable(By.xpath("button.home-exchange__tab.text--sm:nth-of-type(2)")))
+            wait.until(ExpectedConditions.invisibilityOf(loading))
+            wait.until(ExpectedConditions.elementToBeClickable(onlineRatesBtn))
                 .click()
             wait.until(ExpectedConditions.attributeContains(onlineRatesBtn, "class", "home-exchange__tab--active"))
 
