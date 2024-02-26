@@ -43,6 +43,7 @@ class ScrapeRatesTests : WebBaseTest() {
         driver[banks["sense"]]
 
         with(senseMainPage) {
+            delay(1500)
             wait.until(ExpectedConditions.elementToBeClickable(onlineRatesBtn))
                 .click()
             wait.until(ExpectedConditions.attributeContains(onlineRatesBtn, "class", "home-exchange__tab--active"))
