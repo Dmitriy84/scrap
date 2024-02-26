@@ -46,10 +46,7 @@ class ScrapeRatesTests : WebBaseTest() {
         with(senseMainPage) {
             delay(1500)
             wait.until(ExpectedConditions.invisibilityOf(loading))
-            (ctx.getBean(JavascriptExecutor::class.java)).executeScript(
-                "arguments[0].click();",
-                wait.until(ExpectedConditions.elementToBeClickable(onlineRatesBtn))
-            )
+            wait.until(ExpectedConditions.elementToBeClickable(onlineRatesBtn)).click()
             wait.until(ExpectedConditions.attributeContains(onlineRatesBtn, "class", "home-exchange__tab--active"))
 
             usdField.text.split("\n").run {
