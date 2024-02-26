@@ -13,6 +13,8 @@ import com.dmalohlovets.tests.config.interfaces.DataInserter.Companion.dateOf
 import com.dmalohlovets.tests.framework.web.base.WebBaseTest
 import com.dmalohlovets.tests.money24.pages.Money24MainPage
 import com.dmalohlovets.tests.sense.pages.SenseMainPage
+import io.qameta.allure.Epic
+import io.qameta.allure.Feature
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
@@ -33,10 +35,12 @@ import kotlin.time.Duration.Companion.minutes
 
 private const val OUTPUT_FILE = "rates.csv"
 
+@Epic("scrap rates")
 class ScrapeRatesTests : WebBaseTest() {
     @Test
     @Tag("sense")
     @Tag("scrap")
+    @Feature(" ... for sense")
     fun `scrap sense rates`() = runTest {
         driver[banks["sense"]]
 
