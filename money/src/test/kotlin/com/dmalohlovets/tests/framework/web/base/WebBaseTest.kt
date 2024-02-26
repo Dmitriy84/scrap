@@ -44,12 +44,10 @@ open class WebBaseTest {
     @RegisterExtension
     var afterTestExecutionCallback: AfterTestExecutionCallback =
         AfterTestExecutionCallback {
-            if (it.executionException.isPresent) {
-                Allure.addAttachment(
-                    "Failure screenshot",
-                    FileUtils.openInputStream(ctx.getBean(TakesScreenshot::class.java).getScreenshotAs(OutputType.FILE))
-                )
-            }
+            Allure.addAttachment(
+                if (it.executionException.isPresent) "Failure screenshot" else "End of test screenshot",
+                FileUtils.openInputStream(ctx.getBean(TakesScreenshot::class.java).getScreenshotAs(OutputType.FILE))
+            )
         }
 
     companion object {
