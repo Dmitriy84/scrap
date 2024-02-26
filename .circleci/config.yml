@@ -72,7 +72,7 @@ jobs:
       SPRING_PROFILES_ACTIVE: test
       ALLURE_ENDPOINT: https://demo.testops.cloud
       ALLURE_PROJECT_ID: 1691
-      ALLURE_RESULTS: project/project/money/build/build/allure-results
+      ALLURE_RESULTS: money/build/build/allure-results
       ALLURE_JOB_RUN_ID: << pipeline.parameters.ALLURE_JOB_RUN_ID >>
       ALLURE_USERNAME: << pipeline.parameters.ALLURE_USERNAME >>
     steps:
