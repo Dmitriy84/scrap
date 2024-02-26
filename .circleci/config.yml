@@ -83,9 +83,9 @@ jobs:
           steps:
             - run:
                 name: Download allurectl
-                command: curl -fsSL https://github.com/allure-framework/allurectl/releases/latest/download/allurectl_linux_amd64 -o allurectl && chmod +x allurectl
+                command: curl -fsSL https://github.com/allure-framework/allurectl/releases/latest/download/allurectl_linux_amd64 -o allurectl && chmod +x allurectl && ls -al
             - run:
-                command: ./allurectl --insecure watch -- ./gradlew --build-cache :money:test :mono:test -PincludeTags=<< pipeline.parameters.test >> --tests "*" allureReport
+                command: allurectl --insecure watch -- ./gradlew --build-cache :money:test :mono:test -PincludeTags=<< pipeline.parameters.test >> --tests "*" allureReport
                 #                no_output_timeout: 12h
                 name: Scrape rates
                 working_directory: "project/project"
