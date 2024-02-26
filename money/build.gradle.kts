@@ -8,3 +8,21 @@ dependencies {
         project(mapOf("path" to ":mono")),
     ).forEach { testImplementation(it) }
 }
+
+tasks {
+    register<Copy>("copyAllureResults") {
+        dependsOn(test)
+        group = "tools"
+        description = "Copies existing allure results to include to be included in the new report"
+        from("../mono/build/allure-results") {
+            include("**/*.json")
+            include("**/*.txt")
+            exclude("executor.json")
+        }
+        into("build/allure-results")
+    }
+
+    allureAggregateReport {
+        dependsOn("copyAllureResults")
+    }
+}
