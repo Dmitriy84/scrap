@@ -19,6 +19,7 @@ tasks {
             exclude("executor.json")
         }
         into("build/allure-results")
+        mustRunAfter(":mono:test")
     }
 
     test {

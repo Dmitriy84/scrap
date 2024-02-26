@@ -9,8 +9,4 @@ allprojects {
     dependencies {
         testImplementation(rootProject.projects.aqaFramework)
     }
-
-    tasks {
-        allureAggregateReport.get().mustRunAfter(":mono:copyAllureResults")
-    }
 }
