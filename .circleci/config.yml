@@ -72,7 +72,7 @@ jobs:
       SPRING_PROFILES_ACTIVE: test
       ALLURE_ENDPOINT: https://demo.testops.cloud
       ALLURE_PROJECT_ID: 1691
-      ALLURE_RESULTS: money/build/build/allure-results
+      ALLURE_RESULTS: /home/circleci/project/project/project/money/build/allure-results
       ALLURE_JOB_RUN_ID: << pipeline.parameters.ALLURE_JOB_RUN_ID >>
       ALLURE_USERNAME: << pipeline.parameters.ALLURE_USERNAME >>
     steps:
@@ -88,7 +88,7 @@ jobs:
             - run:
                 name: Scrape rates
                 working_directory: "project/project"
-                command: ./allurectl --insecure watch -- ./gradlew --build-cache :money:test :mono:test -PincludeTags=<< pipeline.parameters.test >> --tests "*"
+                command: ./allurectl --insecure watch -- ./gradlew --build-cache :money:test :mono:test -PincludeTags=<< pipeline.parameters.test >> --tests "*" allureAggregateReport
                 #                no_output_timeout: 12h
           wrapper_checksum_file: gradle/wrapper/gradle-wrapper.properties
       - gradle/collect_test_results:
