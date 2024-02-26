@@ -9,6 +9,7 @@ import org.junit.jupiter.api.extension.RegisterExtension
 import org.openqa.selenium.OutputType
 import org.openqa.selenium.TakesScreenshot
 import org.openqa.selenium.WebDriver
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.context.ApplicationContext
@@ -21,7 +22,7 @@ open class WebBaseTest {
     @LazyAutowired
     protected lateinit var driver: WebDriver
 
-    @LazyAutowired
+    @Autowired
     private lateinit var ctx: ApplicationContext
 
     @Value("#{{\${app.banks}}}")

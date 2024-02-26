@@ -11,6 +11,12 @@ parameters:
     type: enum
     enum: [ "scrap", "analysis" ]
     default: scrap
+  ALLURE_JOB_RUN_ID:
+    type: string
+    default: ''
+  ALLURE_USERNAME:
+    type: string
+    default: ''
 
 executors:
   my-executor:
@@ -64,6 +70,11 @@ jobs:
     environment:
       QASE_ENABLE: "false"
       SPRING_PROFILES_ACTIVE: test
+      ALLURE_ENDPOINT: https://demo.testops.cloud
+      ALLURE_PROJECT_ID: 1691
+      ALLURE_RESULTS: project/project/money/build/build/allure-results
+      ALLURE_JOB_RUN_ID: << pipeline.parameters.ALLURE_JOB_RUN_ID >>
+      ALLURE_USERNAME: << pipeline.parameters.ALLURE_USERNAME >>
     steps:
       - attach_workspace:
           at: project
@@ -71,14 +82,17 @@ jobs:
           deps_checksum_file: build.gradle.kts
           steps:
             - run:
-                command: ./gradlew --build-cache :money:test :mono:test -PincludeTags=<< pipeline.parameters.test >> --tests "*" allureReport
+                name: Download allurectl
+                command: curl -fsSL https://github.com/allure-framework/allurectl/releases/latest/download/allurectl_linux_amd64 -o allurectl && chmod +x allurectl
+            - run:
+                command: ./allurectl --insecure watch -- ./gradlew --build-cache :money:test :mono:test -PincludeTags=<< pipeline.parameters.test >> --tests "*" allureReport
                 #                no_output_timeout: 12h
                 name: Scrape rates
                 working_directory: "project/project"
           wrapper_checksum_file: gradle/wrapper/gradle-wrapper.properties
       - gradle/collect_test_results:
-#          reports_path: project/project/money/rates.csv
-          reports_path:      project/project/money/build/reports/allure-report/allureReport/
+          #          reports_path: project/project/money/rates.csv
+          reports_path: project/project/money/build/reports/allure-report/allureReport/
           test_results_path: project/project/money/build/test-results/test/
 
 
