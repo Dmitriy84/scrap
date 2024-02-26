@@ -2,9 +2,16 @@ package com.dmalohlovets.tests.framework.web.base
 
 import com.dmalohlovets.tests.framework.web.annotations.LazyAutowired
 import com.dmalohlovets.tests.framework.web.config.WebTestConfig
+import io.qameta.allure.Allure
+import org.apache.commons.io.FileUtils
+import org.junit.jupiter.api.extension.AfterTestExecutionCallback
+import org.junit.jupiter.api.extension.RegisterExtension
+import org.openqa.selenium.OutputType
+import org.openqa.selenium.TakesScreenshot
 import org.openqa.selenium.WebDriver
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.context.ApplicationContext
 import org.springframework.test.annotation.DirtiesContext
 
 
@@ -13,6 +20,9 @@ import org.springframework.test.annotation.DirtiesContext
 open class WebBaseTest {
     @LazyAutowired
     protected lateinit var driver: WebDriver
+
+    @LazyAutowired
+    private lateinit var ctx: ApplicationContext
 
     @Value("#{{\${app.banks}}}")
     protected lateinit var banks: Map<String, String>
@@ -25,6 +35,17 @@ open class WebBaseTest {
 
     @Value("#{'\${app.mobile}'.replace(' ', '').trim()}")
     protected lateinit var appMobile: String
+
+    @RegisterExtension
+    var afterTestExecutionCallback: AfterTestExecutionCallback =
+        AfterTestExecutionCallback {
+            if (it.executionException.isPresent) {
+                Allure.addAttachment(
+                    "Failure screenshot",
+                    FileUtils.openInputStream(ctx.getBean(TakesScreenshot::class.java).getScreenshotAs(OutputType.FILE))
+                )
+            }
+        }
 
     companion object {
         @JvmStatic
