@@ -18,12 +18,12 @@ import org.springframework.test.annotation.DirtiesContext
 
 
 @SpringBootTest(classes = [WebTestConfig::class])
-@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
+//@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 open class WebBaseTest {
     @LazyAutowired
     protected lateinit var driver: WebDriver
 
-    @LazyAutowired
+    @Autowired
     protected lateinit var wait: WebDriverWait
 
     @Autowired
