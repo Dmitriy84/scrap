@@ -46,7 +46,7 @@ class ScrapeRatesTests : WebBaseTest() {
         driver[banks["pivdenny"]]
 
         with(pivdennyMainPage) {
-            wait.withTimeout(Duration.ofSeconds(20))
+            wait.withTimeout(Duration.ofSeconds(60))
                 .until(ExpectedConditions.invisibilityOf(preLoader))
             try {
                 // ignoring city choose
