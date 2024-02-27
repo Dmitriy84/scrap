@@ -42,7 +42,7 @@ class ScrapeRatesTests : WebBaseTest() {
     @Tag("pivdenny")
     @Tag("scrap")
     @Feature(" ... for pivdenny")
-    fun `scrap pivdenny rates`() = runTest {
+    fun `scrap pivdenny rates`() = runTest(timeout = 2.minutes) {
         driver[banks["pivdenny"]]
 
         with(pivdennyMainPage) {
