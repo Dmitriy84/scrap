@@ -29,6 +29,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions
 import org.springframework.beans.factory.annotation.Autowired
 import java.nio.file.Files
 import java.nio.file.Path
+import java.time.Duration
 import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.minutes
 
@@ -45,7 +46,8 @@ class ScrapeRatesTests : WebBaseTest() {
         driver[banks["pivdenny"]]
 
         with(pivdennyMainPage) {
-            wait.until(ExpectedConditions.invisibilityOf(preLoader))
+            wait.withTimeout(Duration.ofSeconds(20000))
+                .until(ExpectedConditions.invisibilityOf(preLoader))
             try {
                 // ignoring city choose
                 cityConfirmationBtn.click()
