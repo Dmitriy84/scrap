@@ -23,5 +23,5 @@ class PivdennyMainPage : BaseWebPage() {
     lateinit var currencyUsdMin: WebElement
 
     @FindBy(css = "div.popup-city-step1-btn > div > button > span.btn-blue__text.btn-blue__text--static.uikit__link")
-    lateinit var cityConfirmationBtn: WebElement
+    lateinit var cityConfirmationBtn: List<WebElement>
 }
