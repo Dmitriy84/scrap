@@ -54,7 +54,7 @@ class ScrapeRatesTests : WebBaseTest() {
                 delay(1000)
             } catch (_: NoSuchElementException) {
             }
-            wait.withTimeout(Duration.ofSeconds(20))
+            wait.withTimeout(Duration.ofSeconds(120))
                 .until(ExpectedConditions.elementToBeClickable(currencyTargetBtn))
                 .click()
             currencyMobileBtn.click()
