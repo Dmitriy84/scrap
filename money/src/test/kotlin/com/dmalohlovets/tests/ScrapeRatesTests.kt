@@ -44,6 +44,8 @@ class ScrapeRatesTests : WebBaseTest() {
         driver[banks["pivdenny"]]
 
         with(pivdennyMainPage) {
+            if (cityConfirmationBtn.isEnabled)
+                cityConfirmationBtn.click()
             currencyTargetBtn.click()
             currencyMobileBtn.click()
             ratesDynamoDbInserter.putItem(dateOf(), currencyUsdMax.text, currencyUsdMin.text, "pivdenny")

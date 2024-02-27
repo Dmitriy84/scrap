@@ -21,4 +21,7 @@ class PivdennyMainPage : BaseWebPage() {
 
     @FindBy(xpath = "//div[span[contains(text(),'USD')]]/following::div[1]/span")
     lateinit var currencyUsdMin: WebElement
+
+    @FindBy(css = "div.popup-city-step1-btn > div > button > span.btn-blue__text.btn-blue__text--static.uikit__link")
+    lateinit var cityConfirmationBtn: WebElement
 }
