@@ -24,6 +24,7 @@ import kotlinx.coroutines.withContext
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.Tag
 import org.junit.jupiter.api.Test
+import org.openqa.selenium.NoSuchElementException
 import org.openqa.selenium.support.ui.ExpectedConditions
 import org.springframework.beans.factory.annotation.Autowired
 import java.nio.file.Files
