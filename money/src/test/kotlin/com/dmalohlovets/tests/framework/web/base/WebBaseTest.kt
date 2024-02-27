@@ -19,8 +19,8 @@ import org.springframework.test.annotation.DirtiesContext
 
 
 @SpringBootTest(classes = [WebTestConfig::class])
-@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-@TestInstance(TestInstance.Lifecycle.PER_METHOD)
+//@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
+//@TestInstance(TestInstance.Lifecycle.PER_METHOD)
 open class WebBaseTest {
     @LazyAutowired
     protected lateinit var driver: WebDriver
