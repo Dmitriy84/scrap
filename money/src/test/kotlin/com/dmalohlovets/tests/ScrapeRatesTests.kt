@@ -42,11 +42,11 @@ class ScrapeRatesTests : WebBaseTest() {
     @Tag("pivdenny")
     @Tag("scrap")
     @Feature(" ... for pivdenny")
-    fun `scrap pivdenny rates`() = runTest(timeout = 2.minutes) {
+    fun `scrap pivdenny rates`() = runTest(timeout = 3.minutes) {
         driver[banks["pivdenny"]]
 
         with(pivdennyMainPage) {
-            wait.withTimeout(Duration.ofSeconds(60))
+            wait.withTimeout(Duration.ofSeconds(120))
                 .until(ExpectedConditions.invisibilityOf(preLoader))
             try {
                 // ignoring city choose
