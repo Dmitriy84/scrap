@@ -12,6 +12,7 @@ import com.dmalohlovets.tests.config.interfaces.DataInserter
 import com.dmalohlovets.tests.config.interfaces.DataInserter.Companion.dateOf
 import com.dmalohlovets.tests.framework.web.base.WebBaseTest
 import com.dmalohlovets.tests.money24.pages.Money24MainPage
+import com.dmalohlovets.tests.pivdenny.pages.PivdennyMainPage
 import com.dmalohlovets.tests.sense.pages.SenseMainPage
 import io.qameta.allure.Epic
 import io.qameta.allure.Feature
@@ -23,7 +24,6 @@ import kotlinx.coroutines.withContext
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.Tag
 import org.junit.jupiter.api.Test
-import org.openqa.selenium.JavascriptExecutor
 import org.openqa.selenium.support.ui.ExpectedConditions
 import org.springframework.beans.factory.annotation.Autowired
 import java.nio.file.Files
@@ -36,6 +36,20 @@ private const val OUTPUT_FILE = "rates.csv"
 
 @Epic("scrap rates")
 class ScrapeRatesTests : WebBaseTest() {
+    @Test
+    @Tag("pivdenny")
+    @Tag("scrap")
+    @Feature(" ... for pivdenny")
+    fun `scrap pivdenny rates`() = runTest {
+        driver[banks["pivdenny"]]
+
+        with(pivdennyMainPage) {
+            currencyTargetBtn.click()
+            currencyMobileBtn.click()
+            ratesDynamoDbInserter.putItem(dateOf(), currencyUsdMax.text, currencyUsdMin.text, "pivdenny")
+        }
+    }
+
     @Test
     @Tag("sense")
     @Tag("scrap")
@@ -58,6 +72,7 @@ class ScrapeRatesTests : WebBaseTest() {
     @Test
     @Tag("money24")
     @Tag("scrap")
+    @Feature(" ... for money")
     fun `scrap money24 rates`() = runTest(timeout = 13.hours) {
 //        pubTextSMS("AWS Rocks !!!", "+380634596992")
 
@@ -154,6 +169,9 @@ class ScrapeRatesTests : WebBaseTest() {
 
     @Autowired
     private lateinit var senseMainPage: SenseMainPage
+
+    @Autowired
+    private lateinit var pivdennyMainPage: PivdennyMainPage
 
     @Autowired
     private lateinit var ratesDynamoDbInserter: RatesDynamoDbInserter
