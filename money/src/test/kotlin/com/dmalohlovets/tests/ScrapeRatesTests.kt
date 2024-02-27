@@ -54,7 +54,9 @@ class ScrapeRatesTests : WebBaseTest() {
                 delay(1000)
             } catch (_: NoSuchElementException) {
             }
-            currencyTargetBtn.click()
+            wait.withTimeout(Duration.ofSeconds(20000))
+                .until(ExpectedConditions.elementToBeClickable(currencyTargetBtn))
+                .click()
             currencyMobileBtn.click()
             ratesDynamoDbInserter.putItem(dateOf(), currencyUsdMax.text, currencyUsdMin.text, "pivdenny")
         }
