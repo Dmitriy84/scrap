@@ -45,9 +45,11 @@ class ScrapeRatesTests : WebBaseTest() {
         driver[banks["pivdenny"]]
 
         with(pivdennyMainPage) {
+            wait.until(ExpectedConditions.invisibilityOf(preLoader))
             try {
                 // ignoring city choose
                 cityConfirmationBtn.click()
+                delay(1000)
             } catch (_: NoSuchElementException) {
             }
             currencyTargetBtn.click()
