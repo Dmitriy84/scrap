@@ -46,7 +46,7 @@ class ScrapeRatesTests : WebBaseTest() {
         driver[banks["pivdenny"]]
 
         with(pivdennyMainPage) {
-            wait.withTimeout(Duration.ofSeconds(20000))
+            wait.withTimeout(Duration.ofSeconds(20))
                 .until(ExpectedConditions.invisibilityOf(preLoader))
             try {
                 // ignoring city choose
@@ -54,7 +54,7 @@ class ScrapeRatesTests : WebBaseTest() {
                 delay(1000)
             } catch (_: NoSuchElementException) {
             }
-            wait.withTimeout(Duration.ofSeconds(20000))
+            wait.withTimeout(Duration.ofSeconds(20))
                 .until(ExpectedConditions.elementToBeClickable(currencyTargetBtn))
                 .click()
             currencyMobileBtn.click()
