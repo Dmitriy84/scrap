@@ -25,7 +25,7 @@ open class ProjectConfig {
     ): Browser = when (browser) {
         "chromium" -> Playwright.create().chromium()
         "firefox" -> Playwright.create().firefox()
-        else -> throw IllegalArgumentException("unsupported browser: $browser")
+        else -> throw IllegalArgumentException("unsupported browser: $browser. See https://playwright.dev/docs/browsers")
     }.launch(
         BrowserType.LaunchOptions().setHeadless(headless.toBoolean()).setArgs(capabilities)
     )

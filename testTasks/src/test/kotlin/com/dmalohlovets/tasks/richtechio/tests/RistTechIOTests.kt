@@ -1,4 +1,4 @@
-package com.dmalohlovets.tasks.richtechio
+package com.dmalohlovets.tasks.richtechio.tests
 
 import com.dmalohlovets.tasks.framework.base.BasePlaywrightWebTest
 import com.dmalohlovets.tasks.richtechio.pages.Simple7CharValidationPage
@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import kotlin.test.assertEquals
 
 
+@Suppress("DANGEROUS_CHARACTERS")
 class RistTechIOTests : BasePlaywrightWebTest() {
     @BeforeAll
     fun `new page`() {
@@ -28,7 +29,7 @@ class RistTechIOTests : BasePlaywrightWebTest() {
             navigate()
             page.locator(characters).fill(input)
             page.locator(validate).click()
-            assertEquals(expected, page.locator(message).evaluate("el => el.value"))
+            assertEquals(expected, page.locator(message).evaluate("el => el.value"), description)
         }
     }
 
