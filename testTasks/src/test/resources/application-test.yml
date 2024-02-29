@@ -1,0 +1,7 @@
+app:
+  web:
+    url: https://testpages.eviltester.com
+    browser: chromium
+    headless: false
+    capabilities: |
+      --start-minimized

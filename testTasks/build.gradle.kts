@@ -1,3 +1,6 @@
 dependencies {
-    testImplementation("org.bitbucket.cowwoc:diff-match-patch:1.2")
+    arrayOf(
+        "org.bitbucket.cowwoc:diff-match-patch:1.2",
+        libs.playwright,
+    ).forEach { testImplementation(it) }
 }

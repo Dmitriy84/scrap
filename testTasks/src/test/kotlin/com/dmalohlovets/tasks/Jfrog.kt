@@ -1,4 +1,4 @@
-package dmalohlovets.tasks
+package com.dmalohlovets.tasks
 
 import org.bitbucket.cowwoc.diffmatchpatch.DiffMatchPatch
 import org.junit.jupiter.params.ParameterizedTest
