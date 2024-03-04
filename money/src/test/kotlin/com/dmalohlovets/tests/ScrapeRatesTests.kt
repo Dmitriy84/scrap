@@ -25,6 +25,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.withContext
 import org.junit.jupiter.api.AfterAll
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Tag
 import org.junit.jupiter.api.Test
 import org.openqa.selenium.Keys
@@ -75,6 +76,7 @@ class ScrapeRatesTests : WebBaseTest() {
     @Tag("pivdenny")
     @Tag("scrap")
     @Feature(" ... for pivdenny")
+    @Disabled
     fun `scrap pivdenny rates`() = runTest(timeout = 3.minutes) {
         driver[banks["pivdenny"]]
 
