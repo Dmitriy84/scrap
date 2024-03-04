@@ -88,7 +88,7 @@ jobs:
             - run:
                 name: Scrape rates
                 working_directory: "project/project"
-                command: ./allurectl --insecure watch -- ./gradlew :money:test :mono:test -PincludeTags=<< pipeline.parameters.test >> --tests "*"
+                command: ./allurectl --insecure watch -- ./gradlew :money:test -PincludeTags=<< pipeline.parameters.test >> --tests "*"
                 #                no_output_timeout: 12h
           wrapper_checksum_file: gradle/wrapper/gradle-wrapper.properties
       - gradle/collect_test_results:
