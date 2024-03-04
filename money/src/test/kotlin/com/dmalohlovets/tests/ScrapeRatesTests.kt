@@ -1,5 +1,6 @@
 package com.dmalohlovets.tests
 
+import aqa.framework.utils.SpecUtils.extractJsonValues
 import aws.sdk.kotlin.services.dynamodb.DynamoDbClient
 import aws.sdk.kotlin.services.dynamodb.model.ScanRequest
 import aws.sdk.kotlin.services.sns.SnsClient
@@ -17,6 +18,7 @@ import com.dmalohlovets.tests.sense.pages.SenseMainPage
 import com.dmalohlovets.tests.unex.pages.UnexMainPage
 import io.qameta.allure.Epic
 import io.qameta.allure.Feature
+import io.restassured.RestAssured
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
@@ -32,6 +34,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import java.nio.file.Files
 import java.nio.file.Path
 import java.time.Duration
+import java.util.*
 import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.minutes
 
@@ -40,6 +43,18 @@ private const val OUTPUT_FILE = "rates.csv"
 
 @Epic("scrap rates")
 class ScrapeRatesTests : WebBaseTest() {
+    @Test
+    @Tag("scrap")
+    @Tag("mono")
+    @Feature(" ... for mono")
+    fun `scrap mono rates`() = runTest {
+        RestAssured.get("${banks["mono"]}/bank/currency")
+            .then()
+            .extractJsonValues("[0].date", "[0].rateBuy", "[0].rateSell").let {
+                Rates(it[2], it[1], "mono", dateOf(Date(it[0].toLong() * 1000).toInstant())).saveToDynamo()
+            }
+    }
+
     @Test
     @Tag("unex")
     @Tag("scrap")

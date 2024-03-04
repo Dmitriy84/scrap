@@ -6,6 +6,7 @@ import com.dmalohlovets.tests.config.components.RatesDynamoDbInserter
 import com.dmalohlovets.tests.config.interfaces.DataInserter.Companion.dateOf
 import io.restassured.RestAssured.get
 import kotlinx.coroutines.test.runTest
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Tag
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -19,6 +20,7 @@ class MonoTests : BaseApiTest() {
     @Test
     @Tag("scrap")
     @Tag("mono")
+    @Disabled
     fun `scrap mono rates`() = runTest {
         val (date, min, max) = get("/bank/currency")
             .then()

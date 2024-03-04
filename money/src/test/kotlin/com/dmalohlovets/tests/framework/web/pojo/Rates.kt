@@ -17,11 +17,11 @@ open class Rates(
     @field:DynamoDBAttribute
     var source: String = "",
 
-    @field:DynamoDBHashKey
-    @field:DynamoDBAttribute
-    var circle: String = "",
-
     @field:DynamoDBAttribute(attributeName = "date!")
     @field:DynamoDBIndexHashKey(globalSecondaryIndexName = "circle-date-index")
     var date: String = "",
+
+    @field:DynamoDBHashKey
+    @field:DynamoDBAttribute
+    var circle: String = "",
 )
