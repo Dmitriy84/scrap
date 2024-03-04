@@ -4,4 +4,11 @@ app:
          '
   aws:
     db: money24_rates
-    region: eu-north-1
+    region: ${AWS_REGION}
+
+amazon:
+  dynamodb:
+    endpoint:  https://dynamodb.${AWS_REGION}.amazonaws.com
+  aws:
+    accesskey: ${AWS_ACCESS_KEY_ID}
+    secretkey: ${AWS_SECRET_ACCESS_KEY}

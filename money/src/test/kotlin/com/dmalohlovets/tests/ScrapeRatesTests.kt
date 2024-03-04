@@ -10,6 +10,7 @@ import com.dmalohlovets.tests.config.components.RatesDynamoDbInserter
 import com.dmalohlovets.tests.config.components.RatesFileInserter
 import com.dmalohlovets.tests.config.interfaces.DataInserter
 import com.dmalohlovets.tests.config.interfaces.DataInserter.Companion.dateOf
+import com.dmalohlovets.tests.framework.web.RatesRepository
 import com.dmalohlovets.tests.framework.web.base.WebBaseTest
 import com.dmalohlovets.tests.money24.pages.Money24MainPage
 import com.dmalohlovets.tests.pivdenny.pages.PivdennyMainPage
@@ -38,6 +39,16 @@ private const val OUTPUT_FILE = "rates.csv"
 
 @Epic("scrap rates")
 class ScrapeRatesTests : WebBaseTest() {
+    @Autowired
+    private lateinit var repository: RatesRepository
+
+    @Test
+    @Tag("scrap")
+    fun spring() {
+        val temp = repository.findById("mono")
+        println(temp)
+    }
+
     @Test
     @Tag("pivdenny")
     @Tag("scrap")
