@@ -43,7 +43,7 @@ class ScrapeRatesTests : WebBaseTest() {
     private lateinit var repository: RatesRepository
 
     @Test
-    @Tag("scrap")
+//    @Tag("scrap")
     fun spring() {
         val temp = repository.findById("mono")
         println(temp)

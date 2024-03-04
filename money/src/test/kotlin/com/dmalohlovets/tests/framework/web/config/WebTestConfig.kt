@@ -42,7 +42,7 @@ open class WebTestConfig {
     fun amazonDynamoDB(): AmazonDynamoDBClient =
 
         AmazonDynamoDBClient(
-            BasicAWSCredentials("accesskey", "secretkey")
+            BasicAWSCredentials(System.getenv("AWS_ACCESS_KEY_ID"), System.getenv("AWS_SECRET_ACCESS_KEY"))
 //            AmazonDynamoDBClientBuilder.standard()
 //                .withEndpointConfiguration(
 //                    AwsClientBuilder.EndpointConfiguration(endpoint, region)
