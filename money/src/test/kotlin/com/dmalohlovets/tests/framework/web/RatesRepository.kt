@@ -8,5 +8,5 @@ import java.util.*
 
 @EnableScan
 interface RatesRepository : CrudRepository<Rates, String> {
-    override fun findById(source: String): Optional<Rates>
+    fun findBySource(source: String): Optional<List<Rates>>
 }

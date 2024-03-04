@@ -8,14 +8,6 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable
 
 @DynamoDBTable(tableName = "money24_rates")
 open class Rates(
-    @field:DynamoDBHashKey
-    @field:DynamoDBAttribute
-    var circle: String = "",
-
-    @field:DynamoDBAttribute(attributeName = "date!")
-    @field:DynamoDBIndexHashKey(globalSecondaryIndexName = "circle-date-index")
-    var date: String = "",
-
     @field:DynamoDBAttribute
     var max: String = "",
 
@@ -24,4 +16,12 @@ open class Rates(
 
     @field:DynamoDBAttribute
     var source: String = "",
+
+    @field:DynamoDBHashKey
+    @field:DynamoDBAttribute
+    var circle: String = "",
+
+    @field:DynamoDBAttribute(attributeName = "date!")
+    @field:DynamoDBIndexHashKey(globalSecondaryIndexName = "circle-date-index")
+    var date: String = "",
 )

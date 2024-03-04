@@ -39,16 +39,14 @@ open class WebTestConfig {
         WebDriverWait(driver, Duration.ofSeconds(5))
 
     @Bean
-    fun amazonDynamoDB(): AmazonDynamoDBClient =
-
-        AmazonDynamoDBClient(
-            BasicAWSCredentials(System.getenv("AWS_ACCESS_KEY_ID"), System.getenv("AWS_SECRET_ACCESS_KEY"))
-//            AmazonDynamoDBClientBuilder.standard()
-//                .withEndpointConfiguration(
-//                    AwsClientBuilder.EndpointConfiguration(endpoint, region)
-//                )
-//                .build()
-        )
+    fun amazonDynamoDB(
+        @Value("\${amazon.dynamodb.endpoint}") endpoint: String,
+        @Value("\${amazon.aws.accesskey}") accessKey: String,
+        @Value("\${amazon.aws.secretkey}") secretKey: String
+    ) = AmazonDynamoDBClient(BasicAWSCredentials(accessKey, secretKey))
+        .apply {
+            setEndpoint(endpoint)
+        }
 
     @Primary
     @Bean

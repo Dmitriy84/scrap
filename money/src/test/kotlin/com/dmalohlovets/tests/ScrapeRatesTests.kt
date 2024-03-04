@@ -6,12 +6,11 @@ import aws.sdk.kotlin.services.sns.SnsClient
 import aws.sdk.kotlin.services.sns.model.PublishRequest
 import aws.smithy.kotlin.runtime.InternalApi
 import aws.smithy.kotlin.runtime.util.toNumber
-import com.dmalohlovets.tests.config.components.RatesDynamoDbInserter
 import com.dmalohlovets.tests.config.components.RatesFileInserter
-import com.dmalohlovets.tests.config.interfaces.DataInserter
 import com.dmalohlovets.tests.config.interfaces.DataInserter.Companion.dateOf
 import com.dmalohlovets.tests.framework.web.RatesRepository
 import com.dmalohlovets.tests.framework.web.base.WebBaseTest
+import com.dmalohlovets.tests.framework.web.pojo.Rates
 import com.dmalohlovets.tests.money24.pages.Money24MainPage
 import com.dmalohlovets.tests.pivdenny.pages.PivdennyMainPage
 import com.dmalohlovets.tests.sense.pages.SenseMainPage
@@ -43,13 +42,6 @@ class ScrapeRatesTests : WebBaseTest() {
     private lateinit var repository: RatesRepository
 
     @Test
-//    @Tag("scrap")
-    fun spring() {
-        val temp = repository.findById("mono")
-        println(temp)
-    }
-
-    @Test
     @Tag("pivdenny")
     @Tag("scrap")
     @Feature(" ... for pivdenny")
@@ -69,7 +61,7 @@ class ScrapeRatesTests : WebBaseTest() {
                 .until(ExpectedConditions.elementToBeClickable(currencyTargetBtn))
                 .click()
             currencyMobileBtn.click()
-            ratesDynamoDbInserter.putItem(dateOf(), currencyUsdMax.text, currencyUsdMin.text, "pivdenny")
+            Rates(currencyUsdMax.text, currencyUsdMin.text, "pivdenny").saveToDynamo()
         }
     }
 
@@ -87,7 +79,7 @@ class ScrapeRatesTests : WebBaseTest() {
             wait.until(ExpectedConditions.attributeContains(onlineRatesBtn, "class", "home-exchange__tab--active"))
 
             usdField.text.split("\n").run {
-                ratesDynamoDbInserter.putItem(dateOf(), this[2], this[0], "sense")
+                Rates(this[2], this[0], "sense").saveToDynamo()
             }
         }
     }
@@ -107,16 +99,12 @@ class ScrapeRatesTests : WebBaseTest() {
                 driver.manage().window().minimize()
             driver[banks["money24"]]
 
-            DataInserter.batchProcessor(
-                dateOf(),
+            Rates(
                 money24MainPage.max[0].text.split("\n")[1],
                 money24MainPage.min[0].text.split("\n")[1],
-                "money24",
-                consumers = arrayOf(
-                    ratesFileInserter,
-                    ratesDynamoDbInserter
-                )
-            )
+                "money24"
+            ).saveToDynamo()
+
 
             if (!isCI)
                 async {
@@ -196,8 +184,6 @@ class ScrapeRatesTests : WebBaseTest() {
     @Autowired
     private lateinit var pivdennyMainPage: PivdennyMainPage
 
-    @Autowired
-    private lateinit var ratesDynamoDbInserter: RatesDynamoDbInserter
 
     @Autowired
     private lateinit var ratesFileInserter: RatesFileInserter
@@ -209,5 +195,14 @@ class ScrapeRatesTests : WebBaseTest() {
             if (!isCI)
                 Runtime.getRuntime().exec(arrayOf("open", OUTPUT_FILE))
         }
+    }
+
+    private fun Rates.saveToDynamo() {
+        repository.saveAll(
+            listOf(this.apply {
+                if (circle.isBlank()) circle = System.getenv("CIRCLE_WORKFLOW_ID").orEmpty()
+                if (date.isBlank()) date = dateOf()
+            })
+        )
     }
 }
