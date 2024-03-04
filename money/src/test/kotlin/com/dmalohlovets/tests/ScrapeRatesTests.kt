@@ -62,7 +62,7 @@ class ScrapeRatesTests : WebBaseTest() {
     fun `scrap unex rates`() = runTest {
         driver["${banks["unex"]}/privatnim-osobam/kursi-valyut"]
         with(unexMainPage) {
-            cityChoose.click()
+            wait.until(ExpectedConditions.elementToBeClickable(cityChoose)).click()
             search.sendKeys("Вінниця" + Keys.ENTER)
             val min = minValue.text.trim()
             onlineRatesBtn.click()
