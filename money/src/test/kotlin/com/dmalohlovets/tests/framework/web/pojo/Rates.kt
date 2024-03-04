@@ -7,7 +7,7 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable
 
 
 @DynamoDBTable(tableName = "money24_rates")
-open class Rates(
+data class Rates(
     @field:DynamoDBAttribute
     var max: String = "",
 

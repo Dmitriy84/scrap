@@ -236,9 +236,10 @@ class ScrapeRatesTests : WebBaseTest() {
 
     private fun Rates.saveToDynamo() {
         repository.saveAll(
-            listOf(this.apply {
-                if (circle.isBlank()) circle = System.getenv("CIRCLE_WORKFLOW_ID").orEmpty()
+            listOf(apply {
+                if (circle.isBlank()) circle = System.getenv("CIRCLE_WORKFLOW_ID") ?: UUID.randomUUID().toString()
                 if (date.isBlank()) date = dateOf()
+                println(this)
             })
         )
     }
