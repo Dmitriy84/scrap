@@ -10,7 +10,8 @@ app:
   banks: '
         "money24":  "https://money24.vn.ua",
         "sense":    "https://sensebank.ua",
-        "pivdenny": "https://bank.com.ua"
+        "pivdenny": "https://bank.com.ua",
+        "unex": "https://unexbank.ua"
          '
   mobile: +38063 459 69 92
   aws:

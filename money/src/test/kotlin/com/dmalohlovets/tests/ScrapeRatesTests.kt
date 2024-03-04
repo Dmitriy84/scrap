@@ -14,6 +14,7 @@ import com.dmalohlovets.tests.framework.web.pojo.Rates
 import com.dmalohlovets.tests.money24.pages.Money24MainPage
 import com.dmalohlovets.tests.pivdenny.pages.PivdennyMainPage
 import com.dmalohlovets.tests.sense.pages.SenseMainPage
+import com.dmalohlovets.tests.unex.pages.UnexMainPage
 import io.qameta.allure.Epic
 import io.qameta.allure.Feature
 import kotlinx.coroutines.Dispatchers
@@ -24,6 +25,7 @@ import kotlinx.coroutines.withContext
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.Tag
 import org.junit.jupiter.api.Test
+import org.openqa.selenium.Keys
 import org.openqa.selenium.NoSuchElementException
 import org.openqa.selenium.support.ui.ExpectedConditions
 import org.springframework.beans.factory.annotation.Autowired
@@ -38,8 +40,21 @@ private const val OUTPUT_FILE = "rates.csv"
 
 @Epic("scrap rates")
 class ScrapeRatesTests : WebBaseTest() {
-    @Autowired
-    private lateinit var repository: RatesRepository
+    @Test
+    @Tag("unex")
+    @Tag("scrap")
+    @Feature(" ... for unex")
+    fun `scrap unex rates`() = runTest {
+        driver["${banks["unex"]}/privatnim-osobam/kursi-valyut"]
+        with(unexMainPage) {
+            cityChoose.click()
+            search.sendKeys("Вінниця" + Keys.ENTER)
+            val min = minValue.text.trim()
+            onlineRatesBtn.click()
+            Rates(maxValue.text.trim(), min, "unex").saveToDynamo()
+        }
+    }
+
 
     @Test
     @Tag("pivdenny")
@@ -184,9 +199,14 @@ class ScrapeRatesTests : WebBaseTest() {
     @Autowired
     private lateinit var pivdennyMainPage: PivdennyMainPage
 
+    @Autowired
+    private lateinit var unexMainPage: UnexMainPage
 
     @Autowired
     private lateinit var ratesFileInserter: RatesFileInserter
+
+    @Autowired
+    private lateinit var repository: RatesRepository
 
     companion object {
         @JvmStatic
