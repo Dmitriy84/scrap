@@ -57,7 +57,7 @@ class RistTechIOTests : BasePlaywrightWebTest() {
             of(
                 randomAlphanumeric(6) + (Char.MIN_VALUE.code..41).random().toChar(),
                 INVALID,
-                "has 1 random char from ascii codes [0-41]"
+                "has 1 random char from ascii codes [Char.MIN_VALUE-41]"
             ),
             of(
                 randomAlphanumeric(6) + (43..47).random().toChar(),
