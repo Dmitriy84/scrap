@@ -12,6 +12,7 @@ import com.dmalohlovets.tests.config.interfaces.DataInserter.Companion.dateOf
 import com.dmalohlovets.tests.framework.web.RatesRepository
 import com.dmalohlovets.tests.framework.web.base.WebBaseTest
 import com.dmalohlovets.tests.framework.web.pojo.Rates
+import com.dmalohlovets.tests.izi.pages.IziMainPage
 import com.dmalohlovets.tests.money24.pages.Money24MainPage
 import com.dmalohlovets.tests.pivdenny.pages.PivdennyMainPage
 import com.dmalohlovets.tests.sense.pages.SenseMainPage
@@ -44,6 +45,19 @@ private const val OUTPUT_FILE = "rates.csv"
 
 @Epic("scrap rates")
 class ScrapeRatesTests : WebBaseTest() {
+    @Test
+    @Tag("scrap")
+    @Tag("izi")
+    @Feature(" ... for izi")
+    fun `scrap izi rates`() = runTest {
+        driver[banks["izi"]]
+        wait.until(ExpectedConditions.visibilityOf(iziMainPage.allRates))
+            .text.split("eur", "usd")[1].trim().split("/")
+            .let {
+                Rates(it[1], it[0], "izi").saveToDynamo()
+            }
+    }
+
     @Test
     @Tag("scrap")
     @Tag("mono")
@@ -218,6 +232,9 @@ class ScrapeRatesTests : WebBaseTest() {
 
     @Autowired
     private lateinit var unexMainPage: UnexMainPage
+
+    @Autowired
+    private lateinit var iziMainPage: IziMainPage
 
     @Autowired
     private lateinit var ratesFileInserter: RatesFileInserter
