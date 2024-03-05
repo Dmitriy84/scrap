@@ -66,9 +66,9 @@ class ScrapeRatesTests : WebBaseTest() {
     @Tag("izi")
     @Feature(" ... for izi")
     fun `scrap izi rates`() =
-        runTest(timeout = 1.minutes) {
+        runTest(timeout = 1.5.minutes) {
             driver[banks["izi"]]
-            wait.withTimeout(Duration.ofSeconds(20))
+            wait.withTimeout(Duration.ofSeconds(30))
                 .until(ExpectedConditions.visibilityOf(iziMainPage.allRates))
                 .text.split("eur", "usd")[1].trim().split("/")
                 .let {
