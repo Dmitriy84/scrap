@@ -9,21 +9,26 @@ import kotlinx.coroutines.test.runTest
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
 
-
 @Component
 class RatesDynamoDbInserter(
     @Value("\${app.aws.region}") private val awsRegion: String,
-    @Value("\${app.aws.db}") private val awsDb: String
+    @Value("\${app.aws.db}") private val awsDb: String,
 ) : DataInserter {
-    override fun putItem(date: String, max: String, min: String, source: String) = runTest {
+    override fun putItem(
+        date: String,
+        max: String,
+        min: String,
+        source: String,
+    ) = runTest {
         async {
-            val itemValues = mapOf(
-                "date!" to date,
-                "min" to min,
-                "max" to max,
-                "source" to source,
-                "circle" to System.getenv("CIRCLE_WORKFLOW_ID").orEmpty(),
-            )
+            val itemValues =
+                mapOf(
+                    "date!" to date,
+                    "min" to min,
+                    "max" to max,
+                    "source" to source,
+                    "circle" to System.getenv("CIRCLE_WORKFLOW_ID").orEmpty(),
+                )
 
             PutItemRequest {
                 tableName = awsDb

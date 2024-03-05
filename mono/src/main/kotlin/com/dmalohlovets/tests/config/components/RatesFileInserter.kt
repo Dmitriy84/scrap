@@ -8,17 +8,22 @@ import org.springframework.stereotype.Component
 import java.io.FileOutputStream
 import java.io.OutputStream
 
-
 @Component
 class RatesFileInserter(private val outputFile: String = "rates.csv") : DataInserter {
-    override fun putItem(date: String, max: String, min: String, source: String) = runTest {
+    override fun putItem(
+        date: String,
+        max: String,
+        min: String,
+        source: String,
+    ) = runTest {
         async(Dispatchers.IO) {
             FileOutputStream(outputFile, true).writeCsv(min, max, date, source)
         }
     }
 
-    private fun OutputStream.writeCsv(vararg data: String) = bufferedWriter().use {
-        it.write(data.joinToString(",", postfix = "\n"))
-        it.flush()
-    }
+    private fun OutputStream.writeCsv(vararg data: String) =
+        bufferedWriter().use {
+            it.write(data.joinToString(",", postfix = "\n"))
+            it.flush()
+        }
 }

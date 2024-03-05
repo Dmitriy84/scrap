@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
 
-
 @Component
 abstract class BasePlaywrightWebPage {
     abstract var pageURL: String
@@ -23,8 +22,7 @@ abstract class BasePlaywrightWebPage {
 
     lateinit var page: Page
 
-    fun navigate() =
-        page.navigate("$baseURL/$pageURL")
+    fun navigate() = page.navigate("$baseURL/$pageURL")
 
     // TODO Screenshots and videos + allure reporting
 }

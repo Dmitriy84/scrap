@@ -25,10 +25,11 @@ open class ProjectConfig {
 
     @get:Bean
     open val capabilities: AbstractDriverOptions<out AbstractDriverOptions<*>>?
-        get() = when (browser) {
-            "chrome" -> ChromeOptions().addArguments(capabilitiesConfiguration)
-            "firefox" -> FirefoxOptions().addArguments(capabilitiesConfiguration)
-            "edge" -> EdgeOptions().addArguments(capabilitiesConfiguration)
-            else -> throw Exception("Unsupported browser: '$browser'")
-        }
+        get() =
+            when (browser) {
+                "chrome" -> ChromeOptions().addArguments(capabilitiesConfiguration)
+                "firefox" -> FirefoxOptions().addArguments(capabilitiesConfiguration)
+                "edge" -> EdgeOptions().addArguments(capabilitiesConfiguration)
+                else -> throw Exception("Unsupported browser: '$browser'")
+            }
 }

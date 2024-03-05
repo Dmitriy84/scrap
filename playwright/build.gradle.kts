@@ -1,3 +1,3 @@
-dependencies{
+dependencies {
     testImplementation(libs.playwright)
 }

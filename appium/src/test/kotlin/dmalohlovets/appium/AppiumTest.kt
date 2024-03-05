@@ -8,24 +8,26 @@ import org.junit.jupiter.api.Test
 import java.net.URL
 import java.nio.file.Path
 
-
 class AppiumTest {
     @Test
     fun first() {
         val service = AppiumDriverLocalService.buildDefaultService()
         service.start()
         try {
-            val options = UiAutomator2Options()
-                .setUdid(System.getenv("SIMULATOR_UUID"))
-                .setApp(
-                    Path.of(System.getProperty("user.dir"), System.getenv("APP_APK")).toString()
+            val options =
+                UiAutomator2Options()
+                    .setUdid(System.getenv("SIMULATOR_UUID"))
+                    .setApp(
+                        Path.of(System.getProperty("user.dir"), System.getenv("APP_APK")).toString(),
+                    )
+            val driver =
+                AndroidDriver(
+                    URL(System.getenv("SIMULATOR_URL")),
+                    options,
                 )
-            val driver = AndroidDriver(
-                URL(System.getenv("SIMULATOR_URL")), options
-            )
             println()
             try {
-                 val el = driver.findElement(AppiumBy.xpath("//Button"))
+                val el = driver.findElement(AppiumBy.xpath("//Button"))
                 el.click()
                 driver.pageSource
             } finally {

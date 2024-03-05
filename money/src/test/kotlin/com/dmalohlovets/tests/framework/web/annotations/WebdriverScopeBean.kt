@@ -9,9 +9,9 @@ import org.springframework.context.annotation.Scope
 @Target(
     AnnotationTarget.FUNCTION,
     AnnotationTarget.PROPERTY_GETTER,
-    AnnotationTarget.PROPERTY_SETTER
+    AnnotationTarget.PROPERTY_SETTER,
 )
 @Retention(
-    AnnotationRetention.RUNTIME
+    AnnotationRetention.RUNTIME,
 )
 annotation class WebdriverScopeBean

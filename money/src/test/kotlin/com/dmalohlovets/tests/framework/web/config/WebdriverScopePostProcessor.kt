@@ -13,12 +13,15 @@ class WebdriverScopePostProcessor : BeanFactoryPostProcessor {
         beanFactory.registerScope(
             "webdriverscope",
             object : SimpleThreadScope() {
-                override fun get(name: String, objectFactory: ObjectFactory<*>): Any {
+                override fun get(
+                    name: String,
+                    objectFactory: ObjectFactory<*>,
+                ): Any {
                     val o = super.get(name, objectFactory) as RemoteWebDriver
                     o.sessionId?.let { return o }
                     super.remove(name)
                     return super.get(name, objectFactory)
                 }
-            }
+            },
         )
 }

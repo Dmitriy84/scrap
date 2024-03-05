@@ -14,7 +14,6 @@ import kotlin.test.fail
  */
 
 open class BaseStep(private val page: Page) {
-
     var pathProject = System.getProperty("user.dir")
 
     // opcao que somente verifica se o elemento esta presente na DOM.
@@ -30,9 +29,9 @@ open class BaseStep(private val page: Page) {
 
     /**
      * A funcao loadPage espera a página carregar por completo.
-    "LOAD" - wait for the load event to be fired.
-    "DOMCONTENTLOADED" - wait for the DOMContentLoaded event to be fired.
-    "NETWORKIDLE" - wait until there are no network connections for at least
+     "LOAD" - wait for the load event to be fired.
+     "DOMCONTENTLOADED" - wait for the DOMContentLoaded event to be fired.
+     "NETWORKIDLE" - wait until there are no network connections for at least
      */
     fun loadPage() {
         page.waitForLoadState(LoadState.LOAD)
@@ -56,7 +55,10 @@ open class BaseStep(private val page: Page) {
      * @property webElemento css or xpath.
      * @property retry true or false, default is false.
      */
-    fun click(webElemento: String, retry: Boolean = true) {
+    fun click(
+        webElemento: String,
+        retry: Boolean = true,
+    ) {
         try {
             page.waitForSelector(webElemento, stateATTACHED)
             page.click(webElemento, Page.ClickOptions().setForce(true))
@@ -169,13 +171,16 @@ open class BaseStep(private val page: Page) {
 //        return false
 //    }
 
-
     /**
      * fill usando retry igual a true, espera o elemento esta na Attached e dar o focus no elemento.
      * @property webElemento css or xpath.
      * @property retry true or false, default is false.
      */
-    fun fill(webElemento: String, value: String, retry: Boolean = true) {
+    fun fill(
+        webElemento: String,
+        value: String,
+        retry: Boolean = true,
+    ) {
         try {
             waitForSelector(webElemento, stateATTACHED)
             page.focus(webElemento)
@@ -193,7 +198,11 @@ open class BaseStep(private val page: Page) {
      * @property webElement css or xpath.
      * @property retry true or false, default is false.
      */
-    fun selectByValue(webElement: String, value: String, retry: Boolean = true) {
+    fun selectByValue(
+        webElement: String,
+        value: String,
+        retry: Boolean = true,
+    ) {
         try {
             waitForSelector(webElement, stateATTACHED)
             page.press(webElement, "Enter")
@@ -213,7 +222,11 @@ open class BaseStep(private val page: Page) {
      * @property webElement css or xpath.
      * @property retry true or false, default is false.
      */
-    fun selectByLabel(webElement: String, value: String, retry: Boolean = true) {
+    fun selectByLabel(
+        webElement: String,
+        value: String,
+        retry: Boolean = true,
+    ) {
         try {
             waitForSelector(webElement)
             page.press(webElement, "Enter")
@@ -234,7 +247,11 @@ open class BaseStep(private val page: Page) {
      * @property webElement css or xpath.
      * @property retry true or false, default is false.
      */
-    fun selectByIndex(webElement: String, indexValue: Int, retry: Boolean = true) {
+    fun selectByIndex(
+        webElement: String,
+        indexValue: Int,
+        retry: Boolean = true,
+    ) {
         try {
             waitForSelector(webElement, stateATTACHED)
             page.press(webElement, "Enter")
@@ -283,7 +300,10 @@ open class BaseStep(private val page: Page) {
      * @property webElemento css or xpath.
      * @property stateDOM stateVISIBLE, stateATTACHED or stateDETACHED, default is stateATTACHED.
      */
-    fun waitForSelector(webElemento: String, stateDOM: Page.WaitForSelectorOptions = stateATTACHED) {
+    fun waitForSelector(
+        webElemento: String,
+        stateDOM: Page.WaitForSelectorOptions = stateATTACHED,
+    ) {
         try {
             loadPage()
             page.waitForSelector(webElemento, stateDOM)
@@ -295,5 +315,4 @@ open class BaseStep(private val page: Page) {
         }
         loadPage()
     }
-
 }

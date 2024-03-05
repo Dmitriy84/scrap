@@ -23,7 +23,6 @@ import java.util.Optional
 import java.util.concurrent.TimeUnit
 import javax.annotation.PostConstruct
 
-
 @SpringBootTest(classes = [ProjectConfig::class])
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
@@ -49,12 +48,14 @@ open class BaseTestContainerWebTest {
 
     @AfterEach
     fun saveVideo() {
-        staticSeleniumContainer.afterTest(object : TestDescription {
-            override fun getTestId() = ""
+        staticSeleniumContainer.afterTest(
+            object : TestDescription {
+                override fun getTestId() = ""
 
-            override fun getFilesystemFriendlyName() =
-                testInfo.testMethod.get().name
-        }, Optional.empty())
+                override fun getFilesystemFriendlyName() = testInfo.testMethod.get().name
+            },
+            Optional.empty(),
+        )
     }
 
     @Autowired
@@ -90,12 +91,13 @@ open class BaseTestContainerWebTest {
                 .withCapabilities(staticCapabilities)
                 .withReuse(true)
                 .also {
-                    if (staticIsRecord)
+                    if (staticIsRecord) {
                         it.withRecordingMode(
                             BrowserWebDriverContainer.VncRecordingMode.RECORD_ALL,
                             File(staticSaveFolder),
-                            VncRecordingContainer.VncRecordingFormat.MP4
+                            VncRecordingContainer.VncRecordingFormat.MP4,
                         )
+                    }
                 }
         }
 
@@ -108,10 +110,10 @@ open class BaseTestContainerWebTest {
                     {
                         RemoteWebDriver(
                             staticSeleniumContainer.seleniumAddress,
-                            staticCapabilities
+                            staticCapabilities,
                         )
                     },
-                    Objects::nonNull
+                    Objects::nonNull,
                 )
         }
     }

@@ -14,8 +14,6 @@ import javax.annotation.PostConstruct
 @EnableAutoConfiguration
 @SpringBootTest(classes = [ProjectAPIConfig::class]) // Rest assured bean configuration
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-
-
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 open class BaseApiTest {
     @PostConstruct

@@ -2,14 +2,7 @@ package dmalohlovets.djinni
 
 import dmalohlovets.framework.web.WebBaseTest
 import org.junit.jupiter.api.AfterAll
-import org.junit.jupiter.api.DynamicContainer.dynamicContainer
-import org.junit.jupiter.api.DynamicNode
-import org.junit.jupiter.api.DynamicTest.dynamicTest
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.TestFactory
-import org.junit.jupiter.api.parallel.Execution
-import org.junit.jupiter.api.parallel.ExecutionMode
-import org.junit.jupiter.api.parallel.ResourceLock
 import org.openqa.selenium.By
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
@@ -17,16 +10,14 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import java.io.FileOutputStream
 import java.io.OutputStream
 
-
 private const val OUTPUT_FILE = "jobs.csv"
 
 @EnableConfigurationProperties(DjinniConfig::class)
 class ScrapeOpenPositionsTests : WebBaseTest() {
-
-//    private var flag: Boolean = false
+    //    private var flag: Boolean = false
 
 //    @TestFactory
-////    @ResourceLock("flag")
+// //    @ResourceLock("flag")
 //    @Execution(ExecutionMode.CONCURRENT)
 //    fun dynamicNodeSingleContainer(): DynamicNode? {
 //        var flag = false
@@ -36,7 +27,7 @@ class ScrapeOpenPositionsTests : WebBaseTest() {
 //                    if (flag)return null
 //                    println("Flag: $flag")
 //                    dynamicTest(text.toString()) {
-////                        assertTrue(isPalindrome(text))
+// //                        assertTrue(isPalindrome(text))
 //                        if (text == 100) flag = true
 //                        System.err.println(Thread.currentThread().name)
 //                    }
@@ -56,7 +47,7 @@ class ScrapeOpenPositionsTests : WebBaseTest() {
                     arrayOf(
                         "\"${r.findElement(By.xpath("div[2]/a/span")).text}\"",
                         r.findElement(By.xpath("div[1]")).text.split(" ")[0],
-                        r.findElement(By.xpath("div[2]/a")).getAttribute("href")
+                        r.findElement(By.xpath("div[2]/a")).getAttribute("href"),
                     )
                 }.let {
                     result.addAll(it)
@@ -67,8 +58,8 @@ class ScrapeOpenPositionsTests : WebBaseTest() {
         }
 
         FileOutputStream(OUTPUT_FILE).writeCsv(
-            listOf(arrayOf("title", "created", "link"))
-                    + result.filterNot { arr -> filtered.any { word -> arr[0].lowercase().contains(word.trim()) } }
+            listOf(arrayOf("title", "created", "link")) +
+                result.filterNot { arr -> filtered.any { word -> arr[0].lowercase().contains(word.trim()) } },
         )
     }
 
@@ -90,8 +81,9 @@ class ScrapeOpenPositionsTests : WebBaseTest() {
     }
 }
 
-fun OutputStream.writeCsv(data: List<Array<String>>) = bufferedWriter().use {
-    data.map { arr -> arr.joinToString(",", postfix = "\n") }
-        .forEach(it::write)
-    it.flush()
-}
+fun OutputStream.writeCsv(data: List<Array<String>>) =
+    bufferedWriter().use {
+        data.map { arr -> arr.joinToString(",", postfix = "\n") }
+            .forEach(it::write)
+        it.flush()
+    }

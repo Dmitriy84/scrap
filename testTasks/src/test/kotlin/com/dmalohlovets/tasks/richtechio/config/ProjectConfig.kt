@@ -11,7 +11,6 @@ import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.PropertySource
 
-
 @Configuration
 @ConfigurationProperties
 @ComponentScan(basePackages = ["com.dmalohlovets.tasks"])
@@ -22,11 +21,12 @@ open class ProjectConfig {
         @Value("\${app.web.browser:chromium}") browser: String,
         @Value("\${app.web.headless:true}") headless: String,
         @Value("#{'\${app.web.capabilities}'.toLowerCase().split('\n')}") capabilities: MutableList<String>,
-    ): Browser = when (browser) {
-        "chromium" -> Playwright.create().chromium()
-        "firefox" -> Playwright.create().firefox()
-        else -> throw IllegalArgumentException("unsupported browser: $browser. See https://playwright.dev/docs/browsers")
-    }.launch(
-        BrowserType.LaunchOptions().setHeadless(headless.toBoolean()).setArgs(capabilities)
-    )
+    ): Browser =
+        when (browser) {
+            "chromium" -> Playwright.create().chromium()
+            "firefox" -> Playwright.create().firefox()
+            else -> throw IllegalArgumentException("unsupported browser: $browser. See https://playwright.dev/docs/browsers")
+        }.launch(
+            BrowserType.LaunchOptions().setHeadless(headless.toBoolean()).setArgs(capabilities),
+        )
 }

@@ -9,18 +9,14 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable
 data class Rates(
     @field:DynamoDBAttribute
     var max: String = "",
-
     @field:DynamoDBAttribute
     var min: String = "",
-
     @field:DynamoDBAttribute
     var source: String = "",
-
     @field:DynamoDBAttribute(attributeName = "date!")
     @field:DynamoDBIndexHashKey(globalSecondaryIndexName = "circle-date-index")
     var date: String = "",
-
     @field:DynamoDBHashKey
     @field:DynamoDBAttribute
-    var circle: String = ""
+    var circle: String = "",
 )

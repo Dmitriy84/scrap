@@ -28,7 +28,7 @@ file(modules)
     .listFiles(File::isDirectory)
     ?.forEach {
         include(it.name)
-        //if ${it} subfolder contains 'lib' subfolder, then use it for the projectDir
+        // if ${it} subfolder contains 'lib' subfolder, then use it for the projectDir
         (it.listFiles { sub -> "lib" == sub.name }?.firstOrNull() ?: it)
             .also { dir ->
                 logger.quiet("Including lib ---> $dir")

@@ -25,23 +25,21 @@ open class WebTestConfig {
     @WebdriverScopeBean
     open fun createWebdriver(
         @Value("\${wdm.defaultBrowser:chrome}") browser: String,
-        @Value("#{'\${wdm.chromeDriver.capabilities:--disable-gpu}'.toLowerCase().split('\n')}") options: MutableList<String>
-    ) =
-        with(WebDriverManager.getInstance(browser)) {
-            capabilities(ChromeOptions().addArguments(options))
-            create()
-        }
+        @Value("#{'\${wdm.chromeDriver.capabilities:--disable-gpu}'.toLowerCase().split('\n')}") options: MutableList<String>,
+    ) = with(WebDriverManager.getInstance(browser)) {
+        capabilities(ChromeOptions().addArguments(options))
+        create()
+    }
 
     @Bean
     @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-    fun webdriverWait(driver: WebDriver?) =
-        WebDriverWait(driver, Duration.ofSeconds(5))
+    fun webdriverWait(driver: WebDriver?) = WebDriverWait(driver, Duration.ofSeconds(5))
 
     @Bean
     fun amazonDynamoDB(
         @Value("\${amazon.dynamodb.endpoint}") endpoint: String,
         @Value("\${amazon.aws.accesskey}") accessKey: String,
-        @Value("\${amazon.aws.secretkey}") secretKey: String
+        @Value("\${amazon.aws.secretkey}") secretKey: String,
     ) = AmazonDynamoDBClient(BasicAWSCredentials(accessKey, secretKey))
         .apply {
             setEndpoint(endpoint)

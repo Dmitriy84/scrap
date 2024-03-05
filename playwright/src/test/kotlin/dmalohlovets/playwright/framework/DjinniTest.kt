@@ -23,7 +23,7 @@ class DjinniTest : BaseTests() {
                     arrayOf(
                         "\"${r.locator("div:nth-child(2) > a > span").textContent()}\"",
                         r.locator("div:nth-child(1)").textContent().trim().split(" ")[0].trim(),
-                        url + r.locator("div:nth-child(2) > a").getAttribute("href")
+                        url + r.locator("div:nth-child(2) > a").getAttribute("href"),
                     )
                 }.let {
                     result.addAll(it)
@@ -34,8 +34,8 @@ class DjinniTest : BaseTests() {
         }
 
         FileOutputStream(OUTPUT_FILE).writeCsv(
-            listOf(arrayOf("title", "created", "link"))
-                    + result.filterNot { arr -> filtered.any { word -> arr[0].lowercase().contains(word.trim()) } }
+            listOf(arrayOf("title", "created", "link")) +
+                result.filterNot { arr -> filtered.any { word -> arr[0].lowercase().contains(word.trim()) } },
         )
     }
 
@@ -56,11 +56,14 @@ class DjinniTest : BaseTests() {
     @Value("\${app.url}")
     private lateinit var url: String
 
-    private val OUTPUT_FILE = "jobs.csv"
+    private fun OutputStream.writeCsv(data: List<Array<String>>) =
+        bufferedWriter().use {
+            data.map { arr -> arr.joinToString(",", postfix = "\n") }
+                .forEach(it::write)
+            it.flush()
+        }
 
-    private fun OutputStream.writeCsv(data: List<Array<String>>) = bufferedWriter().use {
-        data.map { arr -> arr.joinToString(",", postfix = "\n") }
-            .forEach(it::write)
-        it.flush()
+    companion object {
+        private const val OUTPUT_FILE = "jobs.csv"
     }
 }

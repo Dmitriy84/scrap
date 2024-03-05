@@ -3,7 +3,6 @@ package com.dmalohlovets.tasks.richtechio.pages
 import com.dmalohlovets.tasks.framework.base.BasePlaywrightWebPage
 import org.springframework.stereotype.Component
 
-
 @Component
 open class Simple7CharValidationPage : BasePlaywrightWebPage() {
     override var pageURL = "styled/apps/7charval/simple7charvalidation.html"

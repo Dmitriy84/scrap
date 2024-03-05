@@ -5,13 +5,12 @@ import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.time.temporal.TemporalAccessor
 
-
 interface DataInserter {
     fun putItem(
         date: String = "date",
         max: String = "max",
         min: String = "min",
-        source: String = "money24"
+        source: String = "money24",
     )
 
     companion object {
@@ -25,7 +24,7 @@ interface DataInserter {
             max: String,
             min: String,
             source: String,
-            vararg consumers: DataInserter
+            vararg consumers: DataInserter,
         ) = consumers.forEach {
             it.putItem(date, max, min, source)
         }

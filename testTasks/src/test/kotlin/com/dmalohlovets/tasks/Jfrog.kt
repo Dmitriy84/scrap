@@ -8,9 +8,12 @@ class Jfrog {
     @ParameterizedTest
     @CsvSource(
         value = ["frog:fag", "frog:fog", "frog:frogs", "frog:from", "frog:monkey", "frog:flag"],
-        delimiter = ':'
+        delimiter = ':',
     )
-    fun compareStrings(first: String, second: String) {
+    fun compareStrings(
+        first: String,
+        second: String,
+    ) {
         val diffObj = DiffMatchPatch()
         val diffs = diffObj.diffMain(first, second)
         assert(diffObj.diffLevenshtein(diffs) <= 1)

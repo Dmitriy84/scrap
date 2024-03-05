@@ -45,7 +45,7 @@ open class WebBaseTest {
         AfterTestExecutionCallback {
             Allure.addAttachment(
                 if (it.executionException.isPresent) "Failure screenshot" else "End of test screenshot",
-                FileUtils.openInputStream(ctx.getBean(TakesScreenshot::class.java).getScreenshotAs(OutputType.FILE))
+                FileUtils.openInputStream(ctx.getBean(TakesScreenshot::class.java).getScreenshotAs(OutputType.FILE)),
             )
         }
 

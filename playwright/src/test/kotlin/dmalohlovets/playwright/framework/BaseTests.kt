@@ -19,13 +19,14 @@ open class BaseTests {
 
     @BeforeAll
     fun setUp() {
-        //Open a browser (supports Chromium (Chrome, Edge), Firefox, and Webkit (Safari))
-        browser = Playwright
-            .create()
-            .chromium()
-            .launch(LaunchOptions().setHeadless(false).setArgs(listOf("--start-minimized")))
+        // Open a browser (supports Chromium (Chrome, Edge), Firefox, and Webkit (Safari))
+        browser =
+            Playwright
+                .create()
+                .chromium()
+                .launch(LaunchOptions().setHeadless(false).setArgs(listOf("--start-minimized")))
 
-        //A single browser tab
+        // A single browser tab
         page = browser.newPage()
     }
 
