@@ -5,7 +5,7 @@ dependencies {
         libs.dynamodb,
         libs.sns,
         project(mapOf("path" to ":web")),
-        project(mapOf("path" to ":mono")),
+        project(mapOf("path" to ":mono"))
     ).forEach { testImplementation(it) }
 }
 

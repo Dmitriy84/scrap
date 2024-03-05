@@ -5,7 +5,6 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBIndexHashKey
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable
 
-
 @DynamoDBTable(tableName = "money24_rates")
 data class Rates(
     @field:DynamoDBAttribute
@@ -23,5 +22,5 @@ data class Rates(
 
     @field:DynamoDBHashKey
     @field:DynamoDBAttribute
-    var circle: String = "",
+    var circle: String = ""
 )

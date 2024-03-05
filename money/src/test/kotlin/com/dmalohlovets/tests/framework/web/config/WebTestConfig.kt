@@ -19,7 +19,6 @@ import org.springframework.context.annotation.Primary
 import org.springframework.context.annotation.Scope
 import java.time.Duration
 
-
 @ComponentScan("com.dmalohlovets.tests")
 @EnableDynamoDBRepositories(basePackages = ["com.dmalohlovets.tests.framework.web"])
 open class WebTestConfig {

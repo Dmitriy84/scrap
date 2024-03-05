@@ -6,7 +6,6 @@ import org.openqa.selenium.support.FindBy
 import org.springframework.context.annotation.Lazy
 import org.springframework.stereotype.Component
 
-
 @Component
 @Lazy
 class SenseMainPage : BaseWebPage() {

@@ -4,7 +4,6 @@ import com.dmalohlovets.tests.framework.web.annotations.LazyAutowired
 import com.dmalohlovets.tests.framework.web.config.WebTestConfig
 import io.qameta.allure.Allure
 import org.apache.commons.io.FileUtils
-import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.extension.AfterTestExecutionCallback
 import org.junit.jupiter.api.extension.RegisterExtension
 import org.openqa.selenium.OutputType
@@ -15,12 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.context.ApplicationContext
-import org.springframework.test.annotation.DirtiesContext
-
 
 @SpringBootTest(classes = [WebTestConfig::class])
-//@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-//@TestInstance(TestInstance.Lifecycle.PER_METHOD)
+// @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
+// @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 open class WebBaseTest {
     @LazyAutowired
     protected lateinit var driver: WebDriver

@@ -42,7 +42,6 @@ import java.util.*
 import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.minutes
 
-
 private const val OUTPUT_FILE = "rates.csv"
 
 @Epic("scrap rates")
@@ -101,7 +100,6 @@ class ScrapeRatesTests : WebBaseTest() {
         }
     }
 
-
     @Test
     @Tag("pivdenny")
     @Tag("scrap")
@@ -153,12 +151,14 @@ class ScrapeRatesTests : WebBaseTest() {
     fun `scrap money24 rates`() = runTest(timeout = 13.hours) {
 //        pubTextSMS("AWS Rocks !!!", "+380634596992")
 
-        if (!Files.exists(Path.of(OUTPUT_FILE)))
+        if (!Files.exists(Path.of(OUTPUT_FILE))) {
             ratesFileInserter.putItem(source = "source")
+        }
 
         repeat(1) {
-            if (!isCI)
+            if (!isCI) {
                 driver.manage().window().minimize()
+            }
             driver[banks["money24"]]
 
             Rates(
@@ -167,14 +167,14 @@ class ScrapeRatesTests : WebBaseTest() {
                 "money24"
             ).saveToDynamo()
 
-
-            if (!isCI)
+            if (!isCI) {
                 async {
                     withContext(Dispatchers.Default) {
                         delay(30.minutes)
                         driver.navigate().refresh()
                     }
                 }.await()
+            }
         }
     }
 
@@ -194,7 +194,7 @@ class ScrapeRatesTests : WebBaseTest() {
 //                        SimpleDateFormat("yyyy-MM-dd HH:mm").format(Date().time - 3L * 24L * 60L * 60L * 1000L)
 //                    )
 //                )
-////            expressionAttributeValues = mapOf(":dt" to AttributeValue.S("2023-12-21 07:33"))
+// //            expressionAttributeValues = mapOf(":dt" to AttributeValue.S("2023-12-21 07:33"))
 //        }
 //        DynamoDbClient { region = "eu-north-1" }.use { ddb ->
 //            val response = ddb.query(request2)
@@ -202,8 +202,7 @@ class ScrapeRatesTests : WebBaseTest() {
 //
 //        }
 
-
-        //TODO replace by Query with sort and limit
+        // TODO replace by Query with sort and limit
         val request = ScanRequest {
             tableName = awsDb
             limit = 2
@@ -217,13 +216,14 @@ class ScrapeRatesTests : WebBaseTest() {
                 ?.subList(0, 2)!!
         }
 
-        if (first["max"]?.asS()?.toNumber() != second["max"]?.asS()?.toNumber()
-            || first["min"]?.asS()?.toNumber() != second["min"]?.asS()?.toNumber()
-        )
+        if (first["max"]?.asS()?.toNumber() != second["max"]?.asS()?.toNumber() ||
+            first["min"]?.asS()?.toNumber() != second["min"]?.asS()?.toNumber()
+        ) {
             pubTextSMS(
                 "Was max: ${second["max"]}, min: ${first["min"]}; Now max: ${first["max"]}, min: ${first["min"]}",
                 appMobile
             )
+        }
     }
 
     private suspend fun pubTextSMS(messageVal: String?, phoneNumberVal: String?) {
@@ -265,19 +265,22 @@ class ScrapeRatesTests : WebBaseTest() {
         @JvmStatic
         @AfterAll
         internal fun finish() {
-            if (!isCI)
+            if (!isCI) {
                 Runtime.getRuntime().exec(arrayOf("open", OUTPUT_FILE))
+            }
         }
     }
 
     private fun Rates.saveToDynamo() {
         repository.saveAll(
-            listOf(apply {
-                if (date.isBlank()) date = dateOf()
-                if (circle.isBlank()) circle = System.getenv("CIRCLE_WORKFLOW_ID") ?: UUID.randomUUID().toString()
-                circle += "_$source"
-                println(this)
-            })
+            listOf(
+                apply {
+                    if (date.isBlank()) date = dateOf()
+                    if (circle.isBlank()) circle = System.getenv("CIRCLE_WORKFLOW_ID") ?: UUID.randomUUID().toString()
+                    circle += "_$source"
+                    println(this)
+                }
+            )
         )
     }
 }
