@@ -13,7 +13,8 @@ app:
         "pivdenny": "https://bank.com.ua",
         "unex":     "https://unexbank.ua",
         "mono":     "https://api.monobank.ua",
-        "izi":      "https://izibank.com.ua"
+        "izi":      "https://izibank.com.ua",
+        "kredo":    "https://kredobank.com.ua"
          '
   mobile: +38063 459 69 92
   aws:

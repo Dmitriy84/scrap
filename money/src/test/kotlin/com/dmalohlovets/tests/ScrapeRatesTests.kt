@@ -13,6 +13,7 @@ import com.dmalohlovets.tests.framework.web.RatesRepository
 import com.dmalohlovets.tests.framework.web.base.WebBaseTest
 import com.dmalohlovets.tests.framework.web.pojo.Rates
 import com.dmalohlovets.tests.izi.pages.IziMainPage
+import com.dmalohlovets.tests.kredo.pages.KredoMainPage
 import com.dmalohlovets.tests.money24.pages.Money24MainPage
 import com.dmalohlovets.tests.pivdenny.pages.PivdennyMainPage
 import com.dmalohlovets.tests.sense.pages.SenseMainPage
@@ -29,6 +30,7 @@ import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Tag
 import org.junit.jupiter.api.Test
+import org.openqa.selenium.By
 import org.openqa.selenium.Keys
 import org.openqa.selenium.NoSuchElementException
 import org.openqa.selenium.support.ui.ExpectedConditions
@@ -47,9 +49,22 @@ private const val OUTPUT_FILE = "rates.csv"
 class ScrapeRatesTests : WebBaseTest() {
     @Test
     @Tag("scrap")
+    @Tag("kredo")
+    @Feature(" ... for kredo")
+    fun `scrap kredo rates`() = runTest {
+        driver[banks["kredo"]]
+        with(kredoMainPage) {
+            wait.until(ExpectedConditions.presenceOfNestedElementLocatedBy(maxValue, By.xpath("parent::*")))
+            Rates(maxValue.getAttribute("textContent"), minValue.getAttribute("textContent"), "kredo")
+                .saveToDynamo()
+        }
+    }
+
+    @Test
+    @Tag("scrap")
     @Tag("izi")
     @Feature(" ... for izi")
-    fun `scrap izi rates`() = runTest {
+    fun `scrap izi rates`() = runTest(timeout = 1.minutes) {
         driver[banks["izi"]]
         wait.until(ExpectedConditions.visibilityOf(iziMainPage.allRates))
             .text.split("eur", "usd")[1].trim().split("/")
@@ -235,6 +250,9 @@ class ScrapeRatesTests : WebBaseTest() {
 
     @Autowired
     private lateinit var iziMainPage: IziMainPage
+
+    @Autowired
+    private lateinit var kredoMainPage: KredoMainPage
 
     @Autowired
     private lateinit var ratesFileInserter: RatesFileInserter
