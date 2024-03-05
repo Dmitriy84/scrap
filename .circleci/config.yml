@@ -45,7 +45,7 @@ jobs:
           deps_checksum_file: build.gradle.kts
           steps:
             - run:
-                command: ./gradlew build -x test -x :aqa-framework:ktlintMainSourceSetCheck
+                command: ./gradlew build -x test -x :aqa-framework:ktlintMainSourceSetCheck -x :testcontainers:ktlintTestSourceSetCheck
                 name: Cache gradle build
                 working_directory: ""
           wrapper_checksum_file: gradle/wrapper/gradle-wrapper.properties
