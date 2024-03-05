@@ -66,7 +66,8 @@ class ScrapeRatesTests : WebBaseTest() {
     @Feature(" ... for izi")
     fun `scrap izi rates`() = runTest(timeout = 1.minutes) {
         driver[banks["izi"]]
-        wait.until(ExpectedConditions.visibilityOf(iziMainPage.allRates))
+        wait.withTimeout(Duration.ofSeconds(20))
+            .until(ExpectedConditions.visibilityOf(iziMainPage.allRates))
             .text.split("eur", "usd")[1].trim().split("/")
             .let {
                 Rates(it[1], it[0], "izi").saveToDynamo()
