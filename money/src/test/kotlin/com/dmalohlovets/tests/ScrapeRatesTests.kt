@@ -10,6 +10,7 @@ import aws.smithy.kotlin.runtime.util.toNumber
 import com.dmalohlovets.tests.config.components.RatesFileInserter
 import com.dmalohlovets.tests.config.interfaces.DataInserter.Companion.dateOf
 import com.dmalohlovets.tests.framework.web.RatesRepository
+import com.dmalohlovets.tests.framework.web.base.MinfinMainPage
 import com.dmalohlovets.tests.framework.web.base.WebBaseTest
 import com.dmalohlovets.tests.framework.web.pojo.Rates
 import com.dmalohlovets.tests.izi.pages.IziMainPage
@@ -42,11 +43,24 @@ import java.util.Date
 import java.util.UUID
 import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.minutes
+import kotlin.time.Duration.Companion.seconds
 
 private const val OUTPUT_FILE = "rates.csv"
 
 @Epic("scrap rates")
 class ScrapeRatesTests : WebBaseTest() {
+    @Test
+    @Tag("scrap")
+    @Tag("soborna20")
+    @Feature(" ... for soborna20")
+    fun `scrap soborna20 rates`() =
+        runTest(timeout = 20.seconds) {
+            driver["${banks["minfin"]}/currency/auction/exchanger/vinnitsa/id-652f877dd1978ece5c2b486f"]
+            with(minfinMainPage) {
+                Rates(maxValue.text, minValue.text, "soborna20").saveToDynamo()
+            }
+        }
+
     @Test
     @Tag("scrap")
     @Tag("kredo")
@@ -269,6 +283,9 @@ class ScrapeRatesTests : WebBaseTest() {
 
     @Autowired
     private lateinit var kredoMainPage: KredoMainPage
+
+    @Autowired
+    private lateinit var minfinMainPage: MinfinMainPage
 
     @Autowired
     private lateinit var ratesFileInserter: RatesFileInserter
