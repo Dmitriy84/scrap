@@ -57,7 +57,7 @@ class ScrapeRatesTests : WebBaseTest() {
         runTest(timeout = 20.seconds) {
             driver["${banks["minfin"]}/currency/auction/exchanger/vinnitsa/id-652f877dd1978ece5c2b486f"]
             with(minfinMainPage) {
-                Rates(maxValue.text, minValue.text, "soborna20").saveToDynamo()
+                Rates(maxValue.text.replace(",", "."), minValue.text.replace(",", "."), "soborna20").saveToDynamo()
             }
         }
 
