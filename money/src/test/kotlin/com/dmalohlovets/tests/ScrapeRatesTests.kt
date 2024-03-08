@@ -80,7 +80,7 @@ class ScrapeRatesTests : WebBaseTest() {
     @Tag("izi")
     @Feature(" ... for izi")
     fun `scrap izi rates`() =
-        runTest(timeout = 1.5.minutes) {
+        runTest(timeout = 60.seconds) {
             driver[banks["izi"]]
             wait.withTimeout(Duration.ofSeconds(30))
                 .until(ExpectedConditions.visibilityOf(iziMainPage.allRates))
