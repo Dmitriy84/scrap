@@ -31,6 +31,7 @@ import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Tag
 import org.junit.jupiter.api.Test
+import org.junitpioneer.jupiter.RetryingTest
 import org.openqa.selenium.By
 import org.openqa.selenium.Keys
 import org.openqa.selenium.NoSuchElementException
@@ -75,14 +76,15 @@ class ScrapeRatesTests : WebBaseTest() {
             }
         }
 
-    @Test
+    //    @Test
+    @RetryingTest(3)
     @Tag("scrap")
     @Tag("izi")
     @Feature(" ... for izi")
     fun `scrap izi rates`() =
-        runTest(timeout = 1.5.minutes) {
+        runTest(timeout = 30.seconds) {
             driver[banks["izi"]]
-            wait.withTimeout(Duration.ofSeconds(60))
+            wait.withTimeout(Duration.ofSeconds(20))
                 .until(ExpectedConditions.visibilityOf(iziMainPage.allRates))
                 .text.split("eur", "usd")[1].trim().split("/")
                 .let {

@@ -6,6 +6,7 @@ dependencies {
         libs.sns,
         project(mapOf("path" to ":web")),
         project(mapOf("path" to ":mono")),
+        "org.junit-pioneer:junit-pioneer:2.2.0",
     ).forEach { testImplementation(it) }
 }
 
