@@ -76,7 +76,6 @@ class ScrapeRatesTests : WebBaseTest() {
             }
         }
 
-    //    @Test
     @RetryingTest(3)
     @Tag("scrap")
     @Tag("izi")
@@ -147,7 +146,7 @@ class ScrapeRatesTests : WebBaseTest() {
             }
         }
 
-    @Test
+    @RetryingTest(3)
     @Tag("sense")
     @Tag("scrap")
     @Feature(" ... for sense")
