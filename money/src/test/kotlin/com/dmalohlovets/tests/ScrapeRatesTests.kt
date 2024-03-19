@@ -13,6 +13,7 @@ import com.dmalohlovets.tests.framework.web.RatesRepository
 import com.dmalohlovets.tests.framework.web.base.MinfinMainPage
 import com.dmalohlovets.tests.framework.web.base.WebBaseTest
 import com.dmalohlovets.tests.framework.web.pojo.Rates
+import com.dmalohlovets.tests.globus.pages.GlobusMainPage
 import com.dmalohlovets.tests.izi.pages.IziMainPage
 import com.dmalohlovets.tests.kredo.pages.KredoMainPage
 import com.dmalohlovets.tests.money24.pages.Money24MainPage
@@ -52,10 +53,22 @@ private const val OUTPUT_FILE = "rates.csv"
 class ScrapeRatesTests : WebBaseTest() {
     @Test
     @Tag("scrap")
+    @Tag("globus")
+    @Feature(" ... for globus")
+    fun `scrap globus rates`() =
+        runTest {
+            driver["${banks["globus"]}/ua/kursi_valyut.html"]
+            with(globusMainPage) {
+                Rates(maxValue.text, minValue.text, "globus").saveToDynamo()
+            }
+        }
+
+    @Test
+    @Tag("scrap")
     @Tag("soborna20")
     @Feature(" ... for soborna20")
     fun `scrap soborna20 rates`() =
-        runTest(timeout = 20.seconds) {
+        runTest(timeout = 30.seconds) {
             driver["${banks["minfin"]}/currency/auction/exchanger/vinnitsa/id-652f877dd1978ece5c2b486f"]
             with(minfinMainPage) {
                 Rates(maxValue.text.replace(",", "."), minValue.text.replace(",", "."), "soborna20").saveToDynamo()
@@ -287,6 +300,9 @@ class ScrapeRatesTests : WebBaseTest() {
 
     @Autowired
     private lateinit var minfinMainPage: MinfinMainPage
+
+    @Autowired
+    private lateinit var globusMainPage: GlobusMainPage
 
     @Autowired
     private lateinit var ratesFileInserter: RatesFileInserter

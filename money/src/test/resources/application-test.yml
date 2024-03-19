@@ -15,7 +15,8 @@ app:
         "mono":     "https://api.monobank.ua",
         "izi":      "https://izibank.com.ua",
         "kredo":    "https://kredobank.com.ua",
-        "minfin":   "https://minfin.com.ua"
+        "minfin":   "https://minfin.com.ua",
+        "globus":   "https://globusbank.com.ua"
          '
   mobile: +38063 459 69 92
   aws:
