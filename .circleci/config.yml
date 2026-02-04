@@ -50,8 +50,8 @@ jobs:
           role_arn: arn:aws:dynamodb:eu-north-1:757654778930:table/money24
           role_session_name: example-session
           region: eu-north-1
-          aws_access_key_id: AKIA3AZ56OQZJDLYRR7B
-          aws_secret_access_key: Feabd9Tbks+J6uxP/AD8tCUZzjnwqvbtjLplES/n
+          aws_access_key_id: ${AWS_ACCESS_KEY_ID}
+          aws_secret_access_key: ${AWS_SECRET_ACCESS_KEY}
 
   run:
     executor: my-executor
