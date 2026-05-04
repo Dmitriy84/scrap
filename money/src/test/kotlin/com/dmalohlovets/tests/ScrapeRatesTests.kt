@@ -1,12 +1,9 @@
 package com.dmalohlovets.tests
 
 import aqa.framework.utils.SpecUtils.extractJsonValues
-import aws.sdk.kotlin.services.dynamodb.DynamoDbClient
-import aws.sdk.kotlin.services.dynamodb.model.ScanRequest
 import aws.sdk.kotlin.services.sns.SnsClient
 import aws.sdk.kotlin.services.sns.model.PublishRequest
 import aws.smithy.kotlin.runtime.InternalApi
-import aws.smithy.kotlin.runtime.util.toNumber
 import com.dmalohlovets.tests.config.components.RatesFileInserter
 import com.dmalohlovets.tests.config.interfaces.DataInserter.Companion.dateOf
 import com.dmalohlovets.tests.framework.web.RatesRepository
@@ -20,6 +17,11 @@ import com.dmalohlovets.tests.money24.pages.Money24MainPage
 import com.dmalohlovets.tests.pivdenny.pages.PivdennyMainPage
 import com.dmalohlovets.tests.sense.pages.SenseMainPage
 import com.dmalohlovets.tests.unex.pages.UnexMainPage
+import com.microsoft.playwright.Browser
+import com.microsoft.playwright.BrowserType
+import com.microsoft.playwright.Page
+import com.microsoft.playwright.Playwright
+import com.microsoft.playwright.junit.Options
 import io.qameta.allure.Epic
 import io.qameta.allure.Feature
 import io.restassured.RestAssured
@@ -38,10 +40,17 @@ import org.openqa.selenium.Keys
 import org.openqa.selenium.NoSuchElementException
 import org.openqa.selenium.support.ui.ExpectedConditions
 import org.springframework.beans.factory.annotation.Autowired
+import software.amazon.awssdk.enhanced.dynamodb.Key
+import software.amazon.awssdk.enhanced.dynamodb.model.QueryConditional
 import java.nio.file.Files
 import java.nio.file.Path
 import java.time.Duration
+import java.time.Instant
+import java.time.ZoneId
+import java.time.temporal.IsoFields
 import java.util.Date
+import java.util.Locale
+import java.util.Locale.getDefault
 import java.util.UUID
 import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.minutes
@@ -214,56 +223,91 @@ class ScrapeRatesTests : WebBaseTest() {
             }
         }
 
+    @Test
+    @Tag("inzhur")
+    @Tag("scrap")
+    @Feature(" ... for inzhur")
+    fun `scrap inzhur rates`() =
+        runTest {
+//            Playwright.create().use { playwright ->
+//
+//                val browser = playwright.chromium().launch(
+//                    BrowserType.LaunchOptions().setHeadless(false)
+//                )
+//
+//                val page = browser.newPage()
+//                page.navigate("https://playwright.dev")
+//
+//                // Expect a title "to contain" a substring.
+//                browser.close()
+//            }
+//            println()
+            val playwright = Playwright.create()
+            println("INZHUR: $banks")
+            val options = BrowserType.LaunchOptions().setArgs(capabilities)
+            options.setHeadless(false)
+
+            val page =
+                when (browser.lowercase(getDefault())) {
+                    "chromium" -> playwright.chromium().launch(options)
+                    "firefox" -> playwright.firefox().launch(options)
+                    "webkit" -> playwright.webkit().launch(options)
+                    else -> {
+                        throw Exception("$browser is not supported")
+                    }
+                }.newPage()
+            page.navigate(banks["inzhur"])
+            println()
+//                page.screenshot(ScreenshotOptions().setPath(Paths.get("example.png")))
+        }
+
     @OptIn(InternalApi::class)
     @Tag("analysis")
     @Test
     fun `analyze previous and current rates`() =
         runTest {
-//        val request2 = QueryRequest {
-//            tableName = aws_db
-//            scanIndexForward = true
-//            limit = 10
-//            keyConditionExpression = "#key > :dt"
-//            expressionAttributeNames = mapOf("#key" to "date!")
-//            expressionAttributeValues =
-//                mapOf(
-//                    ":dt" to AttributeValue.S(
-//                        SimpleDateFormat("yyyy-MM-dd HH:mm").format(Date().time - 3L * 24L * 60L * 60L * 1000L)
-//                    )
-//                )
-// //            expressionAttributeValues = mapOf(":dt" to AttributeValue.S("2023-12-21 07:33"))
-//        }
-//        DynamoDbClient { region = "eu-north-1" }.use { ddb ->
-//            val response = ddb.query(request2)
-//            println(response.items)
-//
-//        }
+            val index = repository.table.index("circle-date-index")
 
-            // TODO replace by Query with sort and limit
-            val request =
-                ScanRequest {
-                    tableName = awsDb
-                    limit = 2
-                    indexName = "circle-date-index"
+            val lastTwo =
+                index.query { q ->
+                    q.queryConditional(
+                        QueryConditional.keyEqualTo(
+                            Key.builder()
+                                .partitionValue(currentCircle()) // твій circle
+                                .build(),
+                        ),
+                    )
+                    q.scanIndexForward(false) // DESC
+                    q.limit(2)
                 }
+                    .flatMap { it.items() }
+                    .toList()
 
-            val (first, second) =
-                DynamoDbClient {
-                    region = awsRegion
-                }.use { client ->
-                    client.scan(request).items?.sortedByDescending { it["date!"].toString() }
-                        ?.subList(0, 2)!!
-                }
+            require(lastTwo.size >= 2) { "Not enough data to compare" }
 
-            if (first["max"]?.asS()?.toNumber() != second["max"]?.asS()?.toNumber() ||
-                first["min"]?.asS()?.toNumber() != second["min"]?.asS()?.toNumber()
+            val (current, previous) = lastTwo
+
+            if (current.max != previous.max ||
+                current.min != previous.min
             ) {
                 pubTextSMS(
-                    "Was max: ${second["max"]}, min: ${first["min"]}; Now max: ${first["max"]}, min: ${first["min"]}",
+                    "Was max: ${previous.max}, min: ${previous.min}; " +
+                            "Now max: ${current.max}, min: ${current.min}",
                     appMobile,
                 )
             }
         }
+
+    private fun currentCircle(): String {
+        val now = Instant.now()
+        val zonedNow = now.atZone(ZoneId.systemDefault())
+
+        // Format: "YYYY-Wnn" (e.g., "2024-W06")
+        val year = zonedNow.year
+        val weekOfYear = zonedNow.get(IsoFields.WEEK_OF_WEEK_BASED_YEAR)
+
+        return String.format("%d-W%02d", year, weekOfYear)
+    }
 
     private suspend fun pubTextSMS(
         messageVal: String?,

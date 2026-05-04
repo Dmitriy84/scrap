@@ -1,10 +1,7 @@
 wdm:
-  defaultBrowser: chrome
+  defaultBrowser: chromium
   chromeDriver:
-    capabilities: |
-      --disable-gpu
-      --remote-allow-origins=*
-#      --headless
+    capabilities: "--disable-gpu,--remote-allow-origins=*"
 
 app:
   banks: '
@@ -16,7 +13,8 @@ app:
         "izi":      "https://izibank.com.ua",
         "kredo":    "https://kredobank.com.ua",
         "minfin":   "https://minfin.com.ua",
-        "globus":   "https://globusbank.com.ua"
+        "globus":   "https://globusbank.com.ua",
+        "inzhur":   "https://www.inzhur.reit"
          '
   mobile: +38063 459 69 92
   aws:

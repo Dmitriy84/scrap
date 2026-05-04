@@ -40,6 +40,12 @@ open class WebBaseTest {
     @Value("#{'\${app.mobile}'.replace(' ', '').trim()}")
     protected lateinit var appMobile: String
 
+    @Value("#{'\${wdm.defaultBrowser}'.replace(' ', '').trim()}")
+    protected lateinit var browser: String
+
+    @Value("#{'\${wdm.chromeDriver.capabilities}'.split(',')}")
+    protected lateinit var capabilities: List<String>
+
     @RegisterExtension
     var afterTestExecutionCallback: AfterTestExecutionCallback =
         AfterTestExecutionCallback {

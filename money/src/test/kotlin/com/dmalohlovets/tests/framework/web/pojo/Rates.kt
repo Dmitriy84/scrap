@@ -1,22 +1,22 @@
 package com.dmalohlovets.tests.framework.web.pojo
 
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBIndexHashKey
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable
+import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbAttribute
+import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean
+import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbPartitionKey
+import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbSecondaryPartitionKey
 
-@DynamoDBTable(tableName = "money24_rates")
+@DynamoDbBean
 data class Rates(
-    @field:DynamoDBAttribute
+    @get:DynamoDbAttribute("max")
     var max: String = "",
-    @field:DynamoDBAttribute
+    @get:DynamoDbAttribute("min")
     var min: String = "",
-    @field:DynamoDBAttribute
+    @get:DynamoDbAttribute("source")
     var source: String = "",
-    @field:DynamoDBAttribute(attributeName = "date!")
-    @field:DynamoDBIndexHashKey(globalSecondaryIndexName = "circle-date-index")
+    @get:DynamoDbAttribute("date!")
+    @get:DynamoDbSecondaryPartitionKey(indexNames = ["circle-date-index"])
     var date: String = "",
-    @field:DynamoDBHashKey
-    @field:DynamoDBAttribute
+    @get:DynamoDbPartitionKey
+    @get:DynamoDbAttribute("circle")
     var circle: String = "",
 )
