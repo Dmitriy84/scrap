@@ -1,6 +1,6 @@
 // RGB LED Control using arrays
 const int rgbPins[3] = {9, 10, 11};  // Red, Green, Blue pins
-const int delayTime = 100;            // Time to display each color (ms)
+const int delayTime = 100;           // Time to display each color (ms)
 
 // Array of colors: {Red, Green, Blue} values (0-255)
 const int colors[][3] = {
