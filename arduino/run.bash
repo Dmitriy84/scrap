@@ -36,11 +36,9 @@ echo ""
 echo "Building and uploading: $name"
 echo ""
 
-cd "$selected" || exit 1
-
 # Compile
 echo ">> Compiling..."
-arduino-cli compile --fqbn arduino:avr:uno
+arduino-cli compile --fqbn arduino:avr:uno "$selected"
 if [ $? -ne 0 ]; then
     echo "Compilation failed."
     exit 1
@@ -49,7 +47,7 @@ fi
 # Upload
 echo ""
 echo ">> Uploading..."
-arduino-cli upload -p /dev/cu.usbmodem143401 --fqbn arduino:avr:uno
+arduino-cli upload -p /dev/cu.usbmodem143401 --fqbn arduino:avr:uno "$selected"
 if [ $? -ne 0 ]; then
     echo "Upload failed."
     exit 1
@@ -57,4 +55,3 @@ fi
 
 echo ""
 echo "Done! $name uploaded successfully."
-cd -
