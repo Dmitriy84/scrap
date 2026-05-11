@@ -16,7 +16,7 @@ const int colors[][3] = {
 const int numColors = sizeof(colors) / sizeof(colors[0]);
 
 void setup() {
-  for (int i = 0; i < 3; i++) {
+  for (int i = 0; i < sizeof(rgbPins); i++) {
     pinMode(rgbPins[i], OUTPUT);
     analogWrite(rgbPins[i], 0);  // Start with LED off
   }
@@ -25,7 +25,7 @@ void setup() {
 void loop() {
   for (int i = 0; i < numColors; i++) {
     // Set all three channels using the color array
-    for (int channel = 0; channel < 3; channel++) {
+    for (int channel = 0; channel < sizeof(rgbPins); channel++) {
       analogWrite(rgbPins[channel], colors[i][channel]);
     }
     delay(delayTime);
